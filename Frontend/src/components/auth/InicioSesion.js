@@ -6,7 +6,7 @@ const InicioSesion = () =>{
     const [modal, setModal] = useState(false)
         
     const selectModal = () => {
-        setModal(!modal) // true/false toggle
+        setModal(!modal) 
     }
 
     const divStyle = { 

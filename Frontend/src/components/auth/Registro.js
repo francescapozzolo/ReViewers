@@ -2,11 +2,29 @@ import { useState } from 'react';
 import GoogleLogin from 'react-google-login';
 
 const Registro = () =>{
+
+    const [nuevoUsuario, setNuevoUsuario] = useState({
+        nombre: '',
+        apellido: '',
+        email: '',
+        clave: '',
+        foto: ''
+    })
+
+    const guardarInfoUsuario = (e) => {
+        e.preventDefault();
+        setNuevoUsuario({
+            ...nuevoUsuario,
+            [e.target.name]: e.target.value
+        })
+    }
     
+    console.log(nuevoUsuario)
+
     const [modal, setModal] = useState(false)
 
     const selectModal = () => {
-        setModal(!modal) // true/false toggle
+        setModal(!modal) 
     }
 
     const divStyle = { 
@@ -36,15 +54,15 @@ const Registro = () =>{
                                 <div className="tipoForm">Registro</div>
                             </div>
                             <div className="flex justify-between">
-                                <input type="text" name="nombre" placeholder="Nombre"></input>
-                                <input type="text" name="apellido" placeholder="Apellido"></input>
+                                <input onChange={guardarInfoUsuario} type="text" name="nombre" placeholder="Nombre"></input>
+                                <input onChange={guardarInfoUsuario} type="text" name="apellido" placeholder="Apellido"></input>
                             </div>
                             <div>
-                                <input type="email" name="email" placeholder="Email"></input>
+                                <input onChange={guardarInfoUsuario} type="email" name="email" placeholder="Email"></input>
                             </div>
                             <div className="flex justify-between">
-                                <input type="password" name="clave" placeholder="Clave"></input>
-                                <input type="text" name="foto" placeholder="Foto"></input>
+                                <input onChange={guardarInfoUsuario} type="password" name="clave" placeholder="Clave"></input>
+                                <input onChange={guardarInfoUsuario} type="text" name="foto" placeholder="Foto"></input>
                             </div>
                         </div>
                         
