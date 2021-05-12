@@ -14,16 +14,6 @@ const controladoresDeUsuario = {
       res.json({respuesta: todosLosUsuarios })
    },
 
-   obtenerUnUsuario: async(req, res)=>{
-      try{
-         const id = req.params.id
-         var todosLosUsuarios = await Usuario.find({_id: id})
-      }catch(err){
-         console.log('Caí en el catch del controlador obtenerUnUsuario y el error es: '+ err)
-      }
-      res.json({respuesta: todosLosUsuarios })
-   },
-
    eliminarUnUsuario: async(req, res) => {
       try {
          const id = req.params.id
@@ -33,16 +23,6 @@ const controladoresDeUsuario = {
          console.log('Caí en el catch del controlador eliminarUnUsuario y el error es: '+err)
       }
       res.json({respuesta: todosLosUsuarios})
-   },
-
-   editarUsuario: async(req,res) =>{
-      try {
-         const id = req.params.id
-         var usuarioModificado = await Usuario.findOneAndUpdate({_id:id},{...req.body}, {new: true}) // el new true va xq sino no me devuelve el objeto modif.
-      } catch (err){
-         console.log('Caí en el catch del controlador editarUsuario y el error es: ' + err)
-      }
-      res.json({respuesta: usuarioModificado})
    },
 
    registrarUsuario: async(req, res)=>{
@@ -61,7 +41,8 @@ const controladoresDeUsuario = {
                usuarioARegistrar = new Usuario({nombre, apellido, mail, clave: contraseniaHasheada, imagen, intereses, rol, favoritos, seguidores})
                await usuarioARegistrar.save()
                const token = jwt.sign({...usuarioARegistrar}, process.env.SECRET_OR_KEY)            
-               respuesta = {token, imagenDelUsuario: usuarioARegistrar.imagen, nombreDelUsuario: usuarioARegistrar.nombre} 
+               respuesta = {token: token, imagenDelUsuario: usuarioARegistrar.imagen, nombreDelUsuario: usuarioARegistrar.nombre} 
+               // console.log('El usuario a registrar es: ' +  usuarioARegistrar)
             } catch (err){ //no pinta mostrar el error posta porque el usuario no lo va a entender 
                console.log('Caí en el catch del condicional del controlador de Registrar Usuario y el error es: '+ err)
                error = "Parece que algo salió mal tratando de registrar su cuenta. Por favor, intente de nuevo"
@@ -84,27 +65,29 @@ const controladoresDeUsuario = {
    iniciarSesion: async(req, res)=>{
       try {
          const {mail, clave} = req.body   
-         var respuesta;
+         var response;
          var error; 
    
-         const usuarioRegistrado = await Usuario.findOne({mail})
+         const accountRegistered = await User.findOne({mail})
    
-         if(usuarioRegistrado){
-            const contraseñaEsCorrecta = bcryptjs.compareSync(clave, usuarioRegistrado.clave)
-            if(contraseñaEsCorrecta){
-               const token = jwt.sign({...usuarioRegistrado}, process.env.SECRET_OR_KEY)
-               respuesta = {token: token, imagen: usuarioRegistrado.imagen, nombre: usuarioRegistrado.nombre, idDelUsuario: usuarioRegistrado._id}
+         if(accountRegistered){
+            const passwordMatches = bcryptjs.compareSync(clave, accountRegistered.clave)
+            console.log('existe la cuenta')
+            if(passwordMatches){
+               console.log('contraseña correcta')
+               const token = jwt.sign({...accountRegistered}, process.env.SECRET_OR_KEY)
+               response = token
             } else {
                error = 'Mail o Contraseña incorrecta. Intenta de nuevo!'
             }
    
          } else {
-            error = 'Mail o Contraseña incorrecta. Intenta de nuevo!'
+            error = 'Mail or Password incorrect. Try again!'
          }
          res.json({
             success: !error ? true : false,
-            respuesta,
-            error
+            response: !error && {token: response, image: accountRegistered.image, name: accountRegistered.name, userId: accountRegistered._id},
+            error: error
          })
       } catch (err){
          console.log('Caí en el catch del controlador de iniciarSesion y el error es: '+ err)
@@ -112,7 +95,7 @@ const controladoresDeUsuario = {
    },
 
    inicioForzado: async()=>{
-      res.json({success: true, respuesta: {imagen: req.user.imagen, nombre: req.user.nombre, userId: req.user._id}})
+
    }
 }
 
