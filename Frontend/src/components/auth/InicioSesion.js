@@ -1,8 +1,58 @@
 import { useState } from 'react';
 import GoogleLogin from 'react-google-login';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import authActions from '../../redux/actions/authActions'
 
-const InicioSesion = () =>{
+const InicioSesion = (props) =>{
     
+    const [usuarioPagina, setUsuarioPagina] = useState({
+        mail: '',
+        clave: ''
+    })
+
+    console.log(usuarioPagina)
+    const { mail, clave } = usuarioPagina
+
+    const guardarInfoUsuario = (e) => {
+        e.preventDefault();
+        setUsuarioPagina({
+            ...usuarioPagina,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const enviarInfoUsuario = async (e = null, usuarioGoogle = null) => {
+        e && e.preventDefault();
+        let usuario = usuarioGoogle ? usuarioGoogle : usuarioPagina
+        
+        if(!Object.values(usuario).some(value => value === '')) {
+            const respuestaConErrores = await props.iniciarSesion(usuario)
+            
+            if(!respuestaConErrores) {
+                let campos = ({
+                    mail: '',
+                    clave: ''
+                })
+            } else {
+                console.log(respuestaConErrores)
+            }
+        } else {
+            alert('No pueden haber campos vacios')
+        }
+    }
+
+    const respuestaGoogle = (respuesta) => {
+        if(respuesta.profileObj) {
+            const { email, googleId } = respuesta.profileObj
+            let usuarioGoogle = {
+                mail: email,
+                clave: googleId
+            }
+            enviarInfoUsuario(null, usuarioGoogle)
+        }
+    }
+
     const [modal, setModal] = useState(false)
         
     const selectModal = () => {
@@ -18,13 +68,10 @@ const InicioSesion = () =>{
       selectModal()
    }
 
-   const respuestaGoogle = () => {
-        console.log('ingrese')
-   }
 
     return(
     <div className="App">
-       <p onClick={ selectModal }>Open Modal</p>      
+       <p onClick={ selectModal }>Open Modal</p>
        <div className="modal" onClick={(e) =>  closeModal(e) } style={divStyle}>
             <div className="modal-content bg-verde-200" onClick={ e => e.stopPropagation() }>
                 <span className="close" onClick={(e) =>  closeModal(e) }>&times;</span>
@@ -37,31 +84,30 @@ const InicioSesion = () =>{
                             </div>
                             
                             <div>
-                                <input type="email" name="email" placeholder="Email"></input>
+                                <input onChange={guardarInfoUsuario} type="email" name="email" placeholder="Email"></input>
                             </div>
                             <div>
-                                <input id="password" type="password" name="clave" placeholder="Clave"></input>
+                                <input onChange={guardarInfoUsuario} id="password" type="password" name="clave" placeholder="Clave"></input>
                             </div>
                           
                         </div>
                         
                         <div className="flex flex-col">
-                            <button type="text" id="registroIngreso" name="registrarme">Ingresar</button>
-                            {/* <button type="text" name="registrarmeGoogle">Crear cuenta con Google</button> */}
-                            {/* <div id="botonGoogleContainer"> */}
-                                <GoogleLogin
-                                    clientId="924799610861-e5kub6kcl4d4hhbtcoqicrhk4ou25vme.apps.googleusercontent.com"
-                                    buttonText="Ingresar con Google"
-                                    onSuccess={respuestaGoogle}
-                                    onFailure={respuestaGoogle}
-                                    cookiePolicy={'single_host_origin'}
-                                    className="botonGoogle"
-                                />
-                            {/* </div> */}
+                            <button onClick={enviarInfoUsuario} type="text" id="registroIngreso" name="registrarme">Ingresar</button>
+                            <GoogleLogin
+                                clientId="924799610861-e5kub6kcl4d4hhbtcoqicrhk4ou25vme.apps.googleusercontent.com"
+                                buttonText="Ingresar con Google"
+                                onSuccess={respuestaGoogle}
+                                onFailure={respuestaGoogle}
+                                cookiePolicy={'single_host_origin'}
+                                className="botonGoogle"
+                            />
                         </div>
 
                         <div className="text-center">
-                            <div className="LinkIngresoRegistro titulosTexto">No tienes una cuenta?, crear una!</div>
+                            <Link>
+                                <div className="LinkIngresoRegistro titulosTexto">No tienes una cuenta?, crear una!</div>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -71,4 +117,14 @@ const InicioSesion = () =>{
     )
 }
 
-export default InicioSesion
+const mapStateToProps = state => {
+    return{
+
+    }
+}
+
+const mapDispatchToProps = {
+    iniciarSesion: authActions.iniciarSesion
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InicioSesion)

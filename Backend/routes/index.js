@@ -6,7 +6,6 @@ const validator = require ('../config/validador')
 const passport = require ('passport')
 require('../config/validador')
 const router = express.Router()
-const controladoresDeResenias = require('../controladores/controladoresDeResenias')
 
 /*RUTAS USUARIOS*/
 router.route('/usuarios')

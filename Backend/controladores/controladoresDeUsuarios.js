@@ -86,8 +86,9 @@ const controladoresDeUsuario = {
          const {mail, clave} = req.body   
          var respuesta;
          var error; 
-   
+         
          const usuarioRegistrado = await Usuario.findOne({mail})
+         console.log(mail)
    
          if(usuarioRegistrado){
             const contraseñaEsCorrecta = bcryptjs.compareSync(clave, usuarioRegistrado.clave)
@@ -97,9 +98,8 @@ const controladoresDeUsuario = {
             } else {
                error = 'Mail o Contraseña incorrecta. Intenta de nuevo!'
             }
-   
          } else {
-            error = 'Mail o Contraseña incorrecta. Intenta de nuevo!'
+            error = 'Mail no existe'
          }
          res.json({
             success: !error ? true : false,
