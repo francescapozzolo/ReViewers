@@ -8,13 +8,16 @@ import Inicio from './pages/Inicio';
 import Portada from './pages/Portada';
 import Publicacion from './components/Publicacion';
 
+import Header from './components/Header';
+
 class App extends React.Component {
   render(){
 
-    console.log(this.props)
+    // console.log(this.props)
 
     return(
         <BrowserRouter>
+            <Header />
             <Switch>
                 <Route exact path="/" component={Portada} />
                 <Route path="/inicio" component={Inicio} />
