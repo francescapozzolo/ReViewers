@@ -94,8 +94,8 @@ const controladoresDeUsuario = {
       }
    },
 
-   inicioForzado: async()=>{
-
+   inicioForzado: async(req , res)=>{
+      console.log(res)
    }
 }
 

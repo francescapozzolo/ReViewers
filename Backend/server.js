@@ -1,10 +1,12 @@
-const express = require('express')
-const cors = require('cors')
 require('dotenv').config()
-require('./config/database')
-const router = require('./routes/Index')
-const App = express()
 
+const express = require('express')
+const cors = require ('cors')
+const router = require ('./routes/index')
+require('./config/passport')
+require('./config/database')
+
+const App = express()
 App.use(cors())
 App.use(express.json())
 

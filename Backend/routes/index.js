@@ -1,31 +1,49 @@
 const express = require('express')
-const router = express.Router()
+const controladoresDeUsuarios = require('../controladores/controladoresDeUsuarios')
+//const controladoresDeComentarios = require('../controladores/controladoresDeComentarios')
+const controladoresDePublicaciones = require('../controladores/controladoresDePublicaciones')
 const validator = require ('../config/validador')
-const controladoresDeUsuarios = require('../controladores/controladoresDeUsuarios')
-const passport = require ('passport/lib')
-const controladoresDeUsuarios = require('../controladores/controladoresDeUsuarios')
+const passport = require ('passport')
+require('../config/validador')
+const router = express.Router()
 
 router.route('/usuarios')
 .get(controladoresDeUsuarios.obtenerTodosLosUsuarios)
-
-router.route('/usuarios/registrarse')
-.post(controladoresDeUsuarios.registrarUsuario)
-
-router.route('usuarios/iniciarSesion')
-.post(controladoresDeUsuarios.iniciarSesion)
+/*
 router.route('/usuarios/:id')
+//.get(controladoresDeUsuarios.obtenerUnUsuario)
 .delete(controladoresDeUsuarios.eliminarUnUsuario)
+.put(controladoresDeUsuarios.editarUsuario)*/
 
 router.route('/usuarios/registrarse')
 .post(controladoresDeUsuarios.registrarUsuario)
 
-router.route('usuarios/iniciarSesion')
+router.route('/usuarios/iniciarSesion')
 .post(controladoresDeUsuarios.iniciarSesion)
 
-router.route('usuarios/cerrarSesion')
+// router.route('usuarios/cerrarSesion')
 // .post(controladoresDeUsuarios.cerrarSesion)
 
-router.route('usuarios/inicioForzado')
+router.route('/usuarios/inicioForzado')
 .post(controladoresDeUsuarios.inicioForzado)
 
-module.exports = router
+
+// Reseñas | Publicaciones 
+router.route('/publicaciones')
+.get(controladoresDePublicaciones.todasLasPublicaciones)
+.post(controladoresDePublicaciones.cargarPublicacion)
+.delete(controladoresDePublicaciones.borrarPublicacion)
+.put(controladoresDePublicaciones.editarPublicacion)
+
+router.route('/publicaciones/:id')
+.get(controladoresDePublicaciones.publicacionesCategoria)
+
+/*
+// Comentarios
+router.route('/comentarios')
+.get(controladoresDeComentarios.obtenerComentarios)
+.post(controladoresDeComentarios.cargarNuevoComentario)
+.delete(controladoresDeComentarios.borrarComentario)
+.put(controladoresDeComentarios.editarComentario)*/
+
+module.exports = router 
