@@ -18,6 +18,7 @@ router.route('/usuarios/:id')
 router.route('usuarios/iniciarSesion')
 .post(controladoresDeUsuarios.iniciarSesion)
 
+
 router.route('usuarios/cerrarSesion')
 // .post(controladoresDeUsuarios.cerrarSesion)
 
