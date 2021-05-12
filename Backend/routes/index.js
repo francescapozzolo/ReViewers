@@ -1,31 +1,48 @@
 const express = require('express')
 const router = express.Router()
+
+const controladorPublicaciones = require('../controladores/controladorPublicaciones')
+const controladorComentarios = require('../controladores/controladorComentarios')
 const validator = require ('../config/validador')
-const controladoresDeUsuarios = require('../controladores/controladoresDeUsuarios')
-const passport = require ('passport/lib')
-const controladoresDeUsuarios = require('../controladores/controladoresDeUsuarios')
+const passport = require('passport')
+require('../config/passport')
 
-router.route('/usuarios')
-.get(controladoresDeUsuarios.obtenerTodosLosUsuarios)
 
-router.route('/usuarios/registrarse')
-.post(controladoresDeUsuarios.registrarUsuario)
+const {todasLasPublicaciones , publicacionesCategoria , borrarPublicacion , editarPublicacion , cargarPublicacion} = controladorPublicaciones
+const {nuevoComentario , borrarComentario , editarComentario , obtenerComentarios} = controladorComentarios
+const { validador } = validator
+//usuarios
 
-router.route('usuarios/iniciarSesion')
-.post(controladoresDeUsuarios.iniciarSesion)
-router.route('/usuarios/:id')
-.delete(controladoresDeUsuarios.eliminarUnUsuario)
+router.route('/iniciarSesion')
+.get()
+router.route('/registrarse')
+.post(validador , )
+router.route('/inicioForzado')
+.get(passport.authenticate('jwt',{session:false}),acaVaInicioForzado)
 
-router.route('/usuarios/registrarse')
-.post(controladoresDeUsuarios.registrarUsuario)
+//publicaciones
 
-router.route('usuarios/iniciarSesion')
-.post(controladoresDeUsuarios.iniciarSesion)
+router.route('/todasLasPublicaciones')
+.get(todasLasPublicaciones)
+router.route('/publicacionesCategoria')
+.get(publicacionesCategoria)
+router.route('/borrarPublicacion')
+.delete(borrarPublicacion)
+router.route('/editarPublicacion')
+.post(editarPublicacion)
+router.route('/cargarPublicacion')
+.post(cargarPublicacion)
 
-router.route('usuarios/cerrarSesion')
-// .post(controladoresDeUsuarios.cerrarSesion)
 
-router.route('usuarios/inicioForzado')
-.post(controladoresDeUsuarios.inicioForzado)
+//comentarios
+
+router.route('/nuevoComentario')
+.post(passport.authenticate('jwt',{session:false}), nuevoComentario)
+router.route('/borrarComentario')
+.delete(passport.authenticate('jwt',{session:false}),borrarComentario)
+router.route('/editarComentario')
+.post(passport.authenticate('jwt',{session:false}),editarComentario)
+router.route('/obtenerComentarios')
+.get(obtenerComentarios)
 
 module.exports = router
