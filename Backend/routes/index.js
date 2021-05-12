@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+
 const validator = require ('../config/validador')
 const controladoresDeUsuarios = require('../controladores/controladoresDeUsuarios')
 const controladoresDeResenias = require('../controladores/controladoresDeResenias')
