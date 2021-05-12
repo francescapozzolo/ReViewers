@@ -2,7 +2,6 @@ const Usuario = require('../modelos/Usuario')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-
 const controladoresDeUsuario = {
 
    obtenerTodosLosUsuarios: async(req,res)=>{

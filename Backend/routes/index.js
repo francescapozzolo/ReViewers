@@ -6,10 +6,15 @@ const validator = require ('../config/validador')
 const passport = require ('passport')
 require('../config/validador')
 const router = express.Router()
+const controladoresDeResenias = require('../controladores/controladoresDeResenias')
 
+/*RUTAS USUARIOS*/
 router.route('/usuarios')
 .get(controladoresDeUsuarios.obtenerTodosLosUsuarios)
+
 /*
+router.route('/usuarios/registrarse')
+.post(controladoresDeUsuarios.registrarUsuario)
 router.route('/usuarios/:id')
 //.get(controladoresDeUsuarios.obtenerUnUsuario)
 .delete(controladoresDeUsuarios.eliminarUnUsuario)
@@ -17,10 +22,8 @@ router.route('/usuarios/:id')
 
 router.route('/usuarios/registrarse')
 .post(controladoresDeUsuarios.registrarUsuario)
-
 router.route('/usuarios/iniciarSesion')
 .post(controladoresDeUsuarios.iniciarSesion)
-
 // router.route('usuarios/cerrarSesion')
 // .post(controladoresDeUsuarios.cerrarSesion)
 
@@ -47,3 +50,4 @@ router.route('/comentarios')
 .put(controladoresDeComentarios.editarComentario)*/
 
 module.exports = router 
+

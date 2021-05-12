@@ -6,17 +6,22 @@ import { connect } from 'react-redux';
 import Footer from './components/Footer';
 import Inicio from './pages/Inicio';
 import Portada from './pages/Portada';
+import Publicacion from './components/Publicacion';
+
+import Header from './components/Header';
 
 class App extends React.Component {
   render(){
 
-    console.log(this.props)
+    // console.log(this.props)
 
     return(
         <BrowserRouter>
+            <Header />
             <Switch>
                 <Route exact path="/" component={Portada} />
                 <Route path="/inicio" component={Inicio} />
+                {/* <Route path="/publicar" component={Publicacion} /> */}
                 <Redirect to="/" />
             </Switch>
             <Footer component={Footer}/>
@@ -25,5 +30,5 @@ class App extends React.Component {
   }
 }
 
-// export default connect (null)(App)
-export default App
+export default connect (null)(App)
+// export default App
