@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Footer from './components/Footer';
 import Inicio from './pages/Inicio';
 import Portada from './pages/Portada';
+import Header from './components/Header';
 
 class App extends React.Component {
   render(){
@@ -14,6 +15,7 @@ class App extends React.Component {
 
     return(
         <BrowserRouter>
+            <Header />
             <Switch>
                 <Route exact path="/" component={Portada} />
                 <Route path="/inicio" component={Inicio} />
