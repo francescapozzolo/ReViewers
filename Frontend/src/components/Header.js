@@ -1,19 +1,23 @@
+import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
+import InicioSesion from './auth/InicioSesion'
+import Registro from './auth/Registro'
 
-const Header = () => {
+const Header = (props) => {
     return(
         <header>
             <div>
                 <img alt="logo" className="logo mx-2" src='/assets/logo.png'></img>
             </div>
-                
-            {/* <div className="contenedorEnlaces flex flex-end">
-                <NavLink className="link titulosAlt mx-1" to="/nosotros">Nosotros</NavLink>
-                <NavLink className="link titulosAlt mx-1" to="/ingresar">Ingresar</NavLink>
-                <NavLink className="link titulosAlt mx-1" to="/registrarse">Registrarse</NavLink>
-            </div> */}
             
-            <>
+            {
+            !props.usuarioLogeado
+                ?<div className="contenedorEnlaces flex flex-end">
+                <NavLink className="link titulosAlt mx-1" to="/nosotros">Nosotros</NavLink>
+                <InicioSesion />
+                <Registro />
+            </div> 
+            : <>
                 <div>
                     <input id="buscador" className="titulosAlt" type="text" placeholder="Buscar dentro de categoría"></input>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-175 notificacionesCampana" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -24,17 +28,30 @@ const Header = () => {
                 <div className="flex flex-end mx-2">
                     <span className="mx-1 btn-crearReview"><b>+</b>Crear review</span>
                     {/* <span><b>+</b>Ser creador</span> */}
-                    <div className="flex flex-col">
-                        <div className="usuarioPic mx-auto"></div>
-                        {/* <span>Hi there!</span> */}
+                    <div className="">
+                        <div className="usuarioPic mx-auto" style={{
+                            backgroundImage: `url(${props.usuarioLogeado && props.usuarioLogeado.imagen})`
+                        }}></div>
+                        
                     </div>
                 </div>
             </>
+            }
 
         </header>
   )
 }
 
 
+const mapStateToProps = state => {
+    return{
+        usuarioLogeado: state.authReducer.usuarioLogeado
+    }
+}
    
-export default Header
+const mapDispatchToProps = {
+  
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

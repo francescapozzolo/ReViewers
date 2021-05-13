@@ -3,7 +3,6 @@ import GoogleLogin from 'react-google-login';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import authActions from '../../redux/actions/authActions' 
-import FacebookLogin from 'react-facebook-login';
 
 const Registro = (props) =>{
 
@@ -49,7 +48,7 @@ const Registro = (props) =>{
             // si existe respuestaConErrores
             respuestaConErrores ? setErrores({campos}) : setNuevoUsuario({campos})
 
-            console.log('respuesta con eerrores', respuestaConErrores)
+            console.log(respuestaConErrores)
 
             respuestaConErrores && respuestaConErrores.map(err => setErrores(prevState => {
                 return {...prevState, [err.context.label]: err.message}
@@ -90,9 +89,11 @@ const Registro = (props) =>{
       selectModal()
    }
 
+   console.log(props)
+
     return(
     <div className="App">
-       <p onClick={ selectModal }>Open Modal</p>      
+       <p className="link titulosAlt mx-1" onClick={ selectModal }>Registrarme</p>      
        <div className="modal" onClick={(e) =>  closeModal(e) } style={divStyle}>
             <div className="modal-content bg-verde-200" onClick={ e => e.stopPropagation() }>
                 <span className="close" onClick={(e) =>  closeModal(e) }>&times;</span>
@@ -123,7 +124,7 @@ const Registro = (props) =>{
                             </div>
                             <div className="alerta-errores flex">
                                 <div className="w-50 mensajeAlerta">{errores.clave && errores.clave}</div>
-                                {/* <div className="w-50 mensajeAlerta">{errores.imagen && errores.imagen}</div> */}
+                                <div className="w-50 mensajeAlerta">{errores.imagen && errores.imagen}</div>
                             </div>
                         </div>
                         
@@ -155,7 +156,7 @@ const Registro = (props) =>{
 
 const mapStateToProps = state => {
     return{
-
+        usuarioLogeado: state.authReducer.usuarioLogeado
     }
 }
 
