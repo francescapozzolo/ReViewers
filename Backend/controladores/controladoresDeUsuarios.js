@@ -1,7 +1,7 @@
-const Usuario = require('../modelos/Usuario')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
+const Usuario = require('../modelos/Usuario')
 
 const controladoresDeUsuario = {
 
@@ -93,7 +93,6 @@ const controladoresDeUsuario = {
          var error; 
          
          const usuarioRegistrado = await Usuario.findOne({mail})
-         console.log(mail)
    
          if(usuarioRegistrado){
             const contraseñaEsCorrecta = bcryptjs.compareSync(clave, usuarioRegistrado.clave)
@@ -117,12 +116,11 @@ const controladoresDeUsuario = {
       }
    },
 
-   inicioForzado: async()=>{
-      try{
-         res.json({success: true, respuesta: {imagen: req.user.imagen, nombre: req.user.nombre, idUsuario: req.user._id}})
-      }catch(err){
-         res.json({success: false, respuesta: "error: " + err})
-      }
+   inicioForzado: (req, res) => {
+      res.json({
+         success: true,
+         respuesta: {imagen: req.user.imagen, nombre: req.user.nombre}
+     })
    }
 }
 

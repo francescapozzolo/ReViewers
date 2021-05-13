@@ -4,7 +4,6 @@ const validarRegistro = require('../config/validador')
 const passport = require('passport')
 const multer  = require('multer')
 
-
 const controladoresDeUsuarios = require('../controladores/controladoresDeUsuarios')
 const controladoresDeComentarios = require('../controladores/controladoresDeComentarios')
 const controladoresDePublicaciones = require('../controladores/controladoresDePublicaciones')
@@ -53,8 +52,8 @@ router.route('/usuarios/:id')
 router.route('/usuarios/iniciarSesion')
 .post(controladoresDeUsuarios.iniciarSesion)
 
-router.route('/usuarios/inicioForzado')
-.post(controladoresDeUsuarios.inicioForzado)
+router.route('/iniciarSesionLS')
+.get(passport.authenticate('jwt', {session: false}), controladoresDeUsuarios.inicioForzado)
 
 
 // Reseñas | Publicaciones 

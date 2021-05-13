@@ -9,9 +9,19 @@ import Portada from './pages/Portada';
 import CrearPublicacion from './components/CrearPublicacion';
 
 import Header from './components/Header';
+import authActions from './redux/actions/authActions';
 
 class App extends React.Component {
   render(){
+    if(!this.props.usuarioLogeado && localStorage.getItem('token')) {
+      const usuarioLS = JSON.parse(localStorage.getItem('usuarioLogeado'))
+      const ObjUsuarioLS = {
+        token: localStorage.getItem('token'),
+        ...usuarioLS
+      }
+      this.props.iniciarSesionLS(ObjUsuarioLS)
+    }
+
     return(
         <BrowserRouter>
             <Header />
@@ -27,5 +37,15 @@ class App extends React.Component {
   }
 }
 
-export default connect (null)(App)
+const mapStateToProps = state => {
+  return {
+    usuarioLogeado: state.authReducer.usuarioLogeado
+  }
+}
+
+const mapDispatchToProps = {
+  iniciarSesionLS: authActions.iniciarSesionLS
+}
+
+export default connect (mapStateToProps, mapDispatchToProps)(App)
 // export default App

@@ -89,9 +89,7 @@ const Registro = (props) =>{
       selectModal()
    }
 
-   console.log(props)
-
-    return(
+   return(
     <div className="App">
        <p className="link titulosAlt mx-1" onClick={ selectModal }>Registrarme</p>      
        <div className="modal" onClick={(e) =>  closeModal(e) } style={divStyle}>

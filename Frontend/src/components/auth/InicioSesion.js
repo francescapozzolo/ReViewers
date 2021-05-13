@@ -11,7 +11,6 @@ const InicioSesion = (props) =>{
         clave: ''
     })
 
-    console.log(usuarioPagina)
     const { mail, clave } = usuarioPagina
 
     const guardarInfoUsuario = (e) => {
