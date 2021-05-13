@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const express = require('express')
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const cors = require ('cors')
 const router = require ('./routes/index')
 require('./config/passport')
@@ -14,6 +14,7 @@ app.use(cors())
 // App.use(bodyParser.json())
 
 // App.use('/public', express.static(`${__dirname}/storage/imgs`))
+
 
 
 app.use(express.json())

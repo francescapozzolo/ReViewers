@@ -1,4 +1,4 @@
-import {useRef} from 'react'
+import {useRef, useState} from 'react'
 
 const Carrusel = () => {
     
@@ -6,9 +6,11 @@ const Carrusel = () => {
     const slide2 = useRef(null)
     const slide3 = useRef(null)
     const slide4 = useRef(null)
+    const [visible, setVisible] = useState(1)
     
     const cambiarSlide = (e) => {
         const numero = e.target.dataset.slide
+        setVisible(numero)
 
     }
 

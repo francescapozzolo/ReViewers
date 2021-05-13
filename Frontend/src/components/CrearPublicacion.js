@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import publicacionesActions from '../redux/actions/publicacionesActions'
+
 class CrearPublicacion extends React.Component {
 
 
