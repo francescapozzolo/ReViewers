@@ -6,7 +6,10 @@ const validator = require ('../config/validador')
 const passport = require ('passport')
 require('../config/validador')
 const router = express.Router()
-const controladoresDeResenias = require('../controladores/controladoresDeResenias')
+// const controladoresDeResenias = require('../controladores/controladoresDeResenias')
+
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 /*RUTAS USUARIOS*/
 router.route('/usuarios')
@@ -34,7 +37,7 @@ router.route('/usuarios/inicioForzado')
 // Reseñas | Publicaciones 
 router.route('/publicaciones')
 .get(controladoresDePublicaciones.todasLasPublicaciones)
-.post(controladoresDePublicaciones.cargarPublicacion)
+.post(upload.single('image'),controladoresDePublicaciones.cargarPublicacion)
 .delete(controladoresDePublicaciones.borrarPublicacion)
 .put(controladoresDePublicaciones.editarPublicacion)
 
