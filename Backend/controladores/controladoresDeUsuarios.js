@@ -8,20 +8,22 @@ const controladoresDeUsuario = {
    obtenerTodosLosUsuarios: async(req,res)=>{
       try{
          var todosLosUsuarios = await Usuario.find()
+         res.json({success: true, respuesta: todosLosUsuarios})
       }catch(err){
          console.log('Caí en el catch del controlador ObtenerTodosLosUsuarios y el error es: '+ err)
+         res.json({success: false, respuesta: "error: " + err})
       }
-      res.json({respuesta: todosLosUsuarios })
    },
 
    obtenerUnUsuario: async(req, res)=>{
       try{
          const id = req.params.id
          var todosLosUsuarios = await Usuario.find({_id: id})
+         res.json({success: true, respuesta: todosLosUsuarios})
       }catch(err){
          console.log('Caí en el catch del controlador obtenerUnUsuario y el error es: '+ err)
+         res.json({success: false, respuesta: "error: " + err})
       }
-      res.json({respuesta: todosLosUsuarios })
    },
 
    eliminarUnUsuario: async(req, res) => {
@@ -29,20 +31,22 @@ const controladoresDeUsuario = {
          const id = req.params.id
          await Usuario.findOneAndDelete({_id: id})
          var todosLosUsuarios = await Usuario.find()
+         res.json({success: true, respuesta: todosLosUsuarios})
       } catch (err){
          console.log('Caí en el catch del controlador eliminarUnUsuario y el error es: '+err)
+         res.json({success: false, respuesta: "error: " + err})
       }
-      res.json({respuesta: todosLosUsuarios})
    },
 
    editarUsuario: async(req,res) =>{
       try {
          const id = req.params.id
          var usuarioModificado = await Usuario.findOneAndUpdate({_id:id},{...req.body}, {new: true}) // el new true va xq sino no me devuelve el objeto modif.
+         res.json({success: true, respuesta: usuarioModificado})
       } catch (err){
          console.log('Caí en el catch del controlador editarUsuario y el error es: ' + err)
+         res.json({success: false, respuesta: "error: " + err})
       }
-      res.json({respuesta: usuarioModificado})
    },
 
    registrarUsuario: async(req, res)=>{
@@ -71,6 +75,7 @@ const controladoresDeUsuario = {
          }
       } catch(err){
          console.log('Caí en el catch del controlador de registrar Usuario y el error es: '+err)
+         error = err
       }
          
       // Si está todo bien, error es null, si algo falló entonces respuesta es null xD 
@@ -107,12 +112,17 @@ const controladoresDeUsuario = {
             error
          })
       } catch (err){
-         console.log('Caí en el catch del controlador de iniciarSesion y el error es: '+ err)
+         console.log('Caí en el catch del controlador de iniciarSesion y el error es: ' + err)
+         res.json({success: false, respuesta: "error: " + err})
       }
    },
 
    inicioForzado: async()=>{
-      res.json({success: true, respuesta: {imagen: req.user.imagen, nombre: req.user.nombre, userId: req.user._id}})
+      try{
+         res.json({success: true, respuesta: {imagen: req.user.imagen, nombre: req.user.nombre, userId: req.user._id}})
+      }catch(err){
+         res.json({success: false, respuesta: "error: " + err})
+      }
    }
 }
 
