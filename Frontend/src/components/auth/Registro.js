@@ -2,7 +2,8 @@ import { useState } from 'react';
 import GoogleLogin from 'react-google-login';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import authActions from '../../redux/actions/authActions'
+import authActions from '../../redux/actions/authActions' 
+import FacebookLogin from 'react-facebook-login';
 
 const Registro = (props) =>{
 
@@ -48,7 +49,9 @@ const Registro = (props) =>{
             // si existe respuestaConErrores
             respuestaConErrores ? setErrores({campos}) : setNuevoUsuario({campos})
 
-            console.log('ningun campo vacio')
+            respuestaConErrores && respuestaConErrores.details.map(err => setErrores(prevState => {
+                return {...prevState, [err.context.label]: err.message}
+            }))
         } else {
             alert('No pueden haber campos vacios')
         }
@@ -68,6 +71,10 @@ const Registro = (props) =>{
         }
         enviarInfoUsuario(null, usuarioGoogle)
    }
+
+//    const respuestaFacebook = (respuesta) => {
+//        console.log(respuesta)
+//    }
 
     const [modal, setModal] = useState(false)
 
@@ -120,11 +127,17 @@ const Registro = (props) =>{
                                 cookiePolicy={'single_host_origin'}
                                 className="botonGoogle"
                             />
+                            {/* <FacebookLogin
+                            appId="256381079509249"
+                            autoLoad={true}
+                            fields="name,email,picture"
+                            onClick={respuestaFacebook}
+                            callback={respuestaFacebook} /> */}
                         </div>
 
                         <div className="text-center">
                             <Link>
-                                <div className="LinkIngresoRegistro titulosTexto">Ya tienes una cuenta?, ingresar!</div>
+                                <div className="LinkIngresoRegistro titulosTexto text-azul-900">Ya tienes una cuenta?, ingresar!</div>
                             </Link>
                         </div>
                     </div>

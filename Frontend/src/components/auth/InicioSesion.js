@@ -106,7 +106,7 @@ const InicioSesion = (props) =>{
 
                         <div className="text-center">
                             <Link>
-                                <div className="LinkIngresoRegistro titulosTexto">No tienes una cuenta?, crear una!</div>
+                                <div className="LinkIngresoRegistro titulosTexto text-azul-900">No tienes una cuenta?, crear una!</div>
                             </Link>
                         </div>
                     </div>
