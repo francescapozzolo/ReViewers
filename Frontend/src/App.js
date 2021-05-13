@@ -12,16 +12,13 @@ import Header from './components/Header';
 
 class App extends React.Component {
   render(){
-
-    // console.log(this.props)
-
     return(
         <BrowserRouter>
             <Header />
             <Switch>
                 <Route exact path="/" component={Portada} />
                 <Route path="/inicio" component={Inicio} />
-                {/* <Route path="/publicar" component={Publicacion} /> */}
+                <Route path="/publicar" component={Publicacion} />
                 <Redirect to="/" />
             </Switch>
             <Footer component={Footer}/>

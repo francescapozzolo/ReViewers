@@ -47,6 +47,34 @@ const controladorPublicaciones = {
 
     cargarPublicacion: async (req , res)=>{
         try{
+            console.log("entro")
+            console.log(req.body)
+            console.log(req.file)
+            // const {categoria, subcategoria, titulo, subtitulo, descripcion, imagen, autor, usuariosFav, valoraciones, tags, proContra, comentarios } = req.body
+            // const resenia = Resenia({
+            //     categoria,
+            //     subcategoria,
+            //     titulo,
+            //     subtitulo,
+            //     descripcion,
+            //     imagen,
+            //     autor,
+            //     usuariosFav,
+            //     valoraciones,
+            //     tags,
+            //     proContra,
+            //     comentarios
+            // })
+            // if(req.file){
+            //     console.log(req.file)
+            //     const {filename} = req.file
+            //     resenia.setImagen(filename)
+            // }
+            // const nuevaPublicacion = new Resenia(req.body)
+            // await nuevaPublicacion.save()
+            // // const todasLasPublicaciones = await Resenia.find()
+            // res.json({success: true, response: nuevaPublicacion})
+
             const nuevaPublicacion = new Resenia(req.body)
             await nuevaPublicacion.save()
             // const todasLasPublicaciones = await Resenia.find()
