@@ -3,18 +3,11 @@ const router = express.Router()
 const validarRegistro = require('../config/validador')
 const passport = require('passport')
 const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
 
 
 const controladoresDeUsuarios = require('../controladores/controladoresDeUsuarios')
 const controladoresDeComentarios = require('../controladores/controladoresDeComentarios')
 const controladoresDePublicaciones = require('../controladores/controladoresDePublicaciones')
-
-const multer  = require('multer')
-const validator = require ('../config/validador')
-const passport = require ('passport')
-require('../config/validador')
-const router = express.Router()
 
 const storage = multer.diskStorage({
     destination:'../Frontend/public/uploads',
