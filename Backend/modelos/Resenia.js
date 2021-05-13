@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const {appConfig} = require('../config/config')
 const reseniaSchema = new mongoose.Schema({
     categoria: {type: String, required: true},
     subcategoria: {type: String, required: true},
@@ -24,10 +23,6 @@ const reseniaSchema = new mongoose.Schema({
     }],
 })
 
-reseniaSchema.methods.setImagen = function setImagen(filename){
-    const {host, port} = appConfig
-    this.imagen = `${host}:${port}/public/${filename}`
-}
 
 
 

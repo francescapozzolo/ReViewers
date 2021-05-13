@@ -2,24 +2,30 @@ const express = require('express')
 const controladoresDeUsuarios = require('../controladores/controladoresDeUsuarios')
 const controladoresDeComentarios = require('../controladores/controladoresDeComentarios')
 const controladoresDePublicaciones = require('../controladores/controladoresDePublicaciones')
+const multer  = require('multer')
 const validator = require ('../config/validador')
 const passport = require ('passport')
 require('../config/validador')
 const router = express.Router()
-<<<<<<< HEAD
-<<<<<<< HEAD
-// const controladoresDeResenias = require('../controladores/controladoresDeResenias')
 
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
-=======
->>>>>>> 95861d6cdc9545ad2ce393aa35a7950de8746bab
-=======
+const storage = multer.diskStorage({
+    destination:'../Frontend/public/uploads',
+    filename: (req, file, cb)=>{
+        cb (null, file.originalname)
+    }
+})
+const upload = multer({
+    storage,
+    dest: '../Frontend/public/uploads',
+    limits:{fileSize:3000000},
+    fileFilter: (req, file, cb)=>{
+        const fileTypes = /jpeg|jpg|png/
+        const mimetype = fileTypes.test(file.mimetype)
+        const extname = fileTypes.test(file.mimetype)
+    }
+}).single('imagen')
 
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
-
->>>>>>> 8ce96ba1bd5e41e908babeddc96563077cac02a5
+router.use(express.static('../Frontend/public'))
 
 /*RUTAS USUARIOS*/
 router.route('/usuarios')
@@ -45,28 +51,11 @@ router.route('/usuarios/inicioForzado')
 
 // Reseñas | Publicaciones 
 router.route('/publicaciones')
-<<<<<<< HEAD
-.get(controladoresDePublicaciones.todasLasPublicaciones)
-<<<<<<< HEAD
-.post(upload.single('image'),controladoresDePublicaciones.cargarPublicacion)
-.delete(controladoresDePublicaciones.borrarPublicacion)
-.put(controladoresDePublicaciones.editarPublicacion)
-=======
-.post(controladoresDePublicaciones.cargarPublicacion)
->>>>>>> 95861d6cdc9545ad2ce393aa35a7950de8746bab
-=======
-//.get(controladoresDePublicaciones.todasLasPublicaciones)
-//.post(upload.single('image'),controladoresDePublicaciones.cargarPublicacion)
-//.delete(controladoresDePublicaciones.borrarPublicacion)
-//.put(controladoresDePublicaciones.editarPublicacion)
-
 .get(controladoresDePublicaciones.todasLasPublicaciones) //anda
-.post(controladoresDePublicaciones.cargarPublicacion) //anda
+.post(upload,controladoresDePublicaciones.cargarPublicacion) //anda
 
->>>>>>> 8ce96ba1bd5e41e908babeddc96563077cac02a5
 
 router.route('/publicaciones/:id')
-
 .delete(controladoresDePublicaciones.borrarPublicacion) //anda
 .put(controladoresDePublicaciones.editarPublicacion) //anda
 

@@ -1,13 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import publicacionesActions from '../redux/actions/publicacionesActions'
-class Publicacion extends React.Component {
+class CrearPublicacion extends React.Component {
 
 
     state = {
-        valoresInput:{filepreview: null},
+        valoresInput:{},
         categorias: [],
-        subCategorias:[]
+        subCategorias:[],
+        filepreview: null
     }
 
     setearInput = (e)=>{
@@ -25,19 +26,19 @@ class Publicacion extends React.Component {
     enviarForm = (e)=>{
         e.preventDefault()
         console.log(this.state)
-        this.props.cargarPublicacion(this.state.valoresInput)
+        this.props.cargarPublicacion(this.state.valoresInput.imagen, this.state.valoresInput)
     }
 
 
     onChange = (e)=>{
-        this.setState({...this.state, valoresInput:{...this.state.valoresInput, filepreview:URL.createObjectURL(e.target.files[0])}})  
+        this.setState({...this.state, filepreview:URL.createObjectURL(e.target.files[0]) ,valoresInput:{...this.state.valoresInput, imagen:e.target.files[0]}})  
        }
 
     render(){
         console.log(this.state.valoresInput)
         return (
             <div className="contenedor">
-                        <form className="contenedor-reseña">
+                        <form className="contenedor-reseña" action="/api/publicaciones" method="POST" encType="multipart/form-data">
                             <div className="contenedor-inputs-selects-textarea">
                                 <div className="contenedor-inputsYselects">
                                     <div className="contenedor-selects">
@@ -68,7 +69,7 @@ class Publicacion extends React.Component {
                             </div>
                             <div className="contenedor-input-foto">
                                         <input type="file" name="myImage" onChange= {this.onChange} />
-                                        <div className="img-preview" style={{backgroundImage:`url(${this.state.valoresInput.filepreview})`}}/>              
+                                        <div className="img-preview" style={{backgroundImage:`url(${this.state.filepreview})`}}/>              
                             </div>
                             <div className="contenedor-enviarForm">
                                 {/* Boton enviar formulario */}
@@ -87,4 +88,4 @@ class Publicacion extends React.Component {
             cargarPublicacion: publicacionesActions.enviarFormulario
         }
 
-export default connect (null, mapDispatchToProps)(Publicacion)
+export default connect (null, mapDispatchToProps)(CrearPublicacion)
