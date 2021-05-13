@@ -47,10 +47,7 @@ const controladorPublicaciones = {
 
     cargarPublicacion: async (req , res)=>{
         try{
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8ce96ba1bd5e41e908babeddc96563077cac02a5
+
             console.log("entro")
             console.log(req.body)
             console.log(req.file)
@@ -78,19 +75,12 @@ const controladorPublicaciones = {
             // await nuevaPublicacion.save()
             // // const todasLasPublicaciones = await Resenia.find()
             // res.json({success: true, response: nuevaPublicacion})
-<<<<<<< HEAD
-=======
-=======
 
->>>>>>> 8ce96ba1bd5e41e908babeddc96563077cac02a5
             const nuevaPublicacion = new Resenia(req.body)
             await nuevaPublicacion.save()
             // const todasLasPublicaciones = await Resenia.find()
             res.json({success: true, respuesta: nuevaPublicacion})
-<<<<<<< HEAD
->>>>>>> 95861d6cdc9545ad2ce393aa35a7950de8746bab
-=======
->>>>>>> 8ce96ba1bd5e41e908babeddc96563077cac02a5
+
         }catch(error){
             console.log("error cargar publicacion" , error)
             res.json({success: false, respuesta: error})
