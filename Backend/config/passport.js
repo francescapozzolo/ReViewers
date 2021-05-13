@@ -5,7 +5,7 @@ const User = require('../modelos/Usuario');
 
 let options = {
     jwtFromRequest: extractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: process.env.SECRET_OR_KEY
+    secretOrKey: "REVIEWERS"
 }
 
 module.exports = passport.use(new jwtStrategy({

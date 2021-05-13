@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-class Categoria extends React.Component {
+class Puclicaciones extends React.Component {
 
 
     render(){
@@ -12,4 +12,4 @@ class Categoria extends React.Component {
 }
 
 
-export default Categoria
+export default Publicaciones

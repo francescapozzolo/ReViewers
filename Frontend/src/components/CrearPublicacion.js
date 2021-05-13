@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import publicacionesActions from '../redux/actions/publicacionesActions'
-class Publicacion extends React.Component {
+
+class CrearPublicacion extends React.Component {
 
 
     state = {
@@ -87,4 +88,4 @@ class Publicacion extends React.Component {
             cargarPublicacion: publicacionesActions.enviarFormulario
         }
 
-export default connect (null, mapDispatchToProps)(Publicacion)
+export default connect (null, mapDispatchToProps)(CrearPublicacion)

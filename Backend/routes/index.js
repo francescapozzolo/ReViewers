@@ -7,8 +7,8 @@ const passport = require ('passport')
 require('../config/validador')
 const router = express.Router()
 
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+// const multer  = require('multer')
+// const upload = multer({ dest: 'uploads/' })
 
 
 /*RUTAS USUARIOS*/
