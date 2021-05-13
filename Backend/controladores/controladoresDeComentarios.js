@@ -8,10 +8,11 @@ const controladoresDeComentarios = {
       try {
          const idDePublicacion = req.params.id
          var publicacionBuscada = await Resenia.findOne({_id: idDePublicacion})
+         res.json({success: true, respuesta: publicacionBuscada.comentarios})
       }catch (err){
          console.log('caí en el catch del controlador de obtenerComentarios y el error es: ' + err)
+         res.json({success: false, error: "Error: " + err})
       }
-      res.json({respuesta: publicacionBuscada.comentarios})
    },
    
    cargarNuevoComentario: async(req, res)=>{
@@ -23,27 +24,28 @@ const controladoresDeComentarios = {
             {$push: {comentarios: {usuarioId, mensaje}}}, 
             {new: true}
          ) 
+         res.json({success: true, respuesta: {publicacionComentada: publicacionComentada.comentarios}})
       } catch (err) {
          console.log('Caí en el catch del controlador cargarNuevoComentario y el error es: '+err)
+         res.json({success: false, error: "Error: " + err})
       }
-      res.json({respuesta: {publicacionComentada: publicacionComentada.comentarios}})
    },
    
    borrarComentario: async(req, res)=>{
       try {
          const idPublicacion = req.params.id
          const idComentario = req.body.idComentario
-
          var publicacionModificada = await Resenia.findOneAndUpdate(
             {_id: idPublicacion},
             {$pull: {comentarios: {_id: idComentario}}},
             {new: true}
          )
 
+         res.json({success: true, respuesta: publicacionModificada.comentarios})
       }catch (err){
          console.log('Caí en el catch del controlador de borrarComentario y el error es: ' + err)
+         res.json({success: false, error: "Error: " + err})
       }
-      res.json({respuesta: publicacionModificada.comentarios})
    },
    
    editarComentario: async(req, res)=>{
@@ -63,12 +65,13 @@ const controladoresDeComentarios = {
             {$set: {"comentarios.$.mensaje": comentarioEditado}},            
             {new: true}
          )
-
+         
+         res.json({success: true, respuesta: publicacionModificada.comentarios})
       }catch (err){
          console.log('Caí en el catch del controlador de editarComentario y el error es: '+ err)
+         res.json({success: false, error: "Error: " + err})
       }
 
-      res.json({respuesta: publicacionModificada.comentarios})
    },
 }
 
