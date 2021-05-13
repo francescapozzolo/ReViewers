@@ -104,7 +104,6 @@ const controladorPublicaciones = {
                 // console.log('')
             }
 
-
             // if (valoracionExiste){
             //     console.log('El usuario ya valoró')
             // } else {
