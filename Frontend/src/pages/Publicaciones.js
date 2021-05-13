@@ -1,10 +1,8 @@
 import React from 'react'
 
-
-class Publicaciones extends React.Component {
-
-
-    render(){
+class Puclicaciones extends React.Component {
+render(){
+        // return 
     }
 
 

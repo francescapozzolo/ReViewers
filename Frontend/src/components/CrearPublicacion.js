@@ -9,6 +9,7 @@ class CrearPublicacion extends React.Component {
         categorias: [],
         subCategorias:[],
         filepreview: null
+
     }
 
     setearInput = (e)=>{
@@ -27,11 +28,14 @@ class CrearPublicacion extends React.Component {
         e.preventDefault()
         console.log(this.state)
         this.props.cargarPublicacion(this.state.valoresInput.imagen, this.state.valoresInput)
+
     }
 
 
     onChange = (e)=>{
+
         this.setState({...this.state, filepreview:URL.createObjectURL(e.target.files[0]) ,valoresInput:{...this.state.valoresInput, imagen:e.target.files[0]}})  
+
        }
 
     render(){
@@ -70,6 +74,7 @@ class CrearPublicacion extends React.Component {
                             <div className="contenedor-input-foto">
                                         <input type="file" name="myImage" onChange= {this.onChange} />
                                         <div className="img-preview" style={{backgroundImage:`url(${this.state.filepreview})`}}/>              
+
                             </div>
                             <div className="contenedor-enviarForm">
                                 {/* Boton enviar formulario */}

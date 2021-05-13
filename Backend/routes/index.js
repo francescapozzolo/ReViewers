@@ -27,14 +27,15 @@ const upload = multer({
 
 router.use(express.static('../Frontend/public'))
 
+
 /*RUTAS USUARIOS*/
 router.route('/usuarios')
 .get(controladoresDeUsuarios.obtenerTodosLosUsuarios)
 
-router.route('/usuarios/registrarse')
-.post(controladoresDeUsuarios.registrarUsuario)
-//controlador usuarios por id
+// router.route('/usuarios/registrarse')
+// .post(controladoresDeUsuarios.registrarUsuario)
 
+//controlador usuarios por id
 router.route('/usuarios/:id')
 .get(controladoresDeUsuarios.obtenerUnUsuario)
 .delete(controladoresDeUsuarios.eliminarUnUsuario)
