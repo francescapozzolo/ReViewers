@@ -3,42 +3,43 @@ const Resenia = require('../modelos/Resenia')
 //posible modificacion en los parametros de findOne , findOneAndDelete , findOneAndUpdate
 
 const controladorPublicaciones = {
-   todasLasPublicaciones: async (req , res)=>{
-      try{
-         const todasPublicaciones = await Resenia.find()
-         res.json({success: true , response: todasPublicaciones})
-      }catch(error){
-         console.log("error controlador publicaciones" , error)
-         res.json({success: false , response: error})
-      }
-   },
+    todasLasPublicaciones: async (req , res)=>{
+        try{
+            const todasPublicaciones = await Resenia.find()
+            res.json({success: true, respuesta: todasPublicaciones})
+        }catch(error){
+            console.log("error controlador publicaciones" , error)
+            res.json({success: false , respuesta: error})
+        }
+    },
     publicacionesCategoria: async (req , res)=>{
         const Categoria = req.params.publicacionCategoria
         try{
             const publicacionCategoria = await Resenia.findOne({categoria: Categoria})
-            res.json({success: true , response: publicacionCategoria})
+            res.json({success: true , respuesta: publicacionCategoria})
         }catch(error){
             console.log("error publicacion categoria" , error)
-            res.json({success: false , response: error})
+            res.json({success: false , respuesta: error})
         }
     },
     borrarPublicacion: async (req , res)=>{
         try{
             const publicacion = await Resenia.findOneAndDelete({_id: req.params.id})
-            res.json({success: true})
+            const todasLasPublicaciones = await Resenia.find()
+            res.json({success: true, respuesta: todasLasPublicaciones})
         }catch(error){
             console.log("error borrar publicacion" , error)
-            res.json({success: false , response: error})
+            res.json({success: false , respuesta: error})
         }
     },
     
     editarPublicacion: async (req , res)=>{
         try{
             const publicacion = await Resenia.findOneAndUpdate({_id: req.params.id} , {...req.body} , {new: true})
-            res.json({success: true , response: publicacion})
+            res.json({success: true , respuesta: publicacion})
         }catch(error){
             console.log("error modificar publicacion" , error)
-            res.json({success: false , response: error})
+            res.json({success: false , respuesta: error})
         }
     },
 
@@ -47,10 +48,19 @@ const controladorPublicaciones = {
             const nuevaPublicacion = new Resenia(req.body)
             await nuevaPublicacion.save()
             // const todasLasPublicaciones = await Resenia.find()
-            res.json({success: true, response: nuevaPublicacion})
+            res.json({success: true, respuesta: nuevaPublicacion})
         }catch(error){
             console.log("error cargar publicacion" , error)
             res.json({success: false, respuesta: error})
+        }
+    },
+
+    cargarValoracion: async(req, res)=>{
+        try{
+            
+        }catch(err){
+        console.log('Caí en el catch de cargarValoracion y el error es: '+ err)
+        res.json('error al valorar publicacion: ' + err)
         }
     }
 }
