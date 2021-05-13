@@ -10,9 +10,9 @@ const publicacionesActions={
 
         }
     },
-    enviarFormulario:(publicacion)=>{
+    enviarFormulario:(imagen, inputs)=>{
         return async(dispatch, getState)=>{
-            await axios.post("http://localhost:4000/api/publicaciones",publicacion)
+            await axios.post("http://localhost:4000/api/publicaciones",imagen, inputs)
         }
     }
 }

@@ -6,9 +6,9 @@ const jwt = require('jsonwebtoken')
 const controladoresDeComentarios = {
    obtenerComentario: async(req, res)=>{
       try {
-         const idDePublicacion = req.params.id
+         const idPublicacion = req.params.id
          console.log("soy params id" , req.params)
-         var publicacionBuscada = await Resenia.findOne({_id: idDePublicacion})
+         var publicacionBuscada = await Resenia.findOne({_id: idPublicacion})
          console.log("soy publicacion buscada", publicacionBuscada)
 
          res.json({success: true, respuesta: publicacionBuscada.comentarios})
@@ -21,11 +21,11 @@ const controladoresDeComentarios = {
    
    cargarNuevoComentario: async(req, res)=>{
       try {
-         const idDePublicacion = req.params.id
-         var {usuarioId, mensaje} = req.body
+         const idPublicacion = req.params.id
+         var {idUsuario, mensaje} = req.body
          var publicacionComentada = await Resenia.findOneAndUpdate(
-            {_id: idDePublicacion},
-            {$push: {comentarios: {usuarioId, mensaje}}}, 
+            {_id: idPublicacion},
+            {$push: {comentarios: {idUsuario, mensaje}}}, 
             {new: true}
          ) 
          res.json({success: true, respuesta: {publicacionComentada: publicacionComentada.comentarios}})

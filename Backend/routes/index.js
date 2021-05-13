@@ -10,6 +10,31 @@ const controladoresDeUsuarios = require('../controladores/controladoresDeUsuario
 const controladoresDeComentarios = require('../controladores/controladoresDeComentarios')
 const controladoresDePublicaciones = require('../controladores/controladoresDePublicaciones')
 
+const multer  = require('multer')
+const validator = require ('../config/validador')
+const passport = require ('passport')
+require('../config/validador')
+const router = express.Router()
+
+const storage = multer.diskStorage({
+    destination:'../Frontend/public/uploads',
+    filename: (req, file, cb)=>{
+        cb (null, file.originalname)
+    }
+})
+const upload = multer({
+    storage,
+    dest: '../Frontend/public/uploads',
+    limits:{fileSize:3000000},
+    fileFilter: (req, file, cb)=>{
+        const fileTypes = /jpeg|jpg|png/
+        const mimetype = fileTypes.test(file.mimetype)
+        const extname = fileTypes.test(file.mimetype)
+    }
+}).single('imagen')
+
+router.use(express.static('../Frontend/public'))
+
 
 
 /*RUTAS USUARIOS*/
@@ -41,17 +66,11 @@ router.route('/usuarios/inicioForzado')
 
 // Reseñas | Publicaciones 
 router.route('/publicaciones')
-//.get(controladoresDePublicaciones.todasLasPublicaciones)
-//.post(upload.single('image'),controladoresDePublicaciones.cargarPublicacion)
-//.delete(controladoresDePublicaciones.borrarPublicacion)
-//.put(controladoresDePublicaciones.editarPublicacion)
-
 .get(controladoresDePublicaciones.todasLasPublicaciones) //anda
-.post(controladoresDePublicaciones.cargarPublicacion) //anda
+.post(upload,controladoresDePublicaciones.cargarPublicacion) //anda
 
 
 router.route('/publicaciones/:id')
-
 .delete(controladoresDePublicaciones.borrarPublicacion) //anda
 .put(controladoresDePublicaciones.editarPublicacion) //anda
 
