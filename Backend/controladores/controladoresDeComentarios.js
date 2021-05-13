@@ -4,10 +4,12 @@ const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const controladoresDeComentarios = {
-   obtenerComentarios: async(req, res)=>{
+   obtenerComentario: async(req, res)=>{
       try {
          const idDePublicacion = req.params.id
+         console.log("soy params id" , req.params)
          var publicacionBuscada = await Resenia.findOne({_id: idDePublicacion})
+         console.log("soy publicacion buscada", publicacionBuscada)
       }catch (err){
          console.log('caí en el catch del controlador de obtenerComentarios y el error es: ' + err)
       }
