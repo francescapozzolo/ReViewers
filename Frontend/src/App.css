@@ -78,7 +78,7 @@ link:visited, a:visited  {
 /*HEADER*/
 header{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding: 1.5vh;
     height: 10vh;
@@ -89,10 +89,11 @@ header{
         display: flex;
         justify-content: space-between;
         align-items: center;
+        height: 4rem;
     }
 
         .logo{
-            height: 2rem;
+            height: 2.5rem;
         }
 
         /*HEADER PORTADA*/
@@ -116,13 +117,15 @@ header{
         }
 
         #buscador{
-            width: 55%;
+            width: 100%;
             padding: 1.5vh;
             background-color: var(--verdeAgua);
             outline: none;
             border: none;
             border-radius: 1rem;
             font-size: 1rem;
+            margin: auto;
+            margin-top: 1rem;
         }
 
         .usuarioPic{
@@ -130,7 +133,37 @@ header{
             height: 55px;
             background-color: var(--azulOscuro);
             border-radius: 50%;
+            margin-top: 0.8rem;
         }
+
+        .btn-crearReview {
+            padding-top: 0.8rem;
+        }
+
+        .notificacionesCampana {
+            margin-top: 0.8rem;
+        }
+
+/* Utilidades */
+.flex-end {
+    justify-content: end;
+}
+
+.mx-2 {
+    margin: 0 2rem;
+}
+
+.mx-1 {
+    margin: 0 1rem;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.h-175 {
+    height: 1.75rem;
+}
 
 /*PORTADA*/
 
@@ -485,10 +518,6 @@ footer{
 
 }
 
-
-
-
-
 /* REGISTRO */
 .App {
     min-height: 100vh;
@@ -609,7 +638,6 @@ footer{
     font-size: 1rem !important;  
 }
 
-
 .tituloForm {
     margin-bottom: 1rem;
 }
@@ -635,8 +663,27 @@ footer{
     margin: 1rem 0;
 }
 
+.alerta-errores {
+    height: 1rem;
+    font-size: 0.75rem;
+}
+
 
 /* UTILIDADES */
+
+.mensajeAlerta {
+    text-align: center;
+    color: rgb(218, 83, 83);
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.w-full {
+    width: 100%;
+}
+
 .tituloXl {
     font-size: 4rem;
 }

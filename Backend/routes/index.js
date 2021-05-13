@@ -1,7 +1,15 @@
 const express = require('express')
+const router = express.Router()
+const validarRegistro = require('../config/validador')
+const passport = require('passport')
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
+
+
 const controladoresDeUsuarios = require('../controladores/controladoresDeUsuarios')
 const controladoresDeComentarios = require('../controladores/controladoresDeComentarios')
 const controladoresDePublicaciones = require('../controladores/controladoresDePublicaciones')
+
 const multer  = require('multer')
 const validator = require ('../config/validador')
 const passport = require ('passport')
@@ -28,12 +36,13 @@ const upload = multer({
 router.use(express.static('../Frontend/public'))
 
 
+
 /*RUTAS USUARIOS*/
 router.route('/usuarios')
 .get(controladoresDeUsuarios.obtenerTodosLosUsuarios)
 
-// router.route('/usuarios/registrarse')
-// .post(controladoresDeUsuarios.registrarUsuario)
+router.route('/usuarios/registrarse')
+.post(validarRegistro, controladoresDeUsuarios.registrarUsuario)
 
 //controlador usuarios por id
 router.route('/usuarios/:id')
@@ -41,8 +50,13 @@ router.route('/usuarios/:id')
 .delete(controladoresDeUsuarios.eliminarUnUsuario)
 .put(controladoresDeUsuarios.editarUsuario)
 
-router.route('/usuarios/registrarse')
-.post(controladoresDeUsuarios.registrarUsuario)
+
+// DUPLICADO
+// router.route('/usuarios/registrarse') 
+// .post(validarRegistro, controladoresDeUsuarios.registrarUsuario)
+
+
+
 router.route('/usuarios/iniciarSesion')
 .post(controladoresDeUsuarios.iniciarSesion)
 

@@ -49,9 +49,12 @@ const Registro = (props) =>{
             // si existe respuestaConErrores
             respuestaConErrores ? setErrores({campos}) : setNuevoUsuario({campos})
 
-            respuestaConErrores && respuestaConErrores.details.map(err => setErrores(prevState => {
+            console.log('respuesta con eerrores', respuestaConErrores)
+
+            respuestaConErrores && respuestaConErrores.map(err => setErrores(prevState => {
                 return {...prevState, [err.context.label]: err.message}
             }))
+            
         } else {
             alert('No pueden haber campos vacios')
         }
@@ -71,10 +74,6 @@ const Registro = (props) =>{
         }
         enviarInfoUsuario(null, usuarioGoogle)
    }
-
-//    const respuestaFacebook = (respuesta) => {
-//        console.log(respuesta)
-//    }
 
     const [modal, setModal] = useState(false)
 
@@ -108,12 +107,23 @@ const Registro = (props) =>{
                                 <input onChange={guardarInfoUsuario} type="text" name="nombre" placeholder="Nombre"></input>
                                 <input onChange={guardarInfoUsuario} type="text" name="apellido" placeholder="Apellido"></input>
                             </div>
+                            <div className="alerta-errores flex">
+                                <div className="w-50 mensajeAlerta">{errores.nombre && errores.nombre}</div>
+                                <div className="w-50 mensajeAlerta">{errores.apellido && errores.apellido}</div>
+                            </div>
                             <div>
                                 <input onChange={guardarInfoUsuario} type="email" name="mail" placeholder="Email"></input>
+                            </div>
+                            <div className="alerta-errores">
+                                <div className="w-50 mensajeAlerta">{errores.mail && errores.mail}</div>
                             </div>
                             <div className="flex justify-between">
                                 <input onChange={guardarInfoUsuario} type="password" name="clave" placeholder="Clave"></input>
                                 <input onChange={guardarInfoUsuario} type="text" name="imagen" placeholder="Imagen"></input>
+                            </div>
+                            <div className="alerta-errores flex">
+                                <div className="w-50 mensajeAlerta">{errores.clave && errores.clave}</div>
+                                {/* <div className="w-50 mensajeAlerta">{errores.imagen && errores.imagen}</div> */}
                             </div>
                         </div>
                         
@@ -127,12 +137,6 @@ const Registro = (props) =>{
                                 cookiePolicy={'single_host_origin'}
                                 className="botonGoogle"
                             />
-                            {/* <FacebookLogin
-                            appId="256381079509249"
-                            autoLoad={true}
-                            fields="name,email,picture"
-                            onClick={respuestaFacebook}
-                            callback={respuestaFacebook} /> */}
                         </div>
 
                         <div className="text-center">

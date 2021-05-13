@@ -5,11 +5,11 @@ class CrearPublicacion extends React.Component {
 
 
     state = {
+
         valoresInput:{},
         categorias: [],
         subCategorias:[],
         filepreview: null
-
     }
 
     setearInput = (e)=>{
@@ -27,12 +27,14 @@ class CrearPublicacion extends React.Component {
     enviarForm = (e)=>{
         e.preventDefault()
         console.log(this.state)
+
         this.props.cargarPublicacion(this.state.valoresInput.imagen, this.state.valoresInput)
 
     }
 
 
     onChange = (e)=>{
+
 
         this.setState({...this.state, filepreview:URL.createObjectURL(e.target.files[0]) ,valoresInput:{...this.state.valoresInput, imagen:e.target.files[0]}})  
 
@@ -42,6 +44,7 @@ class CrearPublicacion extends React.Component {
         console.log(this.state.valoresInput)
         return (
             <div className="contenedor">
+
                         <form className="contenedor-reseña" action="/api/publicaciones" method="POST" encType="multipart/form-data">
                             <div className="contenedor-inputs-selects-textarea">
                                 <div className="contenedor-inputsYselects">
@@ -73,6 +76,7 @@ class CrearPublicacion extends React.Component {
                             </div>
                             <div className="contenedor-input-foto">
                                         <input type="file" name="myImage" onChange= {this.onChange} />
+
                                         <div className="img-preview" style={{backgroundImage:`url(${this.state.filepreview})`}}/>              
 
                             </div>
@@ -87,7 +91,6 @@ class CrearPublicacion extends React.Component {
                 )
             }
         }
-
 
         const mapDispatchToProps = {
             cargarPublicacion: publicacionesActions.enviarFormulario
