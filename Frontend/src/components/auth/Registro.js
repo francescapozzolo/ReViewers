@@ -1,16 +1,28 @@
 import { useState } from 'react';
 import GoogleLogin from 'react-google-login';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import authActions from '../../redux/actions/authActions' 
+import FacebookLogin from 'react-facebook-login';
 
-const Registro = () =>{
+const Registro = (props) =>{
 
     const [nuevoUsuario, setNuevoUsuario] = useState({
         nombre: '',
         apellido: '',
-        email: '',
+        mail: '',
         clave: '',
-        foto: ''
+        imagen: ''
     })
 
+    const [errores, setErrores] = useState({
+        nombre: '',
+        apellido: '',
+        mail: '',
+        clave: '',
+        imagen: ''
+    })
+ 
     const guardarInfoUsuario = (e) => {
         e.preventDefault();
         setNuevoUsuario({
@@ -19,7 +31,50 @@ const Registro = () =>{
         })
     }
     
-    console.log(nuevoUsuario)
+    const enviarInfoUsuario = async (e = null, usuarioGoogle = null) => {
+        e && e.preventDefault();
+        let usuario = usuarioGoogle ? usuarioGoogle : nuevoUsuario
+        console.log(usuario)
+        if(!Object.values(usuario).some(value => value === '')) {
+            const respuestaConErrores = await props.crearUsuario(usuario)
+            
+            let campos = ({
+                nombre: '',
+                apellido: '',
+                mail: '',
+                clave: '',
+                imagen: ''
+            })
+
+            // si existe respuestaConErrores
+            respuestaConErrores ? setErrores({campos}) : setNuevoUsuario({campos})
+
+            respuestaConErrores && respuestaConErrores.details.map(err => setErrores(prevState => {
+                return {...prevState, [err.context.label]: err.message}
+            }))
+        } else {
+            alert('No pueden haber campos vacios')
+        }
+    }
+
+    const respuestaGoogle = (respuesta) => {
+        console.log(respuesta.profileObj)
+
+        const { email, familyName, givenName, googleId, imageUrl } = respuesta.profileObj
+
+        let usuarioGoogle = {
+            nombre: givenName,
+            apellido: familyName,
+            mail: email,
+            clave: googleId,
+            imagen: imageUrl
+        }
+        enviarInfoUsuario(null, usuarioGoogle)
+   }
+
+//    const respuestaFacebook = (respuesta) => {
+//        console.log(respuesta)
+//    }
 
     const [modal, setModal] = useState(false)
 
@@ -34,10 +89,6 @@ const Registro = () =>{
    function closeModal(e) {
       e.stopPropagation()
       selectModal()
-   }
-   
-   const respuestaGoogle = () => {
-        console.log('ingrese a login')
    }
 
     return(
@@ -58,16 +109,16 @@ const Registro = () =>{
                                 <input onChange={guardarInfoUsuario} type="text" name="apellido" placeholder="Apellido"></input>
                             </div>
                             <div>
-                                <input onChange={guardarInfoUsuario} type="email" name="email" placeholder="Email"></input>
+                                <input onChange={guardarInfoUsuario} type="email" name="mail" placeholder="Email"></input>
                             </div>
                             <div className="flex justify-between">
                                 <input onChange={guardarInfoUsuario} type="password" name="clave" placeholder="Clave"></input>
-                                <input onChange={guardarInfoUsuario} type="text" name="foto" placeholder="Foto"></input>
+                                <input onChange={guardarInfoUsuario} type="text" name="imagen" placeholder="Imagen"></input>
                             </div>
                         </div>
                         
                         <div className="flex flex-col">
-                            <button type="text" id="registroIngreso" name="registrarme">Crear cuenta</button>
+                            <button type="text" id="registroIngreso" onClick={enviarInfoUsuario} name="registrarme">Crear cuenta</button>
                             <GoogleLogin
                                 clientId="924799610861-e5kub6kcl4d4hhbtcoqicrhk4ou25vme.apps.googleusercontent.com"
                                 buttonText="Crear cuenta con Google"
@@ -76,10 +127,18 @@ const Registro = () =>{
                                 cookiePolicy={'single_host_origin'}
                                 className="botonGoogle"
                             />
+                            {/* <FacebookLogin
+                            appId="256381079509249"
+                            autoLoad={true}
+                            fields="name,email,picture"
+                            onClick={respuestaFacebook}
+                            callback={respuestaFacebook} /> */}
                         </div>
 
                         <div className="text-center">
-                            <div className="LinkIngresoRegistro titulosTexto">Ya tienes una cuenta?, ingresar!</div>
+                            <Link>
+                                <div className="LinkIngresoRegistro titulosTexto text-azul-900">Ya tienes una cuenta?, ingresar!</div>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -90,4 +149,14 @@ const Registro = () =>{
 }
 
 
-export default Registro
+const mapStateToProps = state => {
+    return{
+
+    }
+}
+
+const mapDispatchToProps = {
+    crearUsuario: authActions.crearUsuario
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Registro)

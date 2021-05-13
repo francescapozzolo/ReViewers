@@ -11,10 +11,10 @@ const router = express.Router()
 router.route('/usuarios')
 .get(controladoresDeUsuarios.obtenerTodosLosUsuarios)
 
-
 router.route('/usuarios/registrarse')
 .post(controladoresDeUsuarios.registrarUsuario)
 //controlador usuarios por id
+
 router.route('/usuarios/:id')
 .get(controladoresDeUsuarios.obtenerUnUsuario)
 .delete(controladoresDeUsuarios.eliminarUnUsuario)
@@ -43,6 +43,9 @@ router.route('/publicaciones/:id')
 router.route('/publicaciones/:categoria')
 .get(controladoresDePublicaciones.publicacionesCategoria) //anda
 
+// Valoracion de la publicación (estrellas de calificacion)
+router.route('/publicacionValorada/:id')
+.post(controladoresDePublicaciones.cargarValoracion)
 
 
 // Comentarios
