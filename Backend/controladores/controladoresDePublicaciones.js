@@ -13,10 +13,11 @@ const controladorPublicaciones = {
         }
     },
     publicacionesCategoria: async (req , res)=>{
-        const Categoria = req.params.publicacionCategoria
         try{
-            const publicacionCategoria = await Resenia.findOne({categoria: Categoria})
+
+            const publicacionCategoria = await Resenia.findOne({categoria: req.params.categoria})
             res.json({success: true , respuesta: publicacionCategoria})
+
         }catch(error){
             console.log("error publicacion categoria" , error)
             res.json({success: false , respuesta: error})
@@ -27,6 +28,7 @@ const controladorPublicaciones = {
             const publicacion = await Resenia.findOneAndDelete({_id: req.params.id})
             const todasLasPublicaciones = await Resenia.find()
             res.json({success: true, respuesta: todasLasPublicaciones})
+
         }catch(error){
             console.log("error borrar publicacion" , error)
             res.json({success: false , respuesta: error})

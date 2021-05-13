@@ -11,6 +11,10 @@ const router = express.Router()
 router.route('/usuarios')
 .get(controladoresDeUsuarios.obtenerTodosLosUsuarios)
 
+router.route('/usuarios/registrarse')
+.post(controladoresDeUsuarios.registrarUsuario)
+//controlador usuarios por id
+
 router.route('/usuarios/:id')
 .get(controladoresDeUsuarios.obtenerUnUsuario)
 .delete(controladoresDeUsuarios.eliminarUnUsuario)
@@ -27,13 +31,17 @@ router.route('/usuarios/inicioForzado')
 
 // Reseñas | Publicaciones 
 router.route('/publicaciones')
-.get(controladoresDePublicaciones.todasLasPublicaciones)
-.post(controladoresDePublicaciones.cargarPublicacion)
+.get(controladoresDePublicaciones.todasLasPublicaciones) //anda
+.post(controladoresDePublicaciones.cargarPublicacion) //anda
+
 
 router.route('/publicaciones/:id')
-.put(controladoresDePublicaciones.editarPublicacion)
-.delete(controladoresDePublicaciones.borrarPublicacion)
-.get(controladoresDePublicaciones.publicacionesCategoria)
+
+.delete(controladoresDePublicaciones.borrarPublicacion) //anda
+.put(controladoresDePublicaciones.editarPublicacion) //anda
+
+router.route('/publicaciones/:categoria')
+.get(controladoresDePublicaciones.publicacionesCategoria) //anda
 
 // Valoracion de la publicación (estrellas de calificacion)
 router.route('/publicacionValorada/:id')
@@ -42,11 +50,10 @@ router.route('/publicacionValorada/:id')
 
 // Comentarios
 router.route('/comentarios/:id')
-.get(controladoresDeComentarios.obtenerComentarios)
+.get(controladoresDeComentarios.obtenerComentario)
 .post(controladoresDeComentarios.cargarNuevoComentario)
 .delete(controladoresDeComentarios.borrarComentario)
 .put(controladoresDeComentarios.editarComentario)
-
 
 module.exports = router 
 
