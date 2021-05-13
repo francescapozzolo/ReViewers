@@ -6,8 +6,8 @@ const cors = require ('cors')
 const router = require ('./routes/index')
 require('./config/passport')
 require('./config/database')
-const App = express()
-App.use(cors())
+const app = express()
+app.use(cors())
 
 
 // App.use(bodyParser.urlencoded({extended:false}));
@@ -16,8 +16,9 @@ App.use(cors())
 // App.use('/public', express.static(`${__dirname}/storage/imgs`))
 
 
-App.use(express.json())
 
-App.use("/api", router)
+app.use(express.json())
 
-App.listen(4000, () => console.log("App listening on port 4000"))
+app.use("/api", router)
+
+app.listen(4000, () => console.log("App listening on port 4000"))

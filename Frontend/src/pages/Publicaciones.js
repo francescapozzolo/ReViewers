@@ -1,10 +1,6 @@
 import React from 'react'
-
-
 class Puclicaciones extends React.Component {
-
-
-    render(){
+render(){
         // return 
     }
 
