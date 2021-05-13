@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 
 const controladoresDeUsuario = {
 
-   obtenerTodosLosUsuarios: async(req,res)=>{
+   obtenerTodosLosUsuarios: async(req, res)=>{
       try{
          const todosLosUsuarios = await Usuario.find()
          res.json({success: true, respuesta: todosLosUsuarios})
