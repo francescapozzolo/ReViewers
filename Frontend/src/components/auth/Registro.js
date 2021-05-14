@@ -3,7 +3,7 @@ import GoogleLogin from 'react-google-login';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import authActions from '../../redux/actions/authActions' 
-import FacebookLogin from 'react-facebook-login';
+// import FacebookLogin from 'react-facebook-login';
 
 const Registro = (props) =>{
 
