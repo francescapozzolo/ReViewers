@@ -5,7 +5,7 @@ const reseniaSchema = new mongoose.Schema({
     titulo: {type: String, required: true},
     subtitulo: {type: String, required: true},
     descripcion: {type: String, required: true},
-    imagen: [{type: String, required: true}],
+    imagen: {type: String, required: true},
     autor: {type: mongoose.Types.ObjectId, ref: 'user', required: true},
     usuariosFav: [{type: mongoose.Types.ObjectId, ref: 'user'}],
     valoraciones: [{idUsuario: {type: mongoose.Types.ObjectId, ref: 'user'}, valoracion: {type: Number, min: 1, max: 5}}],

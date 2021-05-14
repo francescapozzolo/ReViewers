@@ -334,6 +334,8 @@ main{
         .gridInicio div{
             background-color: var(--celeste);
             border-radius: 1rem;
+            background-size: cover;
+            background-position: center;
         }
 
             .gridInicio :nth-child(1){
