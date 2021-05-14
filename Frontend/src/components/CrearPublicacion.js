@@ -53,8 +53,7 @@ class CrearPublicacion extends React.Component {
     valoresInput: {categoria:"", subcategoria:"", titulo:"", subtitulo:"", descripcion:"", imagen:"", pro:"", contra:"", tags:"" },
     comprobarImagen:false,
     categorias: [],
-    subCategorias: [],
-    open:true
+    subCategorias: []
   };
   
   setearInput = (e) => {

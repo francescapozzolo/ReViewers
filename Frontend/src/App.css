@@ -1579,6 +1579,53 @@
     margin-bottom: 10vh;
 }
 
+.bgPublicacion{
+    background-position: center;
+    background-size: cover;
+    width: 20vw;
+    height: 35vh;
+}
+.tarjetaPublicaciones{
+    display: flex;
+    background-color: #c9f2e7;
+    border: 2px solid black;
+    margin-bottom: 2vh;
+    width: 80vw;
+}
+.contenedorPublic{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid blue;
+    align-items: center;
+    margin-bottom: 2vh;
+    margin-top: 2vh;
+}
+.contenidoPublicacion{
+    padding-left: 5vw;
+    padding-top: 2vh;
+    width: 100%;
+    height: 45vh;
+    border: 2px solid yellow;
+}
+.espacio{
+    width: 80%;
+    border: 2px solid red;
+}
+.valoracion{
+    display: flex;
+    flex-direction: row-reverse;
+    border: 2px solid rebeccapurple;
+    padding-right: 5vw;
+}
+.contenedorLoader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+}
+.descripcion{
+    font-size: 24px;
+    height: 20vh;
 .reseñaDePrueba-borrar{
     width: 20vw;
     /* height: 10vh; */
