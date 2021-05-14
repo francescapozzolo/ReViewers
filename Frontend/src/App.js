@@ -29,7 +29,7 @@ class App extends React.Component {
                 <Route exact path="/" component={Portada} />
                 <Route path="/inicio" component={Inicio} />
                 <Route path="/publicar" component={CrearPublicacion} />
-                //<Route path="/prueba" component={PaginaDePrueba} />                
+                {/* //<Route path="/prueba" component={PaginaDePrueba} />                 */}
                 <Redirect to="/" />
             </Switch>
             <Footer component={Footer}/>
