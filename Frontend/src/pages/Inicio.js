@@ -12,15 +12,14 @@ class Inicio extends React.Component{
         Entretenimiento: [],
         Tecnología: [],
         Gastronomía: [],
+    }   
+
+    componentDidMount(){
+        this.props.cargarPublicaciones(this.setState({
+            ...this.state,
+            publicaciones: [...this.props.publicaciones],
+        }))
     }
-
-
-    // componentDidMount(){
-    //     this.props.cargarPublicaciones(this.setState({
-    //         ...this.state,
-    //         publicaciones: [...this.props.publicaciones],
-    //     }))
-    // }
     
     elegirCategorias = (e)=>{
         const categoriaItem = e.target.dataset.info
@@ -38,57 +37,18 @@ class Inicio extends React.Component{
         
         this.setState({
             ...this.state,    
-            [categoriaItem]: this.props.publicaciones.filter(publicacion => publicacion.categoria === categoriaItem)
-        }) 
+            [categoriaItem]: this.state[categoriaItem].length > 0 ? [] : this.props.publicaciones.filter(publicacion => publicacion.categoria === categoriaItem),
+        }, () => {
+            const arrayAComparar = [...this.state.Deportes, ...this.state.Entretenimiento, ...this.state.Tecnología, ...this.state.Gastronomía]
+            this.setState({
+                ...this.state,
+                categoriasSeleccionadas: [...arrayAComparar]
+            })
+        })
     }
 
-
-
-    // filtrarCategorias = (e) => {
-    //     const categoriaItem = e.target.dataset.info
-    //     console.log(categoriaItem)
-    //     console.log(this.props.publicaciones.filter(publicacion => publicacion.categoria === categoriaItem))
-    //     this.setState({
-    //         ...this.state,
-    //         // publicacionesUpdated: {
-    //         //     ...this.publicacionesUpdated,
-    //             Deportes: this.props.publicaciones.filter(publicacion => publicacion.categoria === categoriaItem)    
-    //         }
-    //     // }
-    //     ) 
-    // }
-
-    // functionGeneral = (e) => {
-    //     this.elegirCategorias(e)
-    // }
-
-    //render() {          
-    // elegirCategorias = (e)=>{
-    //     const categoriaItem = e.target.dataset.info
-    //     if(this.state.categoriasSeleccionadas.indexOf(categoriaItem) === -1){
-    //         this.setState({
-    //             ...this.state,
-    //             categoriasSeleccionadas: [...this.state.categoriasSeleccionadas, categoriaItem]
-    //         })
-    //     } else{
-    //         this.setState({
-    //             ...this.state,
-    //             categoriasSeleccionadas: this.state.categoriasSeleccionadas.filter(item => item !== categoriaItem)
-    //         })
-    //     }  
-    // }
-
-    // filtrarPorCategoria = () =>{
-    //     let stringCategoria = this.state.categoriasSeleccionadas.join('')
-    //     this.props.publicaciones.filter(publicacion => {})
-    //     // let filtrao = this.props.publicaciones.filter(publicacion =>this.state.categoriasSeleccionadas.filter(item => item === publicacion.categoria))
-    //     // console.log(filtrao)
-    // }
-
     render() {
-        // console.log(this.state.categoriasSeleccionadas)
-        // console.log(this.props.publicaciones)
-        // this.filtrarPorCategoria()
+        console.log(this.state)
         return(      
             <main>
                 <div className="contenedorLinkCategoria">
@@ -98,11 +58,17 @@ class Inicio extends React.Component{
                     <p data-info="Tecnología" onClick={this.elegirCategorias} className="link titulosAlt">Tecnología</p>
                 </div>
                 <div className="gridInicio">
-                    {this.props.publicaciones.slice(0, 10).map(publicacion=>{
+                    {this.state.categoriasSeleccionadas.length === 0 ? this.props.publicaciones.slice(0, 10).map((publicacion, index)=>{
                         return(
-                            <div style={{backgroundImage: `url('${publicacion.imagen}')`}}></div>
+                            <div key={index} style={{backgroundImage: `url('${publicacion.imagen}')`}}></div>
                         )
-                    })}
+                    })
+                    : this.state.categoriasSeleccionadas.slice(0, 10).map((publicacion, index)=>{
+                        return(
+                            <div key={index} style={{backgroundImage: `url('${publicacion.imagen}')`}}></div>
+                        )
+                    })
+                }
                 </div>
             </main>
         )
