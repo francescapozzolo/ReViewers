@@ -1,7 +1,8 @@
 import React from 'react'
-class Puclicaciones extends React.Component {
+
+class Publicaciones extends React.Component {
 render(){
-        // return 
+       return <h1>Soy publicaciones</h1>
     }
 
 

@@ -374,12 +374,37 @@
             gap: 0.5em;
         }
     
-            .gridInicio div{
+            .gridInicio .cajaPublicacion{
                 background-color: var(--celeste);
                 border-radius: 1rem;
                 background-size: cover;
                 background-position: center;
+                color: white;
+                overflow: hidden;
+                transition: all 500ms ease-out;
             }
+
+                .cajaPublicacion .capa{
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    background-color: rgb(142,168,191,0.7);
+                    transition: all 500ms ease-out;
+                    opacity: 0;
+                    visibility: hidden;
+                    padding-left: 1vw;
+                }
+
+                    .cajaPublicacion:hover > .capa{
+                        opacity: 1;
+                        visibility: visible;
+                    }
+
+                    .textoCategoria{
+                        text-transform: uppercase;
+                        font-size: 1.5rem;
+                    }
     
                 .gridInicio :nth-child(1){
                     grid-column: 1/3;
