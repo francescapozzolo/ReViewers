@@ -9,7 +9,9 @@ const Header = (props) => {
         <header>
             <nav>
                 <div>
-                    <img alt="logo" className="logo" src='/assets/logo.png'></img>
+                    <Link to="/">
+                        <img alt="logo" className="logo" src='/assets/logo.png'></img>
+                    </Link>
                 </div>
                 
                 {
