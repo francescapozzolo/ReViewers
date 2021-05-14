@@ -10,10 +10,7 @@ const InicioSesion = (props) =>{
         mail: '',
         clave: ''
     })
-
-    console.log(usuarioPagina)
     const { mail, clave } = usuarioPagina
-
     const guardarInfoUsuario = (e) => {
         e.preventDefault();
         setUsuarioPagina({
@@ -68,10 +65,9 @@ const InicioSesion = (props) =>{
       selectModal()
    }
 
-
     return(
     <div className="App">
-       <p onClick={ selectModal }>Open Modal</p>
+       <p className="link titulosAlt mx-1" onClick={ selectModal }>Iniciar Sesion</p>      
        <div className="modal" onClick={(e) =>  closeModal(e) } style={divStyle}>
             <div className="modal-content bg-verde-200" onClick={ e => e.stopPropagation() }>
                 <span className="close" onClick={(e) =>  closeModal(e) }>&times;</span>
@@ -119,7 +115,7 @@ const InicioSesion = (props) =>{
 
 const mapStateToProps = state => {
     return{
-
+        usuarioLogeado: state.authReducer.usuarioLogeado
     }
 }
 
