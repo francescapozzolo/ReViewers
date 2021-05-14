@@ -27,8 +27,13 @@ const publicacionesActions={
     },
     enviarFormulario:(inputs)=>{
         return async(dispatch, getState)=>{
-            // const respuesta = await axios.post("http://localhost:4000/api/publicaciones",{inputs, imagen})
-            // console.log(respuesta)
+            const tokenUsuario = localStorage.getItem('token')
+            const respuesta = await axios.post("http://localhost:4000/api/publicaciones",{...inputs},{
+                headers: {
+                    'Authorization': 'Bearer '+ tokenUsuario
+                }
+            })
+            console.log(respuesta)
         }
     },
     cargarValoracion: (idPublicacion, {idUsuario, valoracion})=>{
@@ -44,6 +49,14 @@ const publicacionesActions={
             console.log(respuesta.data)
             return respuesta.data
         }
+    },
+
+    filtroPorPalabraClave: (valorDelFiltro)=>{
+        return async(dispatch, getState)=>{
+            console.log(valorDelFiltro)
+            dispatch({type: 'FILTRO_POR_PALABRA_CLAVE', payload: valorDelFiltro})
+        }
     }
+
 }
 export default publicacionesActions

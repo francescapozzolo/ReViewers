@@ -2,12 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import publicacionesActions from "../redux/actions/publicacionesActions";
 import styled from 'styled-components';
+import Tooltip from '@material-ui/core/Tooltip';
+import { toast } from 'react-toastify';
 
 
-    // style={{backgroundImage:`url(${this.state.valoresInput.imagen})`}}
-
-
-    const Imagen = styled.div`
+const Imagen = styled.div`
     & {
         width: 100%;
         height: 64.5%;
@@ -17,8 +16,10 @@ import styled from 'styled-components';
         background-position:center;
         background-repeat:no-repeat;
         background-image:url(${props => props.imagen});
+        cursor:pointer;
       }
-      &:after {
+      ${props => !props.done ? 
+        `&:after {
           content: "";
           position: absolute;
           z-index: -1;
@@ -31,7 +32,8 @@ import styled from 'styled-components';
           background-size:contain;
           background-position:center;
           background-repeat:no-repeat;
-      }
+        }`
+      : null}
     `
       const NoImagen =  styled.div`
       & {
@@ -46,17 +48,13 @@ import styled from 'styled-components';
         }
       `
 
-
-
-
-
-
 class CrearPublicacion extends React.Component {
   state = {
-    valoresInput: {imagen:""},
+    valoresInput: {categoria:"", subcategoria:"", titulo:"", subtitulo:"", descripcion:"", imagen:"", pro:"", contra:"", tags:"" },
     comprobarImagen:false,
     categorias: [],
-    subCategorias: []
+    subCategorias: [],
+    open:true
   };
   
   setearInput = (e) => {
@@ -71,13 +69,53 @@ class CrearPublicacion extends React.Component {
     });
   };
 
+  toasts = (tipo, mensaje, position, autoClose, closeOnClick, pauseOnHover, draggable, toastId, closeButton)=>{
+    toast[tipo](mensaje, {
+      position,
+      closeOnClick,
+      pauseOnHover,
+      draggable,
+      toastId,
+      closeButton,
+      autoClose
+      });
+  }
   
   enviarForm = (e) => {
     e.preventDefault();
-    console.log(e.target.dataset.done)
-    const evaluarImagen = {...this.state.valoresInput}
-    if(evaluarImagen)
-    this.props.enviarPublicacion(this.state.valoresInput);
+
+    // console.log(e.target.dataset.done)
+    const tagsComa = this.state.valoresInput.tags.split(',')
+
+    // PREPROCESADO DE INPUTS
+    let tags = tagsComa.map(tag => tag.trim().toLocaleLowerCase())
+    tags = tags.filter(tag => tag !== " " && tag !== "")
+    
+    let pro = tagsComa.map(pro => pro.trim().toLocaleLowerCase())
+    pro = pro.filter(pro => pro !== " " && pro !== "")
+    
+    let contra = tagsComa.map(contra => contra.trim().toLocaleLowerCase())
+    contra = contra.filter(contra => contra !== " " && contra !== "")
+    
+    let {imagen, categoria, subcategoria, titulo, subtitulo, descripcion} = this.state.valoresInput
+    imagen = imagen.trim()
+    titulo = titulo.trim()
+    subtitulo = subtitulo.trim()
+    descripcion = descripcion.trim()
+
+    if(descripcion.length >= 500 && titulo !== "" && subtitulo !== "" && imagen !== ""){
+      const schemaAEnviar = {categoria,subcategoria,titulo,subtitulo,descripcion,imagen,pro,contra,tags}
+      const respuestaErrorOConfirmacion = this.props.enviarPublicacion(schemaAEnviar);
+      // ACA MAPEAR ERRORES
+    }else if(descripcion.length < 500 ){
+      this.toasts("warning","La reseña debe contener 500 caracteres como minimo", "top-center", 5000, true, false, true, "error500Caracteres", true)
+    }else{
+      this.toasts("error","Hay campos requeridos incompletos.", "top-center", 5000, true, false, true, "error500Caracteres", true)
+    }
+
+    const datosFormulario = {tags,pro,contra}
+    // const evaluarImagen = {...this.state.valoresInput}
+
   };
 
   comprobarImagen = (e) => {
@@ -85,128 +123,170 @@ class CrearPublicacion extends React.Component {
     this.setState({...this.state, comprobarImagen:!this.state.comprobarImagen});
   };
 
+  presionoEnter = (e)=>{
+    if (e.key === 'Enter') {
+      console.log('do validate');
+    }
+  }
+
 
 
   ingresarImagen = React.createRef()
-
-  focusInput = (e)=>{
-    this.ingresarImagen.current.focus()
-  }
 
 
   render() {
     return (
       <div className="contenedor">
+
         <form
           className="contenedor-reseña"
         >
           <div className="contenedor-inputs-selects-textarea">
             <div className="contenedor-inputsYselects">
               <div className="contenedor-selects">
-                <select
-                  name="categoria"
-                  defaultValue=""
-                  required={true}
-                  onChange={this.setearInput}
-                  style={{backgroundImage:`url(/assets/dropDownArrow.png)`}}
-                  className={
-                    this.state.valoresInput.categoria
-                      ? "input-select"
-                      : "input-select categoria"
-                  }
-                >
-                  <option value="" disabled>
-                    Seleccione una Categoria
-                  </option>
+                <Tooltip arrow title="La Categoria de su reseña" placement="top-start">
+                  <select
+                    name="categoria"
+                    defaultValue=""
+                    
+                    onChange={this.setearInput}
+                    style={{backgroundImage:`url(/assets/dropDownArrow.png)`}}
+                    className={
+                      this.state.valoresInput.categoria
+                        ? "input-select"
+                        : "input-select categoria"
+                    }
+                  >
+                    <option value="" disabled>
+                      Categoria
+                    </option>
                   {/* Mapeo de categorias */}
-                  <option value="Opcion 1">Opcion 1</option>
-                  <option value="Opcion 2">Opcion 2</option>
-                </select>
-                <select
-                  name="subcategoria"
-                  defaultValue=""
-                  required={true}
-                  onChange={this.setearInput}
-                  style={{backgroundImage:`url(/assets/dropDownArrow.png)`}}
-                  className={
-                    this.state.valoresInput.categoria
-                      ? "input-select"
-                      : "input-select d-none"
-                  }
-                >
-                  <option value="" disabled>
-                    Seleccione una Sub Categoria
-                  </option>
-                  {/* Mapeo de Subcategorias */}
-                  <option value="Opcion 1">Opcion 1</option>
-                  <option value="Opcion 2">Opcion 2</option>
-                </select>
+                    <option value="Opcion 1">Opcion 1</option>
+                    <option value="Opcion 2">Opcion 2</option>
+                  </select>
+                </Tooltip>
+                <Tooltip arrow title="La Sub Categoria de su reseña" placement="top-start">
+                  <select
+                    name="subcategoria"
+                    defaultValue=""
+                    
+                    onChange={this.setearInput}
+                    style={{backgroundImage:`url(/assets/dropDownArrow.png)`}}
+                    className={
+                      this.state.valoresInput.categoria
+                        ? "input-select"
+                        : "input-select d-none"
+                    }
+                  >
+                    <option value="" disabled>
+                      Sub categoria
+                    </option>
+                    {/* Mapeo de Subcategorias */}
+                    <option value="Opcion 1">Opcion 1</option>
+                    <option value="Opcion 2">Opcion 2</option>
+                  </select>
+                </Tooltip>
               </div>
+
               <div className="contenedor-inputs-externo">
                 {/* Titulo */}
                 <div className="contenedor-inputs-interno">
                     <label htmlFor="input-titulo" className="label-subtitulo-titulo titulosAlt">Titulo</label>
-                    <input
+                <Tooltip arrow title="El Título de su reseña" placement="top">
+                    <input value={this.state.valoresInput.titulo}
                     type="text"
                     placeholder="Titulo"
                     autoComplete="off"
                     name="titulo"
-                    required={true}
+                    
                     onChange={this.setearInput}
                     className="input-text"
                     id="input-titulo"
                     />
+                </Tooltip>
+                
                 </div>
                 
                 {/* Sub Titulo */}
                 <div className="contenedor-inputs-interno">
                     <label htmlFor="input-subtitulo" className="label-subtitulo-titulo titulosAlt">Sub Titulo</label>
-                    <input
+                <Tooltip arrow title="El Sub Título de su reseña" placement="top-end">
+                    <input value={this.state.valoresInput.subtitulo}
                     type="text"
                     placeholder="Sub Titulo"
                     autoComplete="off"
                     name="subtitulo"
-                    required={true}
+                    
                     onChange={this.setearInput}
                     className="input-text"
                     id="input-subtitulo"
+                    style={{alignSelf:"flex-end"}}
                     />
+                </Tooltip>
                 </div>
 
               </div>
             </div>
             <div className="contenedor-textarea">
               {/* Descripcion / reseña */}
-              <textarea
-                className="input-textarea"
-                rows={10}
-                cols={60}
-                minLength={500}
-                name="descripcion/reseña"
-                onChange={this.setearInput}
-                required={true}
-              />
+              <div className="contenedor-textarea-interno">
+                <label htmlFor="textarea" className="label-subtitulo-titulo texto label-textarea">Escriba su reseña aquí</label>
+                <Tooltip arrow title="Escriba su Reseña" placement="bottom">
+
+                  <textarea value={this.state.valoresInput.descripcion}
+                    className="input-textarea"
+                    id="textarea"
+                    rows={10}
+                    cols={60}
+                    minLength={500}
+                    name="descripcion"
+                    onChange={this.setearInput}                    
+                  />
+              </Tooltip>
+              </div>
             </div>
           </div>
           <div className="contenedor-input-foto">
                 <div className="input-imagen-boton-comprobar">
-                    <input type="text" ref={this.ingresarImagen} name="imagen" onChange={this.setearInput} placeholder="Carga tu portada" className="input-imagen" />
-                    <button  onClick={this.comprobarImagen} className="boton-comprobar">Comprobar imagen</button>
+                  <Tooltip arrow title="La imagen de portada de su reseña" placement="top-start">
+                    <input value={this.state.valoresInput.imagen} type="text" ref={this.ingresarImagen} autoComplete="off" name="imagen" onChange={this.setearInput} placeholder="Cargue su portada" className="input-imagen" />
+                  </Tooltip>
+                  <Tooltip title="Compruebe si su imagen se muestra correctamente" placement="bottom-start">
+                    <button  onClick={this.comprobarImagen} className="boton-comprobar">
+                      {this.state.comprobarImagen ?
+                        "Editar Pros / Contras / Tags"
+                        :"Comprobar imagen" 
+                      }
+                    </button>
+                  </Tooltip>
                 </div>
-                {!this.state.comprobarImagen && <NoImagen  className="noImage" onClick={this.focusInput}/> }
-                {this.state.comprobarImagen ? <Imagen imagen={this.state.valoresInput.imagen}/> 
-                : <>
-                    <input type="text"  name="pro" onChange={this.setearInput} placeholder="Pros" className="input-imagen" />
-                    <input type="text"  name="contra" onChange={this.setearInput} placeholder="Contras" className="input-imagen" />
-                </> }
+                {this.state.comprobarImagen 
+                ? <Tooltip arrow title={this.state.valoresInput.imagen.length > 32 ? "Imagen de portada" : "Imagen de portada NO VALIDA"} placement="bottom">
+                    <Imagen imagen={this.state.valoresInput.imagen} done={this.state.valoresInput.imagen.length > 32} onClick={()=>this.ingresarImagen.current.focus()}/> 
+                  </Tooltip>
+                : <div className="contenedor-pro-contra-tag">
+                    <label htmlFor="pro" className="label-subtitulo-titulo titulosAlt label-pro-contra">Pros:</label>
+                  <Tooltip arrow title="Ingrese el/los Pros de lo reseñado separados por una coma ' , '" placement="top-end">
+                    <input type="text" value={this.state.valoresInput.pro}id="pro" autoComplete="off" name="pro" onChange={this.setearInput} placeholder="Pros" className="input-imagen" />
+                  </Tooltip>
+                    <label htmlFor="contra" className="label-subtitulo-titulo titulosAlt label-pro-contra">Contras:</label>
+                  <Tooltip arrow title="Ingrese el/los Contras de lo reseñado separados por una coma ' , '" placement="top-end">
+                    <input type="text" value={this.state.valoresInput.contra}id="contra" autoComplete="off" name="contra" onChange={this.setearInput} placeholder="Contras" className="input-imagen" />
+                  </Tooltip>
+                    <label htmlFor="tags" className="label-subtitulo-titulo titulosAlt label-pro-contra">Tags:</label>
+                  <Tooltip arrow title="Ingrese el/los Tags de lo reseñado separados por una coma ' , '" placement="top-end">
+                    <input type="text" value={this.state.valoresInput.tags}id="tags" autoComplete="off" name="tags" onChange={this.setearInput} placeholder="Tags" className="input-imagen" />
+                  </Tooltip>
+                </div> }
                 
           </div>
           <div className="contenedor-enviarForm">
             {/* Boton enviar formulario */}
-            <button onClick={this.enviarForm}  data-done={this.state.valoresInput.imagen.length > 10}  className="boton-postear texto texto-white texto-negrita">
-              Postear
-            </button>
-            
+            <Tooltip arrow title="Postear Reseña" placement="bottom">
+              <button onClick={this.enviarForm}  data-done={this.state.valoresInput.imagen.length > 12}  className="boton-postear texto texto-white texto-negrita">
+                Postear
+              </button>
+            </Tooltip>
           </div>
         </form>
 
@@ -215,7 +295,11 @@ class CrearPublicacion extends React.Component {
     );
   }
 }
-
+const mapStateToProps = state => {
+  return {
+    usuario: state.authReducer.usuarioLogueado
+  }
+}
 const mapDispatchToProps = {
   enviarPublicacion: publicacionesActions.enviarFormulario,
 };

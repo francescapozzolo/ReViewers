@@ -29,6 +29,7 @@ const Header = (props) => {
                             <span className="btn-crearReview texto">Crear review</span>
                         </Link> 
                         <span onClick={props.cerrarSesion} className="mx-1 btn-crearReview texto">Cerrar sesion</span>                  
+
                         <div className="">
                             <div className="usuarioPic mx-auto" style={{
                                 backgroundImage: `url(${props.usuarioLogeado && props.usuarioLogeado.imagen})`
