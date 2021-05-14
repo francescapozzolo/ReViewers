@@ -27,7 +27,12 @@ const publicacionesActions={
     },
     enviarFormulario:(inputs)=>{
         return async(dispatch, getState)=>{
-            const respuesta = await axios.post("http://localhost:4000/api/publicaciones",{inputs})
+            const tokenUsuario = localStorage.getItem('token')
+            const respuesta = await axios.post("http://localhost:4000/api/publicaciones",{...inputs},{
+                headers: {
+                    'Authorization': 'Bearer '+ tokenUsuario
+                }
+            })
             console.log(respuesta)
         }
     },

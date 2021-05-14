@@ -16,7 +16,7 @@ const Carrusel = () => {
     const [visible, setVisible] = useState(aux)
     
     useEffect(() => {
-       setInterval(() => {
+      const intervaloCarrousel = setInterval(() => {
             if(aux === 4) {
                 aux = 1
             } else {
@@ -25,7 +25,7 @@ const Carrusel = () => {
             setVisible(aux)
         }, 5000)
         return () => {
-            clearInterval()
+            clearInterval(intervaloCarrousel)
         }
     }, [])
 
