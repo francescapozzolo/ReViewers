@@ -11,8 +11,9 @@ import Header from './components/Header';
 import authActions from './redux/actions/authActions';
 import PaginaDePrueba from './pages/PaginaDePrueba';
 import Publicaciones from './pages/Publicaciones'
-// import Resenia from './pages/Resenia'
-
+import Resenia from './pages/Resenia'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 class App extends React.Component {
   render(){
     if(!this.props.usuarioLogeado && localStorage.getItem('token')) {
@@ -25,18 +26,26 @@ class App extends React.Component {
     }
 
     return(
+
+
       <BrowserRouter>
-        <Header />
-        <Switch>
-            {!this.props.usuarioLogeado && <Route exact path="/" component={Portada} />}
-            {this.props.usuarioLogeado && <Route path="/inicio" component={Inicio} />}
-            {this.props.usuarioLogeado && <Route path="/publicar" component={CrearPublicacion} />}
-            {this.props.usuarioLogeado && <Route path="/publicaciones/:categoria" component={Publicaciones} />}
-            {/* {this.props.usuarioLogeado && <Route path="/publicacion/:id" component={Resenia} />} */}
-            <Route path="/prueba" component={PaginaDePrueba} />
-            <Redirect to={this.props.usuarioLogeado ? "/inicio" : "/"} />
-        </Switch>
-        <Footer component={Footer}/>
+            <Header />
+            <Switch>
+                {!this.props.usuarioLogeado && <Route exact path="/" component={Portada} />}
+                {this.props.usuarioLogeado && <Route path="/inicio" component={Inicio} />}
+                {this.props.usuarioLogeado && <Route path="/publicar" component={CrearPublicacion} />}
+                <Route path="/prueba" component={PaginaDePrueba} />                
+                <Redirect to={this.props.usuarioLogeado ? "/inicio" : "/"} />
+            </Switch>
+            <Footer component={Footer}/>
+        <ToastContainer
+          newestOnTop={false}
+          closeOnClick
+          draggable
+          pauseOnHover
+          limit={4}
+          hideProgressBar
+        />       
       </BrowserRouter>
       )
   }
