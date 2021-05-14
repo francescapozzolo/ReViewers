@@ -2,30 +2,10 @@ const express = require('express')
 const router = express.Router()
 const validarRegistro = require('../config/validador')
 const passport = require('passport')
-const multer  = require('multer')
 
 const controladoresDeUsuarios = require('../controladores/controladoresDeUsuarios')
 const controladoresDeComentarios = require('../controladores/controladoresDeComentarios')
 const controladoresDePublicaciones = require('../controladores/controladoresDePublicaciones')
-
-const storage = multer.diskStorage({
-    destination:'../Frontend/public/uploads',
-    filename: (req, file, cb)=>{
-        cb (null, file.originalname)
-    }
-})
-const upload = multer({
-    storage,
-    dest: '../Frontend/public/uploads',
-    limits:{fileSize:3000000},
-    fileFilter: (req, file, cb)=>{
-        const fileTypes = /jpeg|jpg|png/
-        const mimetype = fileTypes.test(file.mimetype)
-        const extname = fileTypes.test(file.mimetype)
-    }
-}).single('imagen')
-
-router.use(express.static('../Frontend/public'))
 
 
 
@@ -42,11 +22,6 @@ router.route('/usuarios/:id')
 .delete(controladoresDeUsuarios.eliminarUnUsuario)
 .put(controladoresDeUsuarios.editarUsuario)
 
-// DUPLICADO
-// router.route('/usuarios/registrarse') 
-// .post(validarRegistro, controladoresDeUsuarios.registrarUsuario)
-
-
 
 router.route('/usuarios/iniciarSesion')
 .post(controladoresDeUsuarios.iniciarSesion)
@@ -58,7 +33,7 @@ router.route('/iniciarSesionLS')
 // Reseñas | Publicaciones 
 router.route('/publicaciones')
 .get(controladoresDePublicaciones.todasLasPublicaciones) //anda
-.post(upload,controladoresDePublicaciones.cargarPublicacion) //anda
+.post(controladoresDePublicaciones.cargarPublicacion) //anda
 
 
 router.route('/publicaciones/:id')
@@ -68,9 +43,13 @@ router.route('/publicaciones/:id')
 router.route('/publicaciones/:categoria')
 .get(controladoresDePublicaciones.publicacionesCategoria) //anda
 
-// Valoracion de la publicación (estrellas de calificacion)
+
+// Valoracion (estrellas) | Likes
 router.route('/publicacionValorada/:id')
 .post(controladoresDePublicaciones.cargarValoracion)
+
+router.route('/publicacionLikeada/:id')
+.post(controladoresDePublicaciones.cargarLike)
 
 
 // Comentarios

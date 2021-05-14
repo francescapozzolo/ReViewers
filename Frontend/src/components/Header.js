@@ -28,6 +28,7 @@ const Header = (props) => {
                                 backgroundImage: `url(${props.usuarioLogeado && props.usuarioLogeado.imagen})`
                             }}></div>
                         </div>
+
                     </div>
                 </>
                 }
