@@ -5,11 +5,15 @@ import publicacionesActions from '../redux/actions/publicacionesActions';
 
 class Inicio extends React.Component{
     
-    // state = {
-    //     categoriasSeleccionadas: [],
-    //     publicaciones: [],
-    //     publicacionesPorCategoria: []
-    // }
+    state = {
+        categoriasSeleccionadas: [],
+        publicaciones: [],
+        Deportes: [],
+        Entretenimiento: [],
+        Tecnología: [],
+        Gastronomía: [],
+    }
+
 
     // componentDidMount(){
     //     this.props.cargarPublicaciones(this.setState({
@@ -18,6 +22,47 @@ class Inicio extends React.Component{
     //     }))
     // }
     
+    elegirCategorias = (e)=>{
+        const categoriaItem = e.target.dataset.info
+        if(this.state.categoriasSeleccionadas.indexOf(categoriaItem) === -1){
+            this.setState({
+                ...this.state,
+                categoriasSeleccionadas: [...this.state.categoriasSeleccionadas, categoriaItem]
+            })
+        } else{
+            this.setState({
+                ...this.state,
+                categoriasSeleccionadas: this.state.categoriasSeleccionadas.filter(item => item !== categoriaItem)
+            })
+        }
+        
+        this.setState({
+            ...this.state,    
+            [categoriaItem]: this.props.publicaciones.filter(publicacion => publicacion.categoria === categoriaItem)
+        }) 
+    }
+
+
+
+    // filtrarCategorias = (e) => {
+    //     const categoriaItem = e.target.dataset.info
+    //     console.log(categoriaItem)
+    //     console.log(this.props.publicaciones.filter(publicacion => publicacion.categoria === categoriaItem))
+    //     this.setState({
+    //         ...this.state,
+    //         // publicacionesUpdated: {
+    //         //     ...this.publicacionesUpdated,
+    //             Deportes: this.props.publicaciones.filter(publicacion => publicacion.categoria === categoriaItem)    
+    //         }
+    //     // }
+    //     ) 
+    // }
+
+    // functionGeneral = (e) => {
+    //     this.elegirCategorias(e)
+    // }
+
+    //render() {          
     // elegirCategorias = (e)=>{
     //     const categoriaItem = e.target.dataset.info
     //     if(this.state.categoriasSeleccionadas.indexOf(categoriaItem) === -1){
