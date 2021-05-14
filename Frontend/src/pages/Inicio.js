@@ -77,7 +77,7 @@ class Inicio extends React.Component{
 
 const mapStateToProps = state => {
     return{
-        publicaciones: state.publicacionReducer.publicaciones
+        publicaciones: state.publicacionReducer.todasLasPublicaciones
     }
 }
 
