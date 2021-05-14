@@ -46,29 +46,16 @@ const controladorPublicaciones = {
     },
 
     cargarPublicacion: async (req , res)=>{
-        console.log("entro")
-        console.log(req.body)
-        console.log(req.file)
         try{
-            // console.log(req.body)
-            // console.log(req.file)
-
-         
-
+           
             const nuevaPublicacion = new Resenia(req.body)
             await nuevaPublicacion.save()
             const todasLasPublicaciones = await Resenia.find()
-            res.json({success: true, response: nuevaPublicacion})
-
-            // const nuevaPublicacion = new Resenia(req.body)
-            // await nuevaPublicacion.save()
-            // const todasLasPublicaciones = await Resenia.find()
-            // res.json({success: true, respuesta: nuevaPublicacion})
+            res.json({success: true, respuesta: nuevaPublicacion})
 
         }catch(error){
-            // console.log("error cargar publicacion" , error)
-
-            // res.json({success: false, respuesta: error})
+            console.log("error cargar publicacion" , error)
+            res.json({success: false, respuesta: error})
         }
     },
 
