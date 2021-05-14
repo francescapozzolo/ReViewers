@@ -10,7 +10,7 @@ import CrearPublicacion from './components/CrearPublicacion';
 import Header from './components/Header';
 import authActions from './redux/actions/authActions';
 import PaginaDePrueba from './pages/PaginaDePrueba';
-
+import Resenia from './pages/Resenia'
 class App extends React.Component {
   render(){
     if(!this.props.usuarioLogeado && localStorage.getItem('token')) {
@@ -29,7 +29,8 @@ class App extends React.Component {
                 <Route exact path="/" component={Portada} />
                 <Route path="/inicio" component={Inicio} />
                 <Route path="/publicar" component={CrearPublicacion} />
-                <Route path="/prueba" component={PaginaDePrueba} />                
+                <Route path="/prueba" component={PaginaDePrueba} />    
+                <Route path="/review/:id" component={Resenia} />            
                 <Redirect to="/" />
             </Switch>
             <Footer component={Footer}/>
