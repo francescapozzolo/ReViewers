@@ -928,8 +928,19 @@ footer{
     display: none;
 }
 
-.borrar {
+.centradorDePrueba-borrar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* text-align: center; */
     background: rgb(209, 255, 209);
-    text-align: center;
     margin-bottom: 10vh;
+}
+
+.reseñaDePrueba-borrar{
+    width: 20vw;
+    /* height: 10vh; */
+    padding: 20px 10px;
+    border: 1px solid black;
+    margin-bottom: 1vh;
 }
