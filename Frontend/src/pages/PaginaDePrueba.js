@@ -35,10 +35,6 @@ const PaginaDePrueba = ({filtroPorPalabraClave, cargarPublicaciones, todasLasPub
             })
             : <h1>Actualmente no hay reseñas que hablen de eso, pero sé el primero en escribir una!</h1> }             
          </div>
-
-         {/* <div className="centradorDePrueba-borrar">
-            <FiltroPorPClave todasLasPublics={hola} />
-         </div> */}
       </>
    )
 }
