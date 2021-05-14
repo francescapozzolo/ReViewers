@@ -28,7 +28,12 @@ class App extends React.Component {
             <Switch>
                 <Route exact path="/" component={Portada} />
                 <Route path="/inicio" component={Inicio} />
+<<<<<<< HEAD
                 <Route path="/publicar" component={CrearPublicacion} />     
+=======
+                <Route path="/publicar" component={CrearPublicacion} />
+                {/* //<Route path="/prueba" component={PaginaDePrueba} />                 */}
+>>>>>>> 4b6546e48402f4f6af5d3b16e5c7389ba3879d09
                 <Redirect to="/" />
             </Switch>
             <Footer component={Footer}/>
