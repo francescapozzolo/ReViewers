@@ -70,9 +70,13 @@ router.route('/publicaciones/:id')
 router.route('/publicaciones/:categoria')
 .get(controladoresDePublicaciones.publicacionesCategoria) //anda
 
-// Valoracion de la publicación (estrellas de calificacion)
+
+// Valoracion (estrellas) | Likes
 router.route('/publicacionValorada/:id')
 .post(controladoresDePublicaciones.cargarValoracion)
+
+router.route('/publicacionLikeada/:id')
+.post(controladoresDePublicaciones.cargarLike)
 
 
 // Comentarios

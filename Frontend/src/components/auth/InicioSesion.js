@@ -12,7 +12,7 @@ const InicioSesion = (props) =>{
     })
 
     console.log(usuarioPagina)
-    const { mail, clave } = usuarioPagina
+    const { mail, clave } = usuarioPagina 
 
     const guardarInfoUsuario = (e) => {
         e.preventDefault();
