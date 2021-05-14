@@ -1,32 +1,54 @@
 import MeGusta from '../components/utilidades/MeGusta'
 import Valoracion from '../components/utilidades/Valoracion'
 import FiltroPorPClave from '../components/utilidades/FiltroPorPClave'
+import {connect} from 'react-redux'
+import publicacionesActions from '../redux/actions/publicacionesActions'
+import { useEffect } from 'react'
 
-const PaginaDePrueba = ()=> {
+const PaginaDePrueba = ({filtroPorPalabraClave, cargarPublicaciones, todasLasPublicaciones, publicacionesFiltradas})=> {
 
-   const hola = [
-      {titulo: "Reseña #1", tags: ['deporte', 'ropa', 'pasto']},
-      {titulo: "Reseña #2", tags: ['tecnologia', 'computadora', 'gaming']},
-      {titulo: "Reseña #3", tags: ['love', 'instagood', 'photooftheday']},
-      {titulo: "Reseña #4", tags: ['fashion', 'beautiful', 'happy']},
-      {titulo: "Reseña #5", tags: ['cute', 'tbt', 'like4like']},
-      {titulo: "Reseña #6", tags: ['followme', 'picoftheday', 'summer']},
-      {titulo: "Reseña #7", tags: ['me', 'selfie', 'gaming']},
-      {titulo: "Reseña #8", tags: ['art', 'instadaily', 'friends']},
-      {titulo: "Reseña #9", tags: ['repost', 'nature', 'girl']},
-      {titulo: "Reseña #10", tags: ['fun', 'style', 'smile', 'food']},
-   ]
+   useEffect(()=>{
+      cargarPublicaciones()
+   },[])
 
+   console.log(todasLasPublicaciones)
+   console.log(publicacionesFiltradas)
    return (
       <>
          <Valoracion idPublicacion={"609d4be85ea53f26e899e7ce"} idUsuario={"609c5cc478d84916706c147c"} />
          <MeGusta idPublicacion={"609d4be85ea53f26e899e7ce"} idUsuario={"609c5cc478d84916706c147c"}/>  
-         <div className="borrar">
-            <FiltroPorPClave todasLasPublics={hola} />
+         
+         
+         <div className="centradorDePrueba-borrar">
+
+            <input type="text" onChange={(e)=> filtroPorPalabraClave(e.target.value)} placeholder="Busca por Palabra Clave" />
+
+            { publicacionesFiltradas.length > 0 ?
+            publicacionesFiltradas.map( (publicacion) => {
+               return(
+                  <div key={publicacion.id} className="reseñaDePrueba-borrar"> {/* Mas adelante la key seria el _id */}
+                     <h1> {publicacion.titulo} </h1>
+                     <p>Palabras Clave:</p>
+                     <div> {publicacion.tags.map(tag => <p>{tag}</p> ) } </div>
+                  </div>
+               )
+            })
+            : <h1>Actualmente no hay reseñas que hablen de eso, pero sé el primero en escribir una!</h1> }             
          </div>
       </>
    )
 }
 
+const mapStateToProps = (state)=>{
+   return {
+      todasLasPublicaciones: state.publicaciones.todasLasPublicaciones,
+      publicacionesFiltradas: state.publicaciones.publicacionesFiltradas
+   }
+}
 
-export default PaginaDePrueba
+const mapDispatchToProps = {
+   filtroPorPalabraClave: publicacionesActions.filtroPorPalabraClave,
+   cargarPublicaciones: publicacionesActions.cargarPublicaciones
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PaginaDePrueba)
