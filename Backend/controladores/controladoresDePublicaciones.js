@@ -3,6 +3,15 @@ const Resenia = require('../modelos/Resenia')
 //posible modificacion en los parametros de findOne , findOneAndDelete , findOneAndUpdate
 
 const controladorPublicaciones = {
+    publicacionPorID: async (req , res) => {
+        try{
+            const unicaPublicacion = await Resenia.findOne({_id: req.params.id})
+            res.json({success: true , respuesta: unicaPublicacion})
+        }catch(error){
+            console.log("error en publicacionPorID" , error)
+            res.json({success: false , respuesta: error})
+        }
+    },
     todasLasPublicaciones: async (req , res)=>{
         try{
             const todasPublicaciones = await Resenia.find()

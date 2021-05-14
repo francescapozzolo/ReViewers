@@ -37,7 +37,7 @@ const Carrusel = () => {
                         <h1 className="texto titulosAlt">Mejores reviews</h1>
                     </div>
                     <div style={{backgroundImage: 'url("/assets/gastronomia/pescado.jpg")'}}></div>
-                    <div style={{backgroundImage: 'url("/assets/gastronomia/macarrons.jpg")'}}></div>
+                    <div style={{backgroundImage: 'url("/assets/gastronomia/macarons.jpg")'}}></div>
                     <div>
                         <h2 className="titulosFont">GASTRONOMIA</h2>
                     </div>

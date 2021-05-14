@@ -37,6 +37,7 @@ router.route('/publicaciones')
 
 
 router.route('/publicaciones/:id')
+.get(controladoresDePublicaciones.publicacionPorID)
 .delete(controladoresDePublicaciones.borrarPublicacion) //anda
 .put(controladoresDePublicaciones.editarPublicacion) //anda
 
