@@ -15,12 +15,12 @@ class Inicio extends React.Component{
     }
 
 
-    // componentDidMount(){
-    //     this.props.cargarPublicaciones(this.setState({
-    //         ...this.state,
-    //         publicaciones: [...this.props.publicaciones],
-    //     }))
-    // }
+    componentDidMount(){
+        this.props.cargarPublicaciones(this.setState({
+            ...this.state,
+            publicaciones: [...this.props.publicaciones],
+        }))
+    }
     
     elegirCategorias = (e)=>{
         const categoriaItem = e.target.dataset.info

@@ -17,6 +17,7 @@ import styled from 'styled-components';
         background-position:center;
         background-repeat:no-repeat;
         background-image:url(${props => props.imagen});
+        cursor:pointer;
       }
       &:after {
           content: "";
@@ -76,7 +77,6 @@ class CrearPublicacion extends React.Component {
     e.preventDefault();
     console.log(e.target.dataset.done)
     const evaluarImagen = {...this.state.valoresInput}
-    if(evaluarImagen)
     this.props.enviarPublicacion(this.state.valoresInput);
   };
 
@@ -88,10 +88,6 @@ class CrearPublicacion extends React.Component {
 
 
   ingresarImagen = React.createRef()
-
-  focusInput = (e)=>{
-    this.ingresarImagen.current.focus()
-  }
 
 
   render() {
@@ -116,7 +112,7 @@ class CrearPublicacion extends React.Component {
                   }
                 >
                   <option value="" disabled>
-                    Seleccione una Categoria
+                    Categoria
                   </option>
                   {/* Mapeo de categorias */}
                   <option value="Opcion 1">Opcion 1</option>
@@ -135,7 +131,7 @@ class CrearPublicacion extends React.Component {
                   }
                 >
                   <option value="" disabled>
-                    Seleccione una Sub Categoria
+                    Sub categoria
                   </option>
                   {/* Mapeo de Subcategorias */}
                   <option value="Opcion 1">Opcion 1</option>
@@ -170,6 +166,7 @@ class CrearPublicacion extends React.Component {
                     onChange={this.setearInput}
                     className="input-text"
                     id="input-subtitulo"
+                    style={{alignSelf:"flex-end"}}
                     />
                 </div>
 
@@ -177,28 +174,41 @@ class CrearPublicacion extends React.Component {
             </div>
             <div className="contenedor-textarea">
               {/* Descripcion / reseña */}
-              <textarea
-                className="input-textarea"
-                rows={10}
-                cols={60}
-                minLength={500}
-                name="descripcion/reseña"
-                onChange={this.setearInput}
-                required={true}
-              />
+              <div className="contenedor-textarea-interno">
+                <label htmlFor="textarea" className="label-subtitulo-titulo texto label-textarea">Escriba su reseña aquí</label>
+                <textarea
+                  className="input-textarea"
+                  id="textarea"
+                  rows={10}
+                  cols={60}
+                  minLength={500}
+                  name="descripcion/reseña"
+                  onChange={this.setearInput}
+                  required={true}
+                />
+              </div>
             </div>
           </div>
           <div className="contenedor-input-foto">
                 <div className="input-imagen-boton-comprobar">
-                    <input type="text" ref={this.ingresarImagen} name="imagen" onChange={this.setearInput} placeholder="Carga tu portada" className="input-imagen" />
-                    <button  onClick={this.comprobarImagen} className="boton-comprobar">Comprobar imagen</button>
+                    <input type="text" ref={this.ingresarImagen} autoComplete="off" name="imagen" onChange={this.setearInput} placeholder="Cargue su portada" className="input-imagen" />
+                    <button  onClick={this.comprobarImagen} className="boton-comprobar">
+                      {this.state.comprobarImagen ?
+                     "Editar Pros / Contras / Tags"
+                     :"Comprobar imagen" 
+                    }
+                     </button>
                 </div>
-                {!this.state.comprobarImagen && <NoImagen  className="noImage" onClick={this.focusInput}/> }
-                {this.state.comprobarImagen ? <Imagen imagen={this.state.valoresInput.imagen}/> 
-                : <>
-                    <input type="text"  name="pro" onChange={this.setearInput} placeholder="Pros" className="input-imagen" />
-                    <input type="text"  name="contra" onChange={this.setearInput} placeholder="Contras" className="input-imagen" />
-                </> }
+                {this.state.comprobarImagen ? <Imagen imagen={this.state.valoresInput.imagen} onClick={()=>this.ingresarImagen.current.focus()}/> 
+                : <div className="contenedor-pro-contra-tag">
+                    <label htmlFor="pro" className="label-subtitulo-titulo titulosAlt label-pro-contra">Pros:</label>
+                    <input type="text" id="pro" autoComplete="off" name="pro" onChange={this.setearInput} placeholder="Pros" className="input-imagen" />
+                    <label htmlFor="contra" className="label-subtitulo-titulo titulosAlt label-pro-contra">Contras:</label>
+                    <input type="text" id="contra" autoComplete="off" name="contra" onChange={this.setearInput} placeholder="Contras" className="input-imagen" />
+
+                    <label htmlFor="tags" className="label-subtitulo-titulo titulosAlt label-pro-contra">Tags:</label>
+                    <input type="text" id="tags" autoComplete="off" name="tags" onChange={this.setearInput} placeholder="Tags" className="input-imagen" />
+                </div> }
                 
           </div>
           <div className="contenedor-enviarForm">

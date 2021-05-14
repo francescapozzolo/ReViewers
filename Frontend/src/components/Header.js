@@ -22,8 +22,10 @@ const Header = (props) => {
                     <Registro />
                 </div> 
                 : <>
-                    <div className="contenedorUsuarioHeader">            
-                        <span className="btn-crearReview">Crear review</span>
+                    <div className="contenedorUsuarioHeader">           
+                        <Link to="/publicar">
+                            <span className="btn-crearReview">Crear review</span>
+                        </Link> 
                         <span onClick={props.cerrarSesion} className="mx-1 btn-crearReview">Cerrar sesion</span>                  
                         <div className="">
                             <div className="usuarioPic mx-auto" style={{
