@@ -27,8 +27,8 @@ const publicacionesActions={
     },
     enviarFormulario:(inputs)=>{
         return async(dispatch, getState)=>{
-            // const respuesta = await axios.post("http://localhost:4000/api/publicaciones",{inputs, imagen})
-            // console.log(respuesta)
+            const respuesta = await axios.post("http://localhost:4000/api/publicaciones",{inputs})
+            console.log(respuesta)
         }
     },
     cargarValoracion: (idPublicacion, {idUsuario, valoracion})=>{
