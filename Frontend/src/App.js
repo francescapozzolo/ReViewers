@@ -27,15 +27,15 @@ class App extends React.Component {
     return(
 
       <BrowserRouter>
-        <Header />
-        <Switch>
-            {!this.props.usuarioLogeado && <Route exact path="/" component={Portada} />}
-            {this.props.usuarioLogeado && <Route path="/inicio" component={Inicio} />}
-            {this.props.usuarioLogeado && <Route path="/publicar" component={CrearPublicacion} />}
-            <Route path="/prueba" component={PaginaDePrueba} />
-            <Redirect to={this.props.usuarioLogeado ? "/inicio" : "/"} />
-        </Switch>
-        <Footer component={Footer}/>
+            <Header />
+            <Switch>
+                {!this.props.usuarioLogeado && <Route exact path="/" component={Portada} />}
+                {this.props.usuarioLogeado && <Route path="/inicio" component={Inicio} />}
+                {this.props.usuarioLogeado && <Route path="/publicar" component={CrearPublicacion} />}
+                <Route path="/prueba" component={PaginaDePrueba} />                
+                <Redirect to={this.props.usuarioLogeado ? "/inicio" : "/"} />
+            </Switch>
+            <Footer component={Footer}/>
         <ToastContainer
           newestOnTop={false}
           closeOnClick

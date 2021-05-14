@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import authActions from '../redux/actions/authActions'
+import CompletarRegistro from './auth/CompletarRegistro'
 import InicioSesion from './auth/InicioSesion'
 import Registro from './auth/Registro'
 
@@ -16,17 +17,19 @@ const Header = (props) => {
                 
                 {
                 !props.usuarioLogeado
-                    ?<div className="contenedorEnlaces flex flex-end">
+                ? <div className="contenedorEnlaces flex flex-end">
                     <NavLink className="link titulosAlt mx-1" to="/nosotros">Nosotros</NavLink>
                     <InicioSesion />
+                    {/* <CompletarRegistro /> */}
                     <Registro />
                 </div> 
                 : <>
-                    <div className="contenedorUsuarioHeader">           
+                    <div className="contenedorUsuarioHeader">            
                         <Link to="/publicar">
-                            <span className="btn-crearReview">Crear review</span>
+                            <span className="btn-crearReview texto">Crear review</span>
                         </Link> 
-                        <span onClick={props.cerrarSesion} className="mx-1 btn-crearReview">Cerrar sesion</span>                  
+                        <span onClick={props.cerrarSesion} className="mx-1 btn-crearReview texto">Cerrar sesion</span>                  
+
                         <div className="">
                             <div className="usuarioPic mx-auto" style={{
                                 backgroundImage: `url(${props.usuarioLogeado && props.usuarioLogeado.imagen})`
@@ -37,13 +40,6 @@ const Header = (props) => {
                 </>
                 }
             </nav>
-
-            <div className="contenedorBuscador">
-                <div className="buscador">
-                    <input id="buscador" className="titulosAlt" type="text" placeholder="Buscar dentro de categoría"></input>
-                </div>
-            </div>
-
         </header>
   )
 }
