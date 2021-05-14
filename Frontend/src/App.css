@@ -749,3 +749,26 @@ footer{
     margin-right: auto;
 }
 
+/* Icono Me Gusta */
+
+.icono-meGusta {
+    font-size: 30px;
+}
+
+.icono-meGusta:hover {
+    cursor: pointer;
+}
+
+.icono-meGustaActivo {
+    font-size: 30px;
+    color: rgb(46,137,255);
+}
+
+.icono-meGustaActivo:hover {
+    cursor: pointer;
+}
+
+
+.displayNone { 
+    display: none;
+}
