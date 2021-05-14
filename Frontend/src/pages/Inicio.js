@@ -35,7 +35,6 @@ class Inicio extends React.Component{
 
     render() {
 
-        this.filtrarPorCategorias()
         return(      
             <main>
                 <div className="contenedorLinkCategoria">
