@@ -42,7 +42,6 @@ router.route('/usuarios/:id')
 .delete(controladoresDeUsuarios.eliminarUnUsuario)
 .put(controladoresDeUsuarios.editarUsuario)
 
-
 // DUPLICADO
 // router.route('/usuarios/registrarse') 
 // .post(validarRegistro, controladoresDeUsuarios.registrarUsuario)
