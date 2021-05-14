@@ -8,6 +8,10 @@ class Inicio extends React.Component{
     state = {
         categoriasSeleccionadas: [],
         publicaciones: [],
+        Deportes: [],
+        Entretenimiento: [],
+        Tecnología: [],
+        Gastronomía: []
     }
 
     componentDidMount(){
@@ -29,19 +33,43 @@ class Inicio extends React.Component{
                 ...this.state,
                 categoriasSeleccionadas: this.state.categoriasSeleccionadas.filter(item => item !== categoriaItem)
             })
-        }  
-        console.log(this.state.categoriasSeleccionadas)  
+        }
+        
+        this.setState({
+            ...this.state,    
+            [categoriaItem]: this.props.publicaciones.filter(publicacion => publicacion.categoria === categoriaItem)
+        }) 
+    }
+
+    // filtrarCategorias = (e) => {
+    //     const categoriaItem = e.target.dataset.info
+    //     console.log(categoriaItem)
+    //     console.log(this.props.publicaciones.filter(publicacion => publicacion.categoria === categoriaItem))
+    //     this.setState({
+    //         ...this.state,
+    //         // publicacionesUpdated: {
+    //         //     ...this.publicacionesUpdated,
+    //             Deportes: this.props.publicaciones.filter(publicacion => publicacion.categoria === categoriaItem)    
+    //         }
+    //     // }
+    //     ) 
+    // }
+
+    functionGeneral = (e) => {
+        // this.filtrarCategorias(e)
+        this.elegirCategorias(e)
     }
 
     render() {
-
+        console.log(this.state)
+          
         return(      
             <main>
                 <div className="contenedorLinkCategoria">
-                    <p data-info="Entretenimiento" onClick={this.elegirCategorias} className="link titulosAlt">Entretenimiento</p>
-                    <p data-info="Deportes" onClick={this.elegirCategorias} className="link titulosAlt">Deportes</p>
-                    <p data-info="Gastronomía" onClick={this.elegirCategorias} className="link titulosAlt">Gastronomía</p>
-                    <p data-info="Tecnología" onClick={this.elegirCategorias} className="link titulosAlt">Tecnología</p>
+                    <p data-info="Entretenimiento" onClick={this.functionGeneral} className="link titulosAlt">Entretenimiento</p>
+                    <p data-info="Deportes" onClick={this.functionGeneral} className="link titulosAlt">Deportes</p>
+                    <p data-info="Gastronomía" onClick={this.functionGeneral} className="link titulosAlt">Gastronomía</p>
+                    <p data-info="Tecnología" onClick={this.functionGeneral} className="link titulosAlt">Tecnología</p>
                 </div>
                 <div className="gridInicio">
                     {this.props.publicaciones.slice(0, 10).map(publicacion=>{
