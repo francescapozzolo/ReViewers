@@ -26,8 +26,8 @@ router.route('/usuarios/:id')
 router.route('/usuarios/iniciarSesion')
 .post(controladoresDeUsuarios.iniciarSesion)
 
-router.route('/usuarios/inicioForzado')
-.post(controladoresDeUsuarios.inicioForzado)
+router.route('/iniciarSesionLS')
+.get(passport.authenticate('jwt', {session: false}), controladoresDeUsuarios.inicioForzado)
 
 
 // Reseñas | Publicaciones 
