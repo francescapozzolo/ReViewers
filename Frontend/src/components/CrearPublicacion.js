@@ -35,11 +35,11 @@ import styled from 'styled-components';
     `
       const NoImagen =  styled.div`
       & {
-          width: 100%;
-          height: 64.5%;
+          width: 30%;
+          height: 30%;
           position: relative;
           border-radius:10px;
-          background-size:60% 60%;
+          background-size:contain;
           background-position:center;
           background-repeat:no-repeat;
           background-image:url('/assets/noPic.png');
@@ -76,7 +76,7 @@ class CrearPublicacion extends React.Component {
     console.log(e.target.dataset.done)
     const evaluarImagen = {...this.state.valoresInput}
     if(evaluarImagen)
-    this.props.cargarPublicacion( this.state.valoresInput);
+    this.props.enviarPublicacion(this.state.valoresInput);
   };
 
   comprobarImagen = (e) => {
@@ -86,9 +86,11 @@ class CrearPublicacion extends React.Component {
 
 
 
-  ingresarImagen = React.createRef(null)
+  ingresarImagen = React.createRef()
 
-
+  focusInput = (e)=>{
+    this.ingresarImagen.current.focus()
+  }
 
 
   render() {
@@ -105,6 +107,7 @@ class CrearPublicacion extends React.Component {
                   defaultValue=""
                   required={true}
                   onChange={this.setearInput}
+                  style={{backgroundImage:`url(/assets/dropDownArrow.png)`}}
                   className={
                     this.state.valoresInput.categoria
                       ? "input-select"
@@ -123,7 +126,7 @@ class CrearPublicacion extends React.Component {
                   defaultValue=""
                   required={true}
                   onChange={this.setearInput}
-                  style={{backgroundImage:`url(/assets/flechaAbajo.png)`}}
+                  style={{backgroundImage:`url(/assets/dropDownArrow.png)`}}
                   className={
                     this.state.valoresInput.categoria
                       ? "input-select"
@@ -186,13 +189,16 @@ class CrearPublicacion extends React.Component {
           </div>
           <div className="contenedor-input-foto">
                 <div className="input-imagen-boton-comprobar">
-                    <input type="text" ref="ingresarImagen" ref={this.ingresarImagen} name="imagen" onChange={this.setearInput} placeholder="Carga tu portada" className="input-imagen" />
+                    <input type="text" ref={this.ingresarImagen} name="imagen" onChange={this.setearInput} placeholder="Carga tu portada" className="input-imagen" />
                     <button  onClick={this.comprobarImagen} className="boton-comprobar">Comprobar imagen</button>
                 </div>
-                {this.state.comprobarImagen && <Imagen imagen={this.state.valoresInput.imagen}/> }
-                {!this.state.comprobarImagen && <NoImagen  className="noImage" /> }
-
-            
+                {!this.state.comprobarImagen && <NoImagen  className="noImage" onClick={this.focusInput}/> }
+                {this.state.comprobarImagen ? <Imagen imagen={this.state.valoresInput.imagen}/> 
+                : <>
+                    <input type="text"  name="pro" onChange={this.setearInput} placeholder="Pros" className="input-imagen" />
+                    <input type="text"  name="contra" onChange={this.setearInput} placeholder="Contras" className="input-imagen" />
+                </> }
+                
           </div>
           <div className="contenedor-enviarForm">
             {/* Boton enviar formulario */}
@@ -210,7 +216,7 @@ class CrearPublicacion extends React.Component {
 }
 
 const mapDispatchToProps = {
-  cargarPublicacion: publicacionesActions.enviarFormulario,
+  enviarPublicacion: publicacionesActions.enviarFormulario,
 };
 
 export default connect(null, mapDispatchToProps)(CrearPublicacion);

@@ -8,14 +8,19 @@ class Inicio extends React.Component{
     state = {
         categoriasSeleccionadas: [],
         publicaciones: [],
+        Deportes: [],
+        Entretenimiento: [],
+        Tecnología: [],
+        Gastronomía: [],
     }
 
-    componentDidMount(){
-        this.props.cargarPublicaciones(this.setState({
-            ...this.state,
-            publicaciones: [...this.props.publicaciones],
-        }))
-    }
+
+    // componentDidMount(){
+    //     this.props.cargarPublicaciones(this.setState({
+    //         ...this.state,
+    //         publicaciones: [...this.props.publicaciones],
+    //     }))
+    // }
     
     elegirCategorias = (e)=>{
         const categoriaItem = e.target.dataset.info
@@ -29,12 +34,61 @@ class Inicio extends React.Component{
                 ...this.state,
                 categoriasSeleccionadas: this.state.categoriasSeleccionadas.filter(item => item !== categoriaItem)
             })
-        }  
-        console.log(this.state.categoriasSeleccionadas)  
+        }
+        
+        this.setState({
+            ...this.state,    
+            [categoriaItem]: this.props.publicaciones.filter(publicacion => publicacion.categoria === categoriaItem)
+        }) 
     }
 
-    render() {
 
+
+    // filtrarCategorias = (e) => {
+    //     const categoriaItem = e.target.dataset.info
+    //     console.log(categoriaItem)
+    //     console.log(this.props.publicaciones.filter(publicacion => publicacion.categoria === categoriaItem))
+    //     this.setState({
+    //         ...this.state,
+    //         // publicacionesUpdated: {
+    //         //     ...this.publicacionesUpdated,
+    //             Deportes: this.props.publicaciones.filter(publicacion => publicacion.categoria === categoriaItem)    
+    //         }
+    //     // }
+    //     ) 
+    // }
+
+    // functionGeneral = (e) => {
+    //     this.elegirCategorias(e)
+    // }
+
+    //render() {          
+    // elegirCategorias = (e)=>{
+    //     const categoriaItem = e.target.dataset.info
+    //     if(this.state.categoriasSeleccionadas.indexOf(categoriaItem) === -1){
+    //         this.setState({
+    //             ...this.state,
+    //             categoriasSeleccionadas: [...this.state.categoriasSeleccionadas, categoriaItem]
+    //         })
+    //     } else{
+    //         this.setState({
+    //             ...this.state,
+    //             categoriasSeleccionadas: this.state.categoriasSeleccionadas.filter(item => item !== categoriaItem)
+    //         })
+    //     }  
+    // }
+
+    // filtrarPorCategoria = () =>{
+    //     let stringCategoria = this.state.categoriasSeleccionadas.join('')
+    //     this.props.publicaciones.filter(publicacion => {})
+    //     // let filtrao = this.props.publicaciones.filter(publicacion =>this.state.categoriasSeleccionadas.filter(item => item === publicacion.categoria))
+    //     // console.log(filtrao)
+    // }
+
+    render() {
+        // console.log(this.state.categoriasSeleccionadas)
+        // console.log(this.props.publicaciones)
+        // this.filtrarPorCategoria()
         return(      
             <main>
                 <div className="contenedorLinkCategoria">
