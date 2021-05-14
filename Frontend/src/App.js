@@ -9,7 +9,7 @@ import Portada from './pages/Portada';
 import CrearPublicacion from './components/CrearPublicacion';
 import Header from './components/Header';
 import authActions from './redux/actions/authActions';
-//import PaginaDePrueba from './pages/PaginaDePrueba';
+import PaginaDePrueba from './pages/PaginaDePrueba';
 
 class App extends React.Component {
   render(){
