@@ -669,7 +669,7 @@ footer{
 
 /* REGISTRO */
 .App {
-    min-height: 100vh;
+    /* min-height: 100vh; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -917,7 +917,12 @@ footer{
     cursor: pointer;
 }
 
-
 .displayNone { 
     display: none;
+}
+
+.borrar {
+    background: rgb(209, 255, 209);
+    text-align: center;
+    margin-bottom: 10vh;
 }
