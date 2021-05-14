@@ -23,7 +23,6 @@ const controladorPublicaciones = {
     },
     publicacionesCategoria: async (req , res)=>{
         try{
-
             const publicacionCategoria = await Resenia.findOne({categoria: req.params.categoria})
             res.json({success: true , respuesta: publicacionCategoria})
 
@@ -56,11 +55,15 @@ const controladorPublicaciones = {
 
     cargarPublicacion: async (req , res)=>{
         try{
-           
-            const nuevaPublicacion = new Resenia(req.body)
-            await nuevaPublicacion.save()
-            const todasLasPublicaciones = await Resenia.find()
-            res.json({success: true, respuesta: nuevaPublicacion})
+           const {categoria, subcategoria, titulo, subtitulo, descripcion, imagen, tags, pro, contra} = req.body
+           console.log(req.user)
+           const {_id} = req.user
+           const reseniaSchemaAEnviar = {categoria,subcategoria, titulo, subtitulo, descripcion, imagen, autor:_id, tags, proContra:{ pro, contra} }
+           console.log(reseniaSchemaAEnviar)
+            // const nuevaPublicacion = new Resenia(req.body)
+            // await nuevaPublicacion.save()
+            // const todasLasPublicaciones = await Resenia.find()
+            // res.json({success: true, respuesta: nuevaPublicacion})
 
         }catch(error){
             console.log("error cargar publicacion" , error)

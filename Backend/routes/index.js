@@ -33,7 +33,7 @@ router.route('/iniciarSesionLS')
 // Reseñas | Publicaciones 
 router.route('/publicaciones')
 .get(controladoresDePublicaciones.todasLasPublicaciones) //anda
-.post(controladoresDePublicaciones.cargarPublicacion) //anda
+.post(passport.authenticate('jwt',{session:false}),controladoresDePublicaciones.cargarPublicacion) //anda
 
 
 router.route('/publicaciones/:id')

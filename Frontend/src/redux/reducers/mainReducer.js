@@ -3,8 +3,8 @@ import authReducer from './authReducer'
 import publicacionReducer from './publicacionReducer'
 
 const mainReducer = combineReducers({
+    publicacionReducer,
     authReducer,
-    publicacionReducer
 
 })
 
