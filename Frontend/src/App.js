@@ -10,11 +10,9 @@ import CrearPublicacion from './components/CrearPublicacion';
 import Header from './components/Header';
 import authActions from './redux/actions/authActions';
 import PaginaDePrueba from './pages/PaginaDePrueba';
+import Resenia from './pages/Resenia'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
-
 class App extends React.Component {
   render(){
     if(!this.props.usuarioLogeado && localStorage.getItem('token')) {
@@ -27,6 +25,7 @@ class App extends React.Component {
     }
 
     return(
+
       <BrowserRouter>
         <Header />
         <Switch>

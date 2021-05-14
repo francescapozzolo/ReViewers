@@ -6,7 +6,6 @@ const initialState = {
 const publicacionReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'CARGAR_PUBLICACIONES':
-      console.log(action.payload)
         return{
             ...state,
             todasLasPublicaciones: action.payload,
