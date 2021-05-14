@@ -26,11 +26,11 @@ class App extends React.Component {
         <BrowserRouter>
             <Header />
             <Switch>
-                <Route exact path="/" component={Portada} />
-                <Route path="/inicio" component={Inicio} />
-                <Route path="/publicar" component={CrearPublicacion} />
+                {!this.props.usuarioLogeado && <Route exact path="/" component={Portada} />}
+                {this.props.usuarioLogeado && <Route path="/inicio" component={Inicio} />}
+                {this.props.usuarioLogeado && <Route path="/publicar" component={CrearPublicacion} />}
                 <Route path="/prueba" component={PaginaDePrueba} />                
-                <Redirect to="/" />
+                <Redirect to={this.props.usuarioLogeado ? "/inicio" : "/"} />
             </Switch>
             <Footer component={Footer}/>
         </BrowserRouter>
