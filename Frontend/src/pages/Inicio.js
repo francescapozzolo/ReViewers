@@ -14,12 +14,13 @@ class Inicio extends React.Component{
         Gastronomía: [],
     }
 
-    componentDidMount(){
-        this.props.cargarPublicaciones(this.setState({
-            ...this.state,
-            publicaciones: [...this.props.publicaciones],
-        }))
-    }
+
+    // componentDidMount(){
+    //     this.props.cargarPublicaciones(this.setState({
+    //         ...this.state,
+    //         publicaciones: [...this.props.publicaciones],
+    //     }))
+    // }
     
     elegirCategorias = (e)=>{
         const categoriaItem = e.target.dataset.info
@@ -61,7 +62,33 @@ class Inicio extends React.Component{
     //     this.elegirCategorias(e)
     // }
 
-    render() {          
+    //render() {          
+    // elegirCategorias = (e)=>{
+    //     const categoriaItem = e.target.dataset.info
+    //     if(this.state.categoriasSeleccionadas.indexOf(categoriaItem) === -1){
+    //         this.setState({
+    //             ...this.state,
+    //             categoriasSeleccionadas: [...this.state.categoriasSeleccionadas, categoriaItem]
+    //         })
+    //     } else{
+    //         this.setState({
+    //             ...this.state,
+    //             categoriasSeleccionadas: this.state.categoriasSeleccionadas.filter(item => item !== categoriaItem)
+    //         })
+    //     }  
+    // }
+
+    // filtrarPorCategoria = () =>{
+    //     let stringCategoria = this.state.categoriasSeleccionadas.join('')
+    //     this.props.publicaciones.filter(publicacion => {})
+    //     // let filtrao = this.props.publicaciones.filter(publicacion =>this.state.categoriasSeleccionadas.filter(item => item === publicacion.categoria))
+    //     // console.log(filtrao)
+    // }
+
+    render() {
+        // console.log(this.state.categoriasSeleccionadas)
+        // console.log(this.props.publicaciones)
+        // this.filtrarPorCategoria()
         return(      
             <main>
                 <div className="contenedorLinkCategoria">

@@ -507,12 +507,14 @@ footer{
     position:relative;
     background-repeat: no-repeat;
     background-position: right center;
+    background-size: contain;
     -webkit-appearance: none;
     -moz-appearance: none;
     -o-appearance: none;
     appearance: none;
 }
 
+    
 
 .categoria{
     width: 90% !important;
@@ -618,6 +620,7 @@ footer{
     border-radius: 10px;
     color: white;
     border: outset #c9f2e7;
+    background-color: #223A59;
 }
 .boton-comprobar{
     position: relative;
@@ -635,10 +638,15 @@ footer{
     animation: rainbowBorderActive 10s linear 0s infinite forwards;
     
 }
-.boton-postear::after{
+/* .boton-postear::after{
+    width: 300px;
+    height: 100px;
+    content: "";
     position: absolute;
+    z-index: 2;
     background-image: radial-gradient(circle, #161c26, #202a38, #29394a, #31495d, #395971, #436b82, #4f7d93, #5b90a3, #72a8b4, #8dc1c4, #aad9d5, #c9f2e7);
-}
+} */
+
 
 @keyframes rainbowBorderActive {
     0%{border:2.5px outset #8ea8bf; }
@@ -916,7 +924,12 @@ footer{
     cursor: pointer;
 }
 
-
 .displayNone { 
     display: none;
+}
+
+.borrar {
+    background: rgb(209, 255, 209);
+    text-align: center;
+    margin-bottom: 10vh;
 }
