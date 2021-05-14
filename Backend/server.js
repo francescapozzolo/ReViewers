@@ -1,23 +1,15 @@
 require('dotenv').config()
 
 const express = require('express')
-const bodyParser = require('body-parser');
 const cors = require ('cors')
 const router = require ('./routes/index')
 require('./config/passport')
 require('./config/database')
-const App = express()
-App.use(cors())
+const app = express()
 
+app.use(cors())
+app.use(express.json())
+app.use("/api", router)
 
-App.use(bodyParser.urlencoded({extended:false}));
-App.use(bodyParser.json())
+app.listen(4000, () => console.log("app listening on port 4000"))
 
-App.use('/public', express.static(`${__dirname}/storage/imgs`))
-
-
-// App.use(express.json())
-
-App.use("/api", router)
-
-App.listen(4000, () => console.log("App listening on port 4000"))

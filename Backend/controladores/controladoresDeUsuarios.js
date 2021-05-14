@@ -5,9 +5,9 @@ const jwt = require('jsonwebtoken')
 
 const controladoresDeUsuario = {
 
-   obtenerTodosLosUsuarios: async(req,res)=>{
+   obtenerTodosLosUsuarios: async(req, res)=>{
       try{
-         var todosLosUsuarios = await Usuario.find()
+         const todosLosUsuarios = await Usuario.find()
          res.json({success: true, respuesta: todosLosUsuarios})
       }catch(err){
          console.log('Caí en el catch del controlador ObtenerTodosLosUsuarios y el error es: '+ err)
@@ -17,8 +17,8 @@ const controladoresDeUsuario = {
 
    obtenerUnUsuario: async(req, res)=>{
       try{
-         const id = req.params.id
-         var todosLosUsuarios = await Usuario.find({_id: id})
+         const idUsuario = req.params.id
+         const todosLosUsuarios = await Usuario.find({_id: idUsuario})
          res.json({success: true, respuesta: todosLosUsuarios})
       }catch(err){
          console.log('Caí en el catch del controlador obtenerUnUsuario y el error es: '+ err)
@@ -28,9 +28,9 @@ const controladoresDeUsuario = {
 
    eliminarUnUsuario: async(req, res) => {
       try {
-         const id = req.params.id
-         await Usuario.findOneAndDelete({_id: id})
-         var todosLosUsuarios = await Usuario.find()
+         const idUsuario = req.params.id
+         await Usuario.findOneAndDelete({_id: idUsuario})
+         const todosLosUsuarios = await Usuario.find()
          res.json({success: true, respuesta: todosLosUsuarios})
       } catch (err){
          console.log('Caí en el catch del controlador eliminarUnUsuario y el error es: '+err)
@@ -40,8 +40,8 @@ const controladoresDeUsuario = {
 
    editarUsuario: async(req,res) =>{
       try {
-         const id = req.params.id
-         var usuarioModificado = await Usuario.findOneAndUpdate({_id:id},{...req.body}, {new: true}) // el new true va xq sino no me devuelve el objeto modif.
+         const idUsuario = req.params.id
+         const usuarioModificado = await Usuario.findOneAndUpdate({_id:idUsuario},{...req.body}, {new: true}) // el new true va xq sino no me devuelve el objeto modif.
          res.json({success: true, respuesta: usuarioModificado})
       } catch (err){
          console.log('Caí en el catch del controlador editarUsuario y el error es: ' + err)
@@ -99,7 +99,7 @@ const controladoresDeUsuario = {
             const contraseñaEsCorrecta = bcryptjs.compareSync(clave, usuarioRegistrado.clave)
             if(contraseñaEsCorrecta){
                const token = jwt.sign({...usuarioRegistrado}, process.env.SECRET_OR_KEY)
-               respuesta = {token: token, imagen: usuarioRegistrado.imagen, nombre: usuarioRegistrado.nombre, idDelUsuario: usuarioRegistrado._id}
+               respuesta = {token: token, imagen: usuarioRegistrado.imagen, nombre: usuarioRegistrado.nombre, idUsuario: usuarioRegistrado._id}
             } else {
                error = 'Mail o Contraseña incorrecta. Intenta de nuevo!'
             }
@@ -119,7 +119,7 @@ const controladoresDeUsuario = {
 
    inicioForzado: async()=>{
       try{
-         res.json({success: true, respuesta: {imagen: req.user.imagen, nombre: req.user.nombre, userId: req.user._id}})
+         res.json({success: true, respuesta: {imagen: req.user.imagen, nombre: req.user.nombre, idUsuario: req.user._id}})
       }catch(err){
          res.json({success: false, respuesta: "error: " + err})
       }

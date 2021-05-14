@@ -5,9 +5,17 @@ class CrearPublicacion extends React.Component {
 
 
     state = {
+<<<<<<< HEAD
         valoresInput:{filepreview: null},
         categorias: [],
         subCategorias:[]
+=======
+
+        valoresInput:{},
+        categorias: [],
+        subCategorias:[],
+        filepreview: null
+>>>>>>> 9646c8291271a3cb6b43542307028d3f03d68001
     }
 
     setearInput = (e)=>{
@@ -25,19 +33,37 @@ class CrearPublicacion extends React.Component {
     enviarForm = (e)=>{
         e.preventDefault()
         console.log(this.state)
+<<<<<<< HEAD
         this.props.cargarPublicacion(this.state.valoresInput)
+=======
+
+        this.props.cargarPublicacion(this.state.valoresInput.imagen, this.state.valoresInput)
+
+>>>>>>> 9646c8291271a3cb6b43542307028d3f03d68001
     }
 
 
     onChange = (e)=>{
+<<<<<<< HEAD
         this.setState({...this.state, valoresInput:{...this.state.valoresInput, filepreview:URL.createObjectURL(e.target.files[0])}})  
+=======
+
+
+        this.setState({...this.state, filepreview:URL.createObjectURL(e.target.files[0]) ,valoresInput:{...this.state.valoresInput, imagen:e.target.files[0]}})  
+
+>>>>>>> 9646c8291271a3cb6b43542307028d3f03d68001
        }
 
     render(){
         console.log(this.state.valoresInput)
         return (
             <div className="contenedor">
+<<<<<<< HEAD
                         <form className="contenedor-reseña">
+=======
+
+                        <form className="contenedor-reseña" action="/api/publicaciones" method="POST" encType="multipart/form-data">
+>>>>>>> 9646c8291271a3cb6b43542307028d3f03d68001
                             <div className="contenedor-inputs-selects-textarea">
                                 <div className="contenedor-inputsYselects">
                                     <div className="contenedor-selects">
@@ -68,7 +94,13 @@ class CrearPublicacion extends React.Component {
                             </div>
                             <div className="contenedor-input-foto">
                                         <input type="file" name="myImage" onChange= {this.onChange} />
+<<<<<<< HEAD
                                         <div className="img-preview" style={{backgroundImage:`url(${this.state.valoresInput.filepreview})`}}/>              
+=======
+
+                                        <div className="img-preview" style={{backgroundImage:`url(${this.state.filepreview})`}}/>              
+
+>>>>>>> 9646c8291271a3cb6b43542307028d3f03d68001
                             </div>
                             <div className="contenedor-enviarForm">
                                 {/* Boton enviar formulario */}
@@ -82,7 +114,10 @@ class CrearPublicacion extends React.Component {
             }
         }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9646c8291271a3cb6b43542307028d3f03d68001
         const mapDispatchToProps = {
             cargarPublicacion: publicacionesActions.enviarFormulario
         }

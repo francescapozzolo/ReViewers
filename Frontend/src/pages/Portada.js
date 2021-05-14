@@ -6,11 +6,11 @@ import InicioSesion from '../components/auth/InicioSesion'
 class Portada extends React.Component {
   render() {
     return (
-      <>
-        {/* <Carrusel /> */}
-        <InicioSesion />
-        <Registro />
-      </>
+      <main>
+        <Carrusel />
+        {/* <InicioSesion />
+        <Registro /> */}
+      </main>
     );
   }
 }

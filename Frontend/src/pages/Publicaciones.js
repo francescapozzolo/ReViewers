@@ -1,14 +1,13 @@
 import React from 'react'
 
-
 class Publicaciones extends React.Component {
 
 
     render(){
-        // return 
+        return{
+
+        }
     }
-
-
 }
 
 
