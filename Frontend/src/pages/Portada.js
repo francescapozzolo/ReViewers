@@ -7,9 +7,9 @@ class Portada extends React.Component {
   render() {
     return (
       <main>
-        <Carrusel />
-        {/* <InicioSesion />
-        <Registro /> */}
+        {/* <Carrusel /> */}
+        <InicioSesion />
+        <Registro />
       </main>
     );
   }

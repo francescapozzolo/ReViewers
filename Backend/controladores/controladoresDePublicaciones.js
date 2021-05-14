@@ -46,56 +46,22 @@ const controladorPublicaciones = {
     },
 
     cargarPublicacion: async (req , res)=>{
-        console.log("entro")
-        console.log(req.body)
-        console.log(req.file)
         try{
-            // console.log(req.body)
-            // console.log(req.file)
-
-         
-
+           
             const nuevaPublicacion = new Resenia(req.body)
             await nuevaPublicacion.save()
             const todasLasPublicaciones = await Resenia.find()
-            res.json({success: true, response: nuevaPublicacion})
-
-            // const nuevaPublicacion = new Resenia(req.body)
-            // await nuevaPublicacion.save()
-            // const todasLasPublicaciones = await Resenia.find()
-            // res.json({success: true, respuesta: nuevaPublicacion})
+            res.json({success: true, respuesta: nuevaPublicacion})
 
         }catch(error){
-            // console.log("error cargar publicacion" , error)
-
-            // res.json({success: false, respuesta: error})
+            console.log("error cargar publicacion" , error)
+            res.json({success: false, respuesta: error})
         }
     },
 
     cargarValoracion: async(req, res)=>{
         try{
-            const idPublicacion = req.params.id
-            const {idUsuario, valoracion} = req.body
-
-            const publicacionValorada = await Resenia.findOne({_id: idPublicacion})
-            console.log('publicacion valorada: '+ publicacionValorada)
             
-            const valoracionExiste = publicacionValorada.valoraciones.find(element => element.idUsuario === idUsuario)
-            console.log('valoracion existe: ' + valoracionExiste)
-            if(valoracionExiste){
-                console.log('Ya likio')
-            } else {
-                console.log('aun no likio')
-            }
-
-            // if (valoracionExiste){
-            //     console.log('El usuario ya valoró')
-            // } else {
-            //     console.log('El usuario no valoró todavia')
-            // }
-            // console.log(idPublicacion, valoracionExiste)
-            res.json({respuesta: publicacionValorada})
-
         }catch(err){
         console.log('Caí en el catch de cargarValoracion y el error es: '+ err)
         res.json('error al valorar publicacion: ' + err)
