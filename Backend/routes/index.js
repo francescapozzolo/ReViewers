@@ -14,7 +14,7 @@ router.route('/usuarios')
 .get(controladoresDeUsuarios.obtenerTodosLosUsuarios)
 
 router.route('/usuarios/registrarse')
-.post(validarRegistro, controladoresDeUsuarios.registrarUsuario)
+.post(validarRegistro, controladoresDeUsuarios.registrarUsuario )
 
 //controlador usuarios por id
 router.route('/usuarios/:id')

@@ -46,18 +46,23 @@ const CompletarRegistro = (props) =>{
    };
 
    const confirmarUsuario = () => {
-       let rolUsuarioIntereses = {
-           intereses: [categoriaInteres.gastronomia && 'gastronomia', categoriaInteres.deportes && 'deportes', categoriaInteres.tecnologia && 'tecnologia', categoriaInteres.entretenimiento && 'entretenimiento'],
-           rolUsuario
-       }
-       console.log(rolUsuarioIntereses)
+        let arrayIntereses = [categoriaInteres.gastronomia && 'gastronomia', categoriaInteres.deportes && 'deportes', categoriaInteres.tecnologia && 'tecnologia', categoriaInteres.entretenimiento && 'entretenimiento']
+        const intereses = arrayIntereses.filter(interes => interes !== false)
+
+        let rolUsuarioIntereses = {
+            usuarioConfirmado: true,
+            intereses,
+            rolUsuario
+        }
+
+        console.log(rolUsuarioIntereses)
    }
- 
+   
 
    console.log(categoriaInteres)
     return(
     <div className="App">
-       <p className="link titulosAlt mx-1" onClick={ selectModal }>Iniciar Sesion</p>      
+       <p className="link titulosAlt mx-1" onClick={ selectModal }>Completar Registro</p>      
        <div className="modal" onClick={(e) =>  closeModal(e) } style={divStyle}>
             <div className="modal-content bg-verde-200" onClick={ e => e.stopPropagation() }>
                 <span className="close" onClick={(e) =>  closeModal(e) }>&times;</span>

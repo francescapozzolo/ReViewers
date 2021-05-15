@@ -49,13 +49,14 @@ const Publicaciones = (props)=>{
                 )
             })}
         </div>
+
         </>
     )
 }
 
 const mapStateToProps = state => {
     return {
-        publicaciones: state.publicacionReducer.publicaciones
+        publicaciones: state.publicacionReducer.todasLasPublicaciones
     }
 }
 const mapDispatchToProps = {
