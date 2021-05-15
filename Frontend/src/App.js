@@ -25,7 +25,6 @@ import {  faHome, faFeatherAlt, faBookOpen, faUserCog, faStar } from '@fortaweso
 
 class App extends React.Component {
 
-<<<<<<< HEAD
 
   state ={
     menuOpen: false
@@ -46,9 +45,6 @@ class App extends React.Component {
     this.setState(state => ({menuOpen: !state.menuOpen}))
   }
   render(){
-=======
-   render(){
->>>>>>> cd5254a7fe77a44b5bac584296b446b09b8f0d38
     if(!this.props.usuarioLogeado && localStorage.getItem('token')) {
       const usuarioLS = JSON.parse(localStorage.getItem('usuarioLogeado'))
       const ObjUsuarioLS = {
