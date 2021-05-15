@@ -22,19 +22,20 @@ router.route('/usuarios/:id')
 .delete(controladoresDeUsuarios.eliminarUnUsuario)
 .put(controladoresDeUsuarios.editarUsuario)
 
-
 router.route('/usuarios/iniciarSesion')
 .post(controladoresDeUsuarios.iniciarSesion)
 
 router.route('/iniciarSesionLS')
 .get(passport.authenticate('jwt', {session: false}), controladoresDeUsuarios.inicioForzado)
 
+router.route('/confirmarUsuario')
+.put(passport.authenticate('jwt', {session: false}), controladoresDeUsuarios.confirmarUsuario)
+
 
 // Reseñas | Publicaciones 
 router.route('/publicaciones')
 .get(controladoresDePublicaciones.todasLasPublicaciones) //anda
 .post(passport.authenticate('jwt',{session:false}),controladoresDePublicaciones.cargarPublicacion) //anda
-
 
 router.route('/publicaciones/:id')
 .get(controladoresDePublicaciones.publicacionPorID)

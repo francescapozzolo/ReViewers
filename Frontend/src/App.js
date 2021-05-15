@@ -16,7 +16,8 @@ import Publicaciones from './pages/Publicaciones'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 class App extends React.Component {
-  render(){
+
+   render(){
     if(!this.props.usuarioLogeado && localStorage.getItem('token')) {
       const usuarioLS = JSON.parse(localStorage.getItem('usuarioLogeado'))
       const ObjUsuarioLS = {
@@ -24,7 +25,9 @@ class App extends React.Component {
         ...usuarioLS
       }
       this.props.iniciarSesionLS(ObjUsuarioLS)
-    }
+    }    
+
+    console.log(this.props)
 
     return(
       <BrowserRouter>

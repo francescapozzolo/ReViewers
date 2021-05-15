@@ -6,34 +6,34 @@ const validarRegistro = (req, res, next) => {
         joi.string()
         .trim()
         .required()
-        .min(2).message("The first name length must be superior of 1")
-        .pattern(new RegExp(/^[a-zA-Z]+$/)).message("The first name only can contain letters"),
+        .min(2).message("El nombre debe contener mas de dos letras")
+        .pattern(new RegExp(/^[a-zA-Z]+$/)).message("El nombre solo puede contener letras"),
 
         apellido:
         joi.string()
         .trim()
         .required()
-        .min(2).message("The last name length must be superior of 1")
-        .pattern(new RegExp(/^[a-zA-Z]+$/)).message("The last name only can contain letters"),
+        .min(2).message("El apellido debe contener mas de dos letras")
+        .pattern(new RegExp(/^[a-zA-Z]+$/)).message("El apellido solo puede contener letras"),
 
         mail:
         joi.string()
         .trim()
         .required()
-        .email().message("The email format is invalid"),
+        .email().message("El email debe ser valido"),
 
         imagen:
         joi.string()
         .trim()
         .required()
-        .min(5).message("The url picture is invalid"),
+        .min(5).message("La url debe ser valida"),
 
         clave:
         joi.string()
         .alphanum()
         .trim()
         .required()
-        .min(5).message("The password must be superior of 4")
+        .min(5).message("La contraseña debe contener al menos 5 letras")
     })
     const validacion = schema.validate(req.body, {abortEarly: false});
 

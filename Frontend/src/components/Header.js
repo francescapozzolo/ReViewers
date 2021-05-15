@@ -20,11 +20,13 @@ const Header = (props) => {
                 ? <div className="contenedorEnlaces flex flex-end">
                     <NavLink className="link titulosAlt mx-1" to="/nosotros">Nosotros</NavLink>
                     <InicioSesion />
-                    <CompletarRegistro />
                     <Registro />
                 </div> 
                 : <>
-                    <div className="contenedorUsuarioHeader">            
+                    <div className="contenedorUsuarioHeader">
+                        {
+                            !props.usuarioLogeado.usuarioConfirmado && <CompletarRegistro />
+                        }
                         <Link to="/publicar">
                             <span className="btn-crearReview texto">Crear review</span>
                         </Link> 

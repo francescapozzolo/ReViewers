@@ -36,7 +36,7 @@ const Registro = (props) =>{
         console.log(usuario)
         if(!Object.values(usuario).some(value => value === '')) {
             const respuestaConErrores = await props.crearUsuario(usuario)
-            
+            console.log('entre')
             let campos = ({
                 nombre: '',
                 apellido: '',
@@ -44,24 +44,20 @@ const Registro = (props) =>{
                 clave: '',
                 imagen: ''
             })
-
             // si existe respuestaConErrores
             respuestaConErrores ? setErrores({campos}) : setNuevoUsuario({campos})
-
-            console.log(respuestaConErrores)
 
             respuestaConErrores && respuestaConErrores.map(err => setErrores(prevState => {
                 return {...prevState, [err.context.label]: err.message}
             }))
-            
         } else {
-            alert('No pueden haber campos vacios')
+            alert('Por favor completa todos los campos! :)')
         }
     }
 
-    const respuestaGoogle = (respuesta) => {
-        console.log(respuesta.profileObj)
+    // console.log(props)
 
+    const respuestaGoogle = (respuesta) => {
         const { email, familyName, givenName, googleId, imageUrl } = respuesta.profileObj
 
         let usuarioGoogle = {
