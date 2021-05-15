@@ -37,8 +37,6 @@ class Inicio extends React.Component{
         })
     }
 
-
-
     shuffle = (array) => {
         let currentIndex = array.length, temporaryValue, randomIndex;
         while (0 !== currentIndex) {
@@ -51,7 +49,9 @@ class Inicio extends React.Component{
       return array;
       }
       
+      
       render() {
+        // console.log(this.props)
 
         const evaluacion = this.state.categoriasSeleccionadas.length === 0 
         let stateOprops = evaluacion ? "props" : "state"
@@ -95,7 +95,8 @@ class Inicio extends React.Component{
 
 const mapStateToProps = state => {
     return{
-        publicaciones: state.publicacionReducer.todasLasPublicaciones
+        publicaciones: state.publicacionReducer.todasLasPublicaciones,
+        usuarioLogeado: state.authReducer.usuarioLogeado
     }
 }
 
