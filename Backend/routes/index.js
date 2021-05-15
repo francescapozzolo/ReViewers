@@ -6,6 +6,7 @@ const passport = require('passport')
 const controladoresDeUsuarios = require('../controladores/controladoresDeUsuarios')
 const controladoresDeComentarios = require('../controladores/controladoresDeComentarios')
 const controladoresDePublicaciones = require('../controladores/controladoresDePublicaciones')
+const { session } = require('passport')
 
 
 
@@ -53,10 +54,10 @@ router.route('/publicacionLikeada/:id')
 .post(controladoresDePublicaciones.cargarLike)
 
 
-// Comentarios
+// Comentarios 
 router.route('/comentarios/:id')
 .get(controladoresDeComentarios.obtenerComentario)
-.post(controladoresDeComentarios.cargarNuevoComentario)
+.post( passport.authenticate('jwt', {session:false}), controladoresDeComentarios.cargarNuevoComentario)
 .delete(controladoresDeComentarios.borrarComentario)
 .put(controladoresDeComentarios.editarComentario)
 
