@@ -20,7 +20,7 @@ const Header = (props) => {
                 ? <div className="contenedorEnlaces flex flex-end">
                     <NavLink className="link titulosAlt mx-1" to="/nosotros">Nosotros</NavLink>
                     <InicioSesion />
-                    {/* <CompletarRegistro /> */}
+                    <CompletarRegistro />
                     <Registro />
                 </div> 
                 : <>

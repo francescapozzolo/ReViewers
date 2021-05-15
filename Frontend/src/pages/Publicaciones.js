@@ -4,7 +4,6 @@ import publicacionesActions from '../redux/actions/publicacionesActions'
 import PublicacionIndividual from '../components/utilidades/PublicacionIndividual'
 import Loader from 'react-loader-spinner'
 
-
 const Publicaciones = (props)=>{
    
     useEffect(()=>{
