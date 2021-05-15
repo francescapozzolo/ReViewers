@@ -794,10 +794,6 @@
         transition: transform .4s;
     }
 
-    /* .box:hover {
-        transform: scale(1.05);
-    } */
-
     .textoIntereses {
         font-size: 1rem;
     }
@@ -913,11 +909,6 @@
         font-size: 0.75rem;
     }
 
-
-    /* SWITCH */
-    
-    
-    
     /* UTILIDADES */ 
     .mensajeAlerta {
         text-align: center;
