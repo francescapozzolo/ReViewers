@@ -9,6 +9,7 @@ const Publicaciones = (props)=>{
    
     useEffect(()=>{
        props.todasPublicaciones()
+       console.log(props)
 
     },[])
     if(props.publicaciones.length == 0){
@@ -27,21 +28,21 @@ const Publicaciones = (props)=>{
     }
     return(
         <>
-        <h1>Categoria:{null}</h1>
-        <div className="contenedorPublic">
-            {props.publicaciones.map((publicacion , index)=>{
-                return(
-                    <PublicacionIndividual publicacion={publicacion}/>
-                )
-            })}
-        </div>
+            <h1>Categoria:{null}</h1>
+            <div className="contenedorPublic">
+                {props.publicaciones.map((publicacion , index)=>{
+                    return(
+                        <PublicacionIndividual publicacion={publicacion}/>
+                    )
+                })}
+            </div>
         </>
     )
 }
 
 const mapStateToProps = state => {
     return {
-        publicaciones: state.publicacionReducer.publicaciones
+        publicaciones: state.publicacionReducer.todasLasPublicaciones
     }
 }
 const mapDispatchToProps = {
