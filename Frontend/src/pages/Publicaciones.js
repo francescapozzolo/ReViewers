@@ -9,7 +9,7 @@ const Publicaciones = (props)=>{
    
     useEffect(()=>{
        props.todasPublicaciones()
-
+       console.log(props)
     },[])
     if(props.publicaciones.length == 0){
         return(
@@ -41,7 +41,7 @@ const Publicaciones = (props)=>{
 
 const mapStateToProps = state => {
     return {
-        publicaciones: state.publicacionReducer.publicaciones
+        publicaciones: state.publicacionReducer.todasLasPublicaciones
     }
 }
 const mapDispatchToProps = {
