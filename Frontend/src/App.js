@@ -37,7 +37,8 @@ class App extends React.Component {
                 {this.props.usuarioLogeado && <Route path="/inicio" component={Inicio} />}
                 {this.props.usuarioLogeado && <Route path="/publicar" component={CrearPublicacion} />}
                 <Route path="/publicacion" component={publicaciones}/>
-                <Route path="/prueba" component={PaginaDePrueba} />                
+                <Route path="/prueba" component={PaginaDePrueba} />      
+                <Route path="/review/:id" component={Resenia} />          
                 <Redirect to={this.props.usuarioLogeado ? "/inicio" : "/"} />
             </Switch>
             <Footer component={Footer}/>
