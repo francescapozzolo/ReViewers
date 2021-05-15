@@ -65,7 +65,7 @@ const controladoresDeUsuario = {
                usuarioARegistrar = new Usuario({nombre, apellido, mail, clave: contraseniaHasheada, imagen, intereses, rol, favoritos, seguidores})
                await usuarioARegistrar.save()
                const token = jwt.sign({...usuarioARegistrar}, process.env.SECRET_OR_KEY)            
-               respuesta = {token, imagenDelUsuario: usuarioARegistrar.imagen, nombreDelUsuario: usuarioARegistrar.nombre} 
+               respuesta = {token, imagenDelUsuario: usuarioARegistrar.imagen, nombreDelUsuario: usuarioARegistrar.nombre, interesesDelUsuario: usuarioARegistrar.intereses} 
             } catch (err){ //no pinta mostrar el error posta porque el usuario no lo va a entender 
                console.log('Caí en el catch del condicional del controlador de Registrar Usuario y el error es: '+ err)
                error = "Parece que algo salió mal tratando de registrar su cuenta. Por favor, intente de nuevo"
@@ -98,7 +98,7 @@ const controladoresDeUsuario = {
             const contraseñaEsCorrecta = bcryptjs.compareSync(clave, usuarioRegistrado.clave)
             if(contraseñaEsCorrecta){
                const token = jwt.sign({...usuarioRegistrado}, process.env.SECRET_OR_KEY)
-               respuesta = {token: token, imagen: usuarioRegistrado.imagen, nombre: usuarioRegistrado.nombre, idUsuario: usuarioRegistrado._id}
+               respuesta = {token: token, imagen: usuarioRegistrado.imagen, nombre: usuarioRegistrado.nombre, idUsuario: usuarioRegistrado._id, intereses: usuarioRegistrado.intereses}
             } else {
                error = 'Mail o Contraseña incorrecta. Intenta de nuevo!'
             }
@@ -119,7 +119,7 @@ const controladoresDeUsuario = {
    inicioForzado: (req, res) => {
       res.json({
          success: true,
-         respuesta: {imagen: req.user.imagen, nombre: req.user.nombre}
+         respuesta: {imagen: req.user.imagen, nombre: req.user.nombre, intereses: req.user.intereses}
      })
    }
 }

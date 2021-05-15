@@ -10,7 +10,7 @@ const usuarioSchema = new mongoose.Schema({
     rol: {type: String, required:true, default: "lector"},
     favoritos: [{type: mongoose.Types.ObjectId, ref: 'resenia'}],
     seguidores: [{type: mongoose.Types.ObjectId, ref: 'user'}],
-    usuarioConfirmado: {typy: Boolean, default:false}
+    usuarioConfirmado: {type: Boolean, default:false}
 })
 
 const Usuario = mongoose.model('user', usuarioSchema)

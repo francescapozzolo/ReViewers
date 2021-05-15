@@ -357,11 +357,12 @@
     
         .contenedorLinkCategoria{
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-self: flex-start;
             margin-left: 5%;
             width: 30%;
             font-size: 1rem;
+            cursor: pointer;
         }
     
         .gridInicio{
