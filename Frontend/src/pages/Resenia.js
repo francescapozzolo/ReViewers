@@ -12,7 +12,13 @@ const Resenia = (props)=>{
       console.log(idResenia)
       console.log(props.todasLasPublicaciones)
 
-      setReseniaSeleccionada( props.todasLasPublicaciones.find(publicacion => JSON.stringify(publicacion._id) === JSON.stringify(idResenia)))
+      setReseniaSeleccionada(props.todasLasPublicaciones.find(publicacion => JSON.stringify(publicacion._id) === JSON.stringify(idResenia)))
+      
+
+      // console.log(reseniaSeleccionada)
+      
+      // console.log(typeof(idResenia))
+      // console.log(typeof props.todasLasPublicaciones[0]._id)
 
       // if(props.todasLasPublicaciones.length < 0){
          // } else {
@@ -29,7 +35,7 @@ const Resenia = (props)=>{
    return(
       <>
          <div className="contenedor-tituloDeResenia">
-            <div className="imagen-de-categoria"></div>
+            <div className="imagen-de-categoria" style={{backgroundImage: `url(${reseniaSeleccionada.imagen})`}}></div>
             <h3 className="titulo-de-resenia titulosAlt">{reseniaSeleccionada.titulo}</h3>
          </div>
 
