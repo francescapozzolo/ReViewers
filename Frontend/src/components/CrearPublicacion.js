@@ -133,7 +133,7 @@ class CrearPublicacion extends React.Component {
 
   render() {
     return (
-      <div className="contenedor">
+      <main className="contenedor">
 
         <form
           className="contenedor-reseña"
@@ -288,7 +288,7 @@ class CrearPublicacion extends React.Component {
         </form>
 
         <div></div>
-      </div>
+      </main>
     );
   }
 }
