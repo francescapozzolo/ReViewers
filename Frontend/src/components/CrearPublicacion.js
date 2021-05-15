@@ -105,15 +105,13 @@ class CrearPublicacion extends React.Component {
     if(descripcion.length >= 500 && titulo !== "" && subtitulo !== "" && imagen !== ""){
       const schemaAEnviar = {categoria,subcategoria,titulo,subtitulo,descripcion,imagen,pro,contra,tags}
       const respuestaErrorOConfirmacion = this.props.enviarPublicacion(schemaAEnviar);
+      console.log(respuestaErrorOConfirmacion)
       // ACA MAPEAR ERRORES
     }else if(descripcion.length < 500 ){
       this.toasts("warning","La reseña debe contener 500 caracteres como minimo", "top-center", 5000, true, false, true, "error500Caracteres", true)
     }else{
       this.toasts("error","Hay campos requeridos incompletos.", "top-center", 5000, true, false, true, "error500Caracteres", true)
     }
-
-    const datosFormulario = {tags,pro,contra}
-    // const evaluarImagen = {...this.state.valoresInput}
 
   };
 
@@ -294,13 +292,15 @@ class CrearPublicacion extends React.Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
-    usuario: state.authReducer.usuarioLogueado
+    publicaciones: state.publicacionReducer.todasLasPublicaciones
   }
 }
 const mapDispatchToProps = {
   enviarPublicacion: publicacionesActions.enviarFormulario,
+  cargarPublicaciones: publicacionesActions.obtenerTodasPublicaciones
 };
 
-export default connect(null, mapDispatchToProps)(CrearPublicacion);
+export default connect(mapStateToProps, mapDispatchToProps)(CrearPublicacion);

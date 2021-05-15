@@ -2,10 +2,10 @@ import {Link} from 'react-router-dom'
 import Valoracion from '../utilidades/Valoracion'
 
 const PublicacionIndividual = ({publicacion}) => {
-    console.log('soy publicacion individual' , publicacion)
+    //console.log('soy publicacion individual' , publicacion)
     const {_id , titulo , subtitulo , imagen , autor , descripcion} = publicacion
     let contenidoDescripcion = descripcion.slice(0,201)
-    console.log(contenidoDescripcion)
+    //console.log(contenidoDescripcion)
     return(
         <>
         <div className="tarjetaPublicaciones">

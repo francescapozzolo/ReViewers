@@ -1,17 +1,24 @@
 import {connect} from 'react-redux'
-import React , {useEffect , useState} from 'react'
+import React , {useEffect , useState, useMatch} from 'react'
 import publicacionesActions from '../redux/actions/publicacionesActions'
 import PublicacionIndividual from '../components/utilidades/PublicacionIndividual'
 import Loader from 'react-loader-spinner'
+import { useParams } from 'react-router-dom';
 
 const Publicaciones = (props)=>{
    
+    const [publicaciones, setPublicaciones] = useState()
+    const {categoria} = useParams()
+    const categoriaCapitalized = categoria.charAt(0).toUpperCase() + categoria.slice(1)
     useEffect(()=>{
-       props.todasPublicaciones()
-       console.log(props)
-
+        const fetchear = async()=>{
+            const todasLasPublicaciones = await props.todasPublicaciones()
+            setPublicaciones(todasLasPublicaciones.filter(publicacion => publicacion.categoria === categoria))
+        }
+        fetchear()
     },[])
-    if(props.publicaciones.length == 0){
+    
+    if(!publicaciones || !publicaciones[1]){
         return(
             <div className="contenedorLoader">
                 <Loader
@@ -25,16 +32,24 @@ const Publicaciones = (props)=>{
             </div>
         )
     }
+
+    // setPublicaciones(publicaciones.)
+
     return(
         <>
-            <h1>Categoria:{null}</h1>
-            <div className="contenedorPublic">
-                {props.publicaciones.map((publicacion , index)=>{
-                    return(
-                        <PublicacionIndividual publicacion={publicacion}/>
-                    )
-                })}
-            </div>
+        <div className="contenedor-tituloDeResenia">
+            <div className="imagen-de-categoria"></div>
+            <h1 className="titulo-de-resenia titulosAlt" style={{top:'0px'}}>{categoriaCapitalized}</h1>
+            {/* <h3 className="titulo-de-resenia titulosAlt">Alquileres de Robots para Eventos</h3> */}
+         </div>
+        <div className="contenedorPublic">
+            {publicaciones.map((publicacion , index)=>{
+                return(
+                    <PublicacionIndividual key={index} publicacion={publicacion}/>
+                )
+            })}
+        </div>
+
         </>
     )
 }

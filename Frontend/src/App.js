@@ -27,8 +27,6 @@ class App extends React.Component {
     }
 
     return(
-
-
       <BrowserRouter>
             <Header />
             <Switch>
@@ -36,7 +34,7 @@ class App extends React.Component {
                 {this.props.usuarioLogeado && <Route path="/inicio" component={Inicio} />}
                 {this.props.usuarioLogeado && <Route path="/publicar" component={CrearPublicacion} />}
                 <Route path="/publicaciones/:categoria" component={Publicaciones}/>
-                <Route path="/publicacion/:id" component={Resenia}/>
+                <Route path="/publicacion/:id" component={Resenia} />                
                 <Route path="/prueba" component={PaginaDePrueba} />                
                 <Redirect to={this.props.usuarioLogeado ? "/inicio" : "/"} />
             </Switch>

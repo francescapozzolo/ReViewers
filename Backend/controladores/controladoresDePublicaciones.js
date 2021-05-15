@@ -56,13 +56,12 @@ const controladorPublicaciones = {
     cargarPublicacion: async (req , res)=>{
         try{
            const {categoria, subcategoria, titulo, subtitulo, descripcion, imagen, tags, pro, contra} = req.body
-           console.log(req.user)
            const {_id} = req.user
            const reseniaSchemaAEnviar = {categoria,subcategoria, titulo, subtitulo, descripcion, imagen, autor:_id, tags, proContra:{ pro, contra} }
-           console.log(reseniaSchemaAEnviar)
-            // const nuevaPublicacion = new Resenia(req.body)
-            // await nuevaPublicacion.save()
+            const nuevaPublicacion = await new Resenia(reseniaSchemaAEnviar)
+            // .save()
             // const todasLasPublicaciones = await Resenia.find()
+            console.log({succes:true, respues:nuevaPublicacion})
             // res.json({success: true, respuesta: nuevaPublicacion})
 
         }catch(error){
