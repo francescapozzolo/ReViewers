@@ -51,21 +51,22 @@ const controladoresDeUsuario = {
 
    registrarUsuario: async(req, res)=>{
       try{
-         const {nombre, apellido, mail, clave, intereses, rol, imagen, favoritos, seguidores} = req.body
+         let {mail, clave} = req.body
          const mailExiste = await Usuario.findOne({mail}) //verifico que no esté registrado el mail que el usuario puso 
          
          var respuesta;
          var error;
          var usuarioARegistrar;
          
-         const contraseniaHasheada = bcryptjs.hashSync(clave, 10)
+         clave = bcryptjs.hashSync(clave, 10)
          
          if(!mailExiste){
             try{
-               usuarioARegistrar = new Usuario({nombre, apellido, mail, clave: contraseniaHasheada, imagen, intereses, rol, favoritos, seguidores})
+               usuarioARegistrar = new Usuario({...req.body, clave})
                await usuarioARegistrar.save()
+               console.log(usuarioARegistrar)
                const token = jwt.sign({...usuarioARegistrar}, process.env.SECRET_OR_KEY)            
-               respuesta = {token, imagenDelUsuario: usuarioARegistrar.imagen, nombreDelUsuario: usuarioARegistrar.nombre, interesesDelUsuario: usuarioARegistrar.intereses} 
+               respuesta = {token, imagen: usuarioARegistrar.imagen, nombre: usuarioARegistrar.nombre, usuarioConfirmado: usuarioARegistrar.usuarioConfirmado, rol: usuarioARegistrar.rol, intereses: usuarioARegistrar.intereses}
             } catch (err){ //no pinta mostrar el error posta porque el usuario no lo va a entender 
                console.log('Caí en el catch del condicional del controlador de Registrar Usuario y el error es: '+ err)
                error = "Parece que algo salió mal tratando de registrar su cuenta. Por favor, intente de nuevo"
@@ -98,12 +99,12 @@ const controladoresDeUsuario = {
             const contraseñaEsCorrecta = bcryptjs.compareSync(clave, usuarioRegistrado.clave)
             if(contraseñaEsCorrecta){
                const token = jwt.sign({...usuarioRegistrado}, process.env.SECRET_OR_KEY)
-               respuesta = {token: token, imagen: usuarioRegistrado.imagen, nombre: usuarioRegistrado.nombre, idUsuario: usuarioRegistrado._id, intereses: usuarioRegistrado.intereses}
+               respuesta = {token, imagen: usuarioRegistrado.imagen, nombre: usuarioRegistrado.nombre, usuarioConfirmado: usuarioRegistrado.usuarioConfirmado, rol: usuarioRegistrado.rol, idUsuario: usuarioRegistrado._id, intereses: usuarioRegistrado.intereses}
             } else {
-               error = 'Mail o Contraseña incorrecta. Intenta de nuevo!'
+               error = 'Mail o clave incorrectos'
             }
          } else {
-            error = 'Mail no existe'
+            error = 'Mail o clave incorrectos'
          }
          res.json({
             success: !error ? true : false,
@@ -119,8 +120,39 @@ const controladoresDeUsuario = {
    inicioForzado: (req, res) => {
       res.json({
          success: true,
-         respuesta: {imagen: req.user.imagen, nombre: req.user.nombre, intereses: req.user.intereses}
+         respuesta: {imagen: req.user.imagen, nombre: req.user.nombre, usuarioConfirmado: req.user.usuarioConfirmado, rol: req.user.rol, intereses: req.user.intereses}
      })
+   },
+
+   confirmarUsuario: async (req, res) => {
+      let usuarioId = req.user._id
+      let error;
+      let usuarioConfirmado;
+      
+      try {
+         const actualizarInfo = {
+            usuarioConfirmado: req.body.usuarioConfirmado,
+            intereses: req.body.intereses,
+            rol: req.body.rol
+         }
+         const usuario = await Usuario.findOneAndUpdate({_id: usuarioId}, {...actualizarInfo}, {new: true})
+         
+         if(usuario) {
+            usuarioConfirmado = true   
+         } else {
+            error = "Usuario no encontrado en la base de datos"
+            usuarioConfirmado = false
+         }
+      } catch {
+         error = "Error interno del servidor, intente mas tarde"
+      }
+
+      res.json({
+         success: !error ? true : false,
+         usuarioConfirmado,
+         error
+      })
+      
    }
 }
 

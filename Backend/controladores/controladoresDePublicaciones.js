@@ -6,6 +6,8 @@ const controladorPublicaciones = {
     publicacionPorID: async (req , res) => {
         try{
             const unicaPublicacion = await Resenia.findOne({_id: req.params.id})
+            .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1,"imagen":1 } } })
+
             res.json({success: true , respuesta: unicaPublicacion})
         }catch(error){
             console.log("error en publicacionPorID" , error)
@@ -55,15 +57,28 @@ const controladorPublicaciones = {
 
     cargarPublicacion: async (req , res)=>{
         try{
-           const {categoria, subcategoria, titulo, subtitulo, descripcion, imagen, tags, pro, contra, autor} = req.body
-        //    const {_id} = req.user
 
-           const reseniaSchemaAEnviar = {categoria,subcategoria, titulo, subtitulo, descripcion, imagen,autor, tags, proContra:{ pro, contra} }
-           
-            const nuevaPublicacion = await new Resenia(reseniaSchemaAEnviar).save()
+            // version original
+           const {categoria, subcategoria, titulo, subtitulo, descripcion, imagen, tags, pro, contra} = req.body
+           const {_id} = req.user
+           const reseniaSchemaAEnviar = {categoria,subcategoria, titulo, subtitulo, descripcion, imagen, autor:_id, tags, proContra:{ pro, contra} }
+            const nuevaPublicacion = await new Resenia(reseniaSchemaAEnviar)
+            // .save()
             // const todasLasPublicaciones = await Resenia.find()
             console.log({succes:true, respuesta:nuevaPublicacion})
             res.json({success: true, respuesta: nuevaPublicacion})
+
+
+        // cargar publicaciones desde postman
+            // const {categoria, subcategoria, titulo, subtitulo, descripcion, imagen, tags, pro, contra, autor} = req.body
+            // //    const {_id} = req.user
+            //    const reseniaSchemaAEnviar = {categoria,subcategoria, titulo, subtitulo, descripcion, imagen, autor, tags, proContra:{ pro, contra} }
+                
+            //    const nuevaPublicacion = await new Resenia(reseniaSchemaAEnviar).save()
+            //     // const todasLasPublicaciones = await Resenia.find()
+            //     // console.log({succes:true, respues:nuevaPublicacion})
+            //     res.json({success: true, respuesta: nuevaPublicacion})
+    
 
         }catch(error){
             console.log("error cargar publicacion" , error)

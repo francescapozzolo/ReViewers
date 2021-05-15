@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import authActions from '../../redux/actions/authActions'
 import Checkbox from '@material-ui/core/Checkbox';
@@ -33,36 +32,38 @@ const CompletarRegistro = (props) =>{
    const categoriaSeleccionada = (e) => {
         setCategoriaInteres({
             ...categoriaInteres,
-            [e.target.dataset.categoria]: !categoriaInteres[e.target.dataset.categoria]
+            [e.target.dataset.categoria]: !categoriaInteres[e.target.dataset.categoria],
         })
    }
 
    const [checked, setChecked] = useState(true);
-   const [rolUsuario, setRolUsuario] = useState('escritor')
+   const [rol, setRol] = useState('escritor')
 
    const cambiarRolUsuario = (e) => {
      setChecked(!checked);
-    checked ? setRolUsuario('lector') : setRolUsuario('escritor')
+    checked ? setRol('lector') : setRol('escritor')
    };
 
-   const confirmarUsuario = () => {
+   const confirmarUsuario = async () => {
         let arrayIntereses = [categoriaInteres.gastronomia && 'gastronomia', categoriaInteres.deportes && 'deportes', categoriaInteres.tecnologia && 'tecnologia', categoriaInteres.entretenimiento && 'entretenimiento']
         const intereses = arrayIntereses.filter(interes => interes !== false)
 
         let rolUsuarioIntereses = {
             usuarioConfirmado: true,
             intereses,
-            rolUsuario
+            rol,
+            token: props.usuarioLogeado.token
         }
 
-        console.log(rolUsuarioIntereses)
+        const respuesta = await props.confirmarUsuario(rolUsuarioIntereses)
    }
-   
-
-   console.log(categoriaInteres)
+   useEffect(() => {
+       selectModal()
+   }, [])
     return(
     <div className="App">
-       <p className="link titulosAlt mx-1" onClick={ selectModal }>Completar Registro</p>      
+        {/* esto va a estar oculto, y en caso de que se valide que el usuario no tiene la propiedad usuarioConfirmado en true va a llamarse cuando se monta el componente */}
+        {/* <p className="link titulosAlt mx-1" onClick={ selectModal }>Completar Registro</p>*/}
        <div className="modal" onClick={(e) =>  closeModal(e) } style={divStyle}>
             <div className="modal-content bg-verde-200" onClick={ e => e.stopPropagation() }>
                 <span className="close" onClick={(e) =>  closeModal(e) }>&times;</span>
@@ -122,15 +123,14 @@ const CompletarRegistro = (props) =>{
     )
 }
 
-// const mapStateToProps = state => {
-//     return{
-//         usuarioLogeado: state.authReducer.usuarioLogeado
-//     }
-// }
+const mapStateToProps = state => {
+    return{
+        usuarioLogeado: state.authReducer.usuarioLogeado
+    }
+}
 
-// const mapDispatchToProps = {
-//     iniciarSesion: authActions.iniciarSesion
-// }
+const mapDispatchToProps = {
+    confirmarUsuario: authActions.confirmarUsuario
+}
 
-// export default connect(mapStateToProps, mapDispatchToProps)(InicioSesion)
-export default CompletarRegistro;
+export default connect(mapStateToProps, mapDispatchToProps)(CompletarRegistro)

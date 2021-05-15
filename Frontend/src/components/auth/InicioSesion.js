@@ -24,16 +24,7 @@ const InicioSesion = (props) =>{
         let usuario = usuarioGoogle ? usuarioGoogle : usuarioPagina
         
         if(!Object.values(usuario).some(value => value === '')) {
-            const respuestaConErrores = await props.iniciarSesion(usuario)
-            
-            if(!respuestaConErrores) {
-                let campos = ({
-                    mail: '',
-                    clave: ''
-                })
-            } else {
-                console.log(respuestaConErrores)
-            }
+            props.iniciarSesion(usuario)
         } else {
             alert('No pueden haber campos vacios')
         }

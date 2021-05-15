@@ -4,7 +4,7 @@ import publicacionesActions from "../redux/actions/publicacionesActions";
 import styled from 'styled-components';
 import Tooltip from '@material-ui/core/Tooltip';
 import { toast } from 'react-toastify';
-
+import { connect } from 'react-redux'
 
 const Imagen = styled.div`
     & {
@@ -48,92 +48,88 @@ const Imagen = styled.div`
         }
       `
 
-class CrearPublicacion extends React.Component {
-  state = {
-    valoresInput: {categoria:"", subcategoria:"", titulo:"", subtitulo:"", descripcion:"", imagen:"", pro:"", contra:"", tags:"" },
-    comprobarImagen:false,
-    categorias: [],
-    subCategorias: []
-  };
-  
-  setearInput = (e) => {
-    const valueInput = e.target.value;
-    const campoInput = e.target.name;
-    this.setState({
-      ...this.state,
-      valoresInput: {
-        ...this.state.valoresInput,
-        [campoInput]: valueInput,
-      },
-    });
-  };
 
-  toasts = (tipo, mensaje, position, autoClose, closeOnClick, pauseOnHover, draggable, toastId, closeButton)=>{
-    toast[tipo](mensaje, {
-      position,
-      closeOnClick,
-      pauseOnHover,
-      draggable,
-      toastId,
-      closeButton,
-      autoClose
-      });
-  }
-  
-  enviarForm = (e) => {
-    e.preventDefault();
-
-    // console.log(e.target.dataset.done)
-    const tagsComa = this.state.valoresInput.tags.split(',')
-
-    // PREPROCESADO DE INPUTS
-    let tags = tagsComa.map(tag => tag.trim().toLocaleLowerCase())
-    tags = tags.filter(tag => tag !== " " && tag !== "")
+class Configuraciones extends React.Component{
     
-    let pro = tagsComa.map(pro => pro.trim().toLocaleLowerCase())
-    pro = pro.filter(pro => pro !== " " && pro !== "")
-    
-    let contra = tagsComa.map(contra => contra.trim().toLocaleLowerCase())
-    contra = contra.filter(contra => contra !== " " && contra !== "")
-    
-    let {imagen, categoria, subcategoria, titulo, subtitulo, descripcion} = this.state.valoresInput
-    imagen = imagen.trim()
-    titulo = titulo.trim()
-    subtitulo = subtitulo.trim()
-    descripcion = descripcion.trim()
-
-    if(descripcion.length >= 500 && titulo !== "" && subtitulo !== "" && imagen !== ""){
-      const schemaAEnviar = {categoria,subcategoria,titulo,subtitulo,descripcion,imagen,pro,contra,tags}
-      const respuestaErrorOConfirmacion = this.props.enviarPublicacion(schemaAEnviar);
-      console.log(respuestaErrorOConfirmacion)
-      // ACA MAPEAR ERRORES
-    }else if(descripcion.length < 500 ){
-      this.toasts("warning","La reseña debe contener 500 caracteres como minimo", "top-center", 5000, true, false, true, "error500Caracteres", true)
-    }else{
-      this.toasts("error","Hay campos requeridos incompletos.", "top-center", 5000, true, false, true, "error500Caracteres", true)
+    state = {
+        valoresInput:{ nombre:"",
+        apellido:"",
+        mail:"",
+        clave:"",
+        imagen:"",
+        intereses:"",
+        rol:"",
+        favoritos:"",
+        seguidores:"",
+        usuarioConfirmado:""}
     }
+        
+      setearInput = (e) => {
+        const valueInput = e.target.value;
+        const campoInput = e.target.name;
+        this.setState({
+          ...this.state,
+          valoresInput: {
+            ...this.state.valoresInput,
+            [campoInput]: valueInput,
+          },
+        });
+      };
+    
+      toasts = (tipo, mensaje, position, autoClose, closeOnClick, pauseOnHover, draggable, toastId, closeButton)=>{
+        toast[tipo](mensaje, {
+          position,
+          closeOnClick,
+          pauseOnHover,
+          draggable,
+          toastId,
+          closeButton,
+          autoClose
+          });
+      }
+      
 
-  };
+    comprobarImagen = (e) => {
+        e.preventDefault()
+      this.setState({...this.state, comprobarImagen:!this.state.comprobarImagen});
+    };
 
-  comprobarImagen = (e) => {
-      e.preventDefault()
-    this.setState({...this.state, comprobarImagen:!this.state.comprobarImagen});
-  };
-
-  presionoEnter = (e)=>{
-    if (e.key === 'Enter') {
-      console.log('do validate');
-    }
-  }
-
-
-
-  ingresarImagen = React.createRef()
-
-
-  render() {
-    return (
-      <main className="contenedor">
+    enviarForm = (e) => {
+        e.preventDefault();
+    
+        // console.log(e.target.dataset.done)
+        const tagsComa = this.state.valoresInput.tags.split(',')
+    
+        // PREPROCESADO DE INPUTS
+        let tags = tagsComa.map(tag => tag.trim().toLocaleLowerCase())
+        tags = tags.filter(tag => tag !== " " && tag !== "")
+        
+        let pro = tagsComa.map(pro => pro.trim().toLocaleLowerCase())
+        pro = pro.filter(pro => pro !== " " && pro !== "")
+        
+        let contra = tagsComa.map(contra => contra.trim().toLocaleLowerCase())
+        contra = contra.filter(contra => contra !== " " && contra !== "")
+        
+        let {imagen, categoria, subcategoria, titulo, subtitulo, descripcion} = this.state.valoresInput
+        imagen = imagen.trim()
+        titulo = titulo.trim()
+        subtitulo = subtitulo.trim()
+        descripcion = descripcion.trim()
+    
+        if(descripcion.length >= 500 && titulo !== "" && subtitulo !== "" && imagen !== ""){
+          const schemaAEnviar = {categoria,subcategoria,titulo,subtitulo,descripcion,imagen,pro,contra,tags}
+          const respuestaErrorOConfirmacion = this.props.enviarPublicacion(schemaAEnviar);
+          console.log(respuestaErrorOConfirmacion)
+          // ACA MAPEAR ERRORES
+        }else if(descripcion.length < 500 ){
+          this.toasts("warning","La reseña debe contener 500 caracteres como minimo", "top-center", 5000, true, false, true, "error500Caracteres", true)
+        }else{
+          this.toasts("error","Hay campos requeridos incompletos.", "top-center", 5000, true, false, true, "error500Caracteres", true)
+        }
+    
+      };
+    render(){
+        return (<main className="contenedor">
 
         <form
           className="contenedor-reseña"
@@ -288,19 +284,10 @@ class CrearPublicacion extends React.Component {
         </form>
 
         <div></div>
-      </main>
-    );
-  }
+      </main>)
+
+    }
 }
 
-const mapStateToProps = state => {
-  return {
-    publicaciones: state.publicacionReducer.todasLasPublicaciones
-  }
-}
-const mapDispatchToProps = {
-  enviarPublicacion: publicacionesActions.enviarFormulario,
-  cargarPublicaciones: publicacionesActions.obtenerTodasPublicaciones
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(CrearPublicacion);
+export default connect (null)(Configuraciones)

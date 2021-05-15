@@ -96,7 +96,7 @@
         margin: 0 1rem;
     }
     
-    nav {
+    header nav {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -107,7 +107,12 @@
             .logo{
                 height: 2.5rem;
             }
-    
+            .logo2{
+                background-color: #ffffff;
+                height: 2.5rem;
+                border-top-right-radius: 10px;
+                border-bottom-left-radius: 10px;
+            }
             /*HEADER PORTADA*/
             .contenedorEnlaces{
                 display: flex;
@@ -147,8 +152,7 @@
                 width: 3.5rem;
                 height: 3.5rem;
                 background-color: var(--azulOscuro);
-                border-radius: 50%;
-                margin-top: 0.8rem;
+                border-radius: 50%; 
                 background-position: center;
                 background-size: cover;
     
@@ -796,10 +800,6 @@
         transition: transform .4s;
     }
 
-    /* .box:hover {
-        transform: scale(1.05);
-    } */
-
     .textoIntereses {
         font-size: 1rem;
     }
@@ -915,19 +915,7 @@
         font-size: 0.75rem;
     }
 
-
-    /* SWITCH */
-    
-    
-    
-    /* UTILIDADES */
-    
-    .cursor-pointer {
-        cursor: pointer;
-    }
-
-    
-
+    /* UTILIDADES */ 
     .mensajeAlerta {
         text-align: center;
         color: rgb(218, 83, 83);
@@ -1549,6 +1537,10 @@
     margin-right: auto;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 
 /* Icono Me Gusta */
 
@@ -1567,10 +1559,6 @@
 
 .icono-meGustaActivo:hover {
     cursor: pointer;
-}
-
-.displayNone { 
-    display: none;
 }
 
 .centradorDePrueba-borrar {
@@ -1652,6 +1640,12 @@
     align-items: center;
 }
 
+.seccion-resenia-contenedor-general {
+    border: 1px solid black;
+    /* display: flex;
+    flex-direction: column; */
+}
+
 .imagen-de-categoria {
     width: 100%;
     /* height: 38vh; */
@@ -1668,6 +1662,7 @@
     position: absolute;
     bottom: 0px;
     margin-top: 50px;
+    text-align: center;
 }
 
 .subtitulo-resenia{
@@ -1683,35 +1678,40 @@
     text-align: center;
 }
 
-.resenia-section-container {
+.resenia-section {
     width: 85vw;
+    margin: 10vh auto;
+    background: rgb(201,242,231);
+    border-radius: 20px;
+    position: relative;
+    padding-bottom: 50px;
+    /* min-height: 90vh; */
+
     /* width */
     /* width: calc(100); */
     /* padding: 5vh; */
-    /* height: 90vh; */
-    margin: 10vh auto;
-    background: lightblue;
-    border-radius: 20px;
 }
 
 .reseniaSection-topContainer {
     width: 90%;
-    height: 50vh;
-    /* border: 2px solid black; */
+    /* min-height: 50vh ; */
     margin: 0px auto;
     display: flex;
-    /* justify-content: space-around; */
     padding-top: 50px;
+    position: relative;
+    /* border: 1px solid black; */
+    /* justify-content: space-around; */
     /* background: red; */
 }
 
 .contenedor-de-foto-de-resenia {
     width: 30%;
-    height: 100%;
+    /* height: 100% ; */
+    /* border: 1px solid black; */
     /* height: 45vh; */
     /* background: url('https://cdn.motor1.com/images/mgl/1X4x9/s1/2019-aston-martin-dbs-superleggera.jpg'); */
-    /* background-position: top right; */
-    /* background-size: cover; */
+    background-position: center !important;
+    background-size: cover !important;
     border-radius: 10px;
 }
 
@@ -1719,12 +1719,26 @@
 .reseniaSection-right {
     /* background: blue; */
     /* border: 2px solid black; */
-    width: 100% ;
+    /* overflow: auto; */
     /* flex-grow: 1; */
+    width: 100% ;
     display: flex;
     flex-direction: column;
     margin-left: 5%;
-    overflow: auto;
+}
+
+.icono-guardar {
+    position: absolute;
+    right: 20px;
+    top: 0;
+    font-size: 45px;
+    transition: all .2s ease;
+    color: red;
+}
+
+.icono-guardar:hover {
+    cursor: pointer;
+    color: rgb(223, 1, 1);
 }
 
 .valorar-container {
@@ -1744,8 +1758,8 @@
 }
 
 .descripcion-resenia {
-    /* margin-top: 5vh; */
-    font-size: 1.2rem;
+    margin-top: 2vh;
+    font-size: 1.1rem;
     text-align: justify;
     /* align-self: center; */
 }
@@ -1753,24 +1767,239 @@
 .resenia-comments-container {
     /* margin-top: 200px; */
     width: 90%;
-    height: 30vh;
-    border: 1px solid black;
-    margin: 5vh auto 0 auto;
+    /* height: 30vh; */
+    /* border: 1px solid rgb(204, 204, 204); */
+    margin: 15vh auto 0 auto;
     display: flex;
     flex-direction: column;
     border-radius: 3px;
 }
 
-.contenedor-comentarios {
+.contenedor-general-comentarios {
     width: 100%;
     flex-grow: 1;
     /* background: red; */
 }
 
+.contenedor-de-comentarios {
+    width: 70%;
+    height: 100%;
+    /* background-color: lightblue; */
+}
+
+.comment {
+    width: 100%;
+    /* height: 80px; */
+    /* border: 1px solid black; */
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.comment-image {
+    width: 90px;
+    height: 100px;
+    /* border-radius: 100%; */
+    /* border: 1px solid black; */
+    background-position: center;
+    background-size: cover;
+}
+
+.comment-content-container {
+    flex-grow: 1;
+    /* background-color: lightcoral; */
+    padding-left: 20px;
+    /* border: 1px solid black; */
+}
+
+.comment-content {
+    /* border: 1px solid black; */
+    width: 40vw;
+    /* height: 100px; */
+    display: flex;
+    align-self: center;
+    font-family: 'montserrat';
+    text-align: justify;
+}
+
+.icons-container {
+    font-size: 20px;
+    /* background: green; */
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.modifyComment-icon:hover{
+    color: blue;
+    cursor: pointer;
+}
+
+.deleteComment-icon {
+    margin-top: 5px;
+}
+
+.deleteComment-icon:hover {
+    cursor: pointer;
+    color: red;
+}
+
+
+.send-message-container {
+    width: 100%;
+    /* background: green; */
+    display: flex;
+    align-items: center;
+}
+
 .input-comentar {
     /* height: 40px; */
-    padding: 10px 40px;
+    padding: 10px 10px;
     font-size: 1rem;
+    width: 50%;
     /* border-radius: 10px; */
+    background: rgb(201,242,231);
+    border-left: 1px solid rgb(201,242,231);
+    /* border-left: 1px solid rgb(48, 48, 48); */
+    border-top: 1px solid rgb(201,242,231);
+    border-right: 1px solid rgb(201,242,231);
+    border-bottom: 1px solid rgb(48, 48, 48);
+    /* border: none; */
     outline: none;
+    transition: all .2s ease;
+    font-family: 'montserrat';
 }
+
+.input-comentar:focus{
+    border-bottom: 1px solid rgb(131, 131, 131);
+}
+
+.send-icon {
+    font-size: 1.4rem;
+    transition: all .2s ease;
+}
+
+.send-icon:hover {
+    cursor: pointer;
+    color: rgb(58, 58, 58);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.bm-burger-button {
+    position: fixed;
+    width: 36px;
+    height: 30px;
+    left: 10px;
+    top: 30px;
+  }
+  
+  /* Color/shape of burger icon bars */
+  .bm-burger-bars {
+    background: #373a47;
+  }
+  
+  /* Color/shape of burger icon bars on hover*/
+  .bm-burger-bars-hover {
+    background: #a90000;
+  }
+  
+  /* Position and sizing of clickable cross button */
+  .bm-cross-button {
+    height: 24px;
+    width: 24px;
+  }
+  
+  /* Color/shape of close button cross */
+  .bm-cross {
+    background: white;
+  }
+  
+  /*
+  Sidebar wrapper styles
+  Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+  */
+  .bm-menu-wrap {
+    position: fixed;
+    height: 100%;
+    overflow:hidden;
+  }
+  
+  /* General sidebar styles */
+  .bm-menu {
+    /* background: rgba(55, 59, 72, 0.85); */
+    padding: 2.5em 1.5em 0;
+    font-size: 1.15em;
+    opacity: 0.98;
+    background-image: url("./assets/patronSideBar.png");
+  }
+  
+  /* Morph shape necessary with bubble or elastic */
+  .bm-morph-shape {
+    fill: #373a47;
+  }
+  
+  /* Wrapper for item list */
+  nav.bm-item-list {
+    color: #b8b7ad;
+    padding: 0.8em;
+    overflow: hidden;
+  }
+
+  
+  /* Individual item */
+  .bm-item {
+    font-family: 'Montserrat', sans-serif;
+    display: inline-block;
+    color: white;
+  }
+  
+  /* Styling of overlay */
+  .bm-overlay {
+    background: rgba(0, 0, 0, 0.6) !important;
+  }
+
+  .sideBar-icon{
+      margin-right: 10px;
+  }
+
+
+  .SideHeader,.SideMain,.SideFooter *{
+    color: white;
+  }
+
+  .SideHeader,.SideFooter{
+      width: 100%;
+      height: 20%;
+      display: flex !important;
+    }
+    .SideMain > a{
+      color:white ;
+      margin: .5rem 1rem;
+    }
+    .SideMain{
+        width: 100%;
+        height: 60%;
+        display: flex !important;
+        flex-direction: column;
+    }
+    .SideHeader {
+      
+    }
+  .SideFooter{
+
+  }
+

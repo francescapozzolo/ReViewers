@@ -38,8 +38,6 @@ class Inicio extends React.Component{
         })
     }
 
-
-
     shuffle = (array) => {
         let currentIndex = array.length, temporaryValue, randomIndex;
         while (0 !== currentIndex) {
@@ -51,6 +49,7 @@ class Inicio extends React.Component{
         }
       return array;
       }
+      
       
       render() {
         console.log(this.props.usuarioLogeado.intereses)
