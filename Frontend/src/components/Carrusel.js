@@ -1,12 +1,8 @@
 import {useEffect, useRef, useState} from 'react'
 
-let aux = 1;
+let aux = 0;
 
 const Carrusel = () => {
-    const slide1 = useRef(null)
-    const slide2 = useRef(null)
-    const slide3 = useRef(null)
-    const slide4 = useRef(null)
     
     const cambiarSlide = (e) => {
         const numero = e.target.dataset.slide
@@ -17,8 +13,8 @@ const Carrusel = () => {
     
     useEffect(() => {
        const intervaloCarrusel = setInterval(() => {
-            if(aux === 4) {
-                aux = 1
+            if(aux === 3) {
+                aux = 0
             } else {
                 aux += 1
             }
@@ -29,6 +25,12 @@ const Carrusel = () => {
         }
     }, [])
 
+    const cantidadDeSlides = ["GASTRONOMÍA","TECNOLOGIA","ENTRETENIMIENTO","DEPORTES"]
+    const imagenesSlide0 = ['url("/assets/gastronomia/cervezas.jpg")','url("/assets/gastronomia/pescado.jpg")','url("/assets/gastronomia/macarons.jpg")','url("/assets/gastronomia/parrilla.jpeg")','url("/assets/gastronomia/helado.jpg")']
+    const imagenesSlide1 = ['url("/assets/tecnologia/bitcoin.jpg")','url("/assets/tecnologia/smartwatch.jpg")','url("/assets/tecnologia/tecnologia.jpg")','url("/assets/tecnologia/tecnologia2.jpg")','url("/assets/tecnologia/smarthome.jpg")']
+    const imagenesSlide2 = ['url("/assets/entretenimiento/netflix.jpeg")','url("/assets/entretenimiento/musica.jpg")','url("/assets/entretenimiento/leer.jpg")','url("/assets/entretenimiento/videojuegos.jpg")','url("/assets/entretenimiento/peli.jpg")']
+    const imagenesSlide3 = ['url("/assets/deportes/formula1.jpg")','url("/assets/deportes/futbol.jpg")','url("/assets/deportes/running.jpg")','url("/assets/deportes/volley.jpg")','url("/assets/deportes/tenis.jpg")']
+
     return(
 
         <div id="contenedorCarrusel">
@@ -36,7 +38,11 @@ const Carrusel = () => {
                 <div>
                     <h1 className="texto titulosAlt">Mejores Reviews</h1>
                 </div>
+
                 <ul className="menuSlides">
+                    <li>
+                        <p className="dot-slider" data-slide="0" onClick={cambiarSlide}>.</p>
+                    </li>
                     <li>
                         <p className="dot-slider" data-slide="1" onClick={cambiarSlide}>.</p>
                     </li>
@@ -46,56 +52,29 @@ const Carrusel = () => {
                     <li>
                         <p className="dot-slider" data-slide="3" onClick={cambiarSlide}>.</p>
                     </li>
-                    <li>
-                        <p className="dot-slider" data-slide="4" onClick={cambiarSlide}>.</p>
-                    </li>
                 </ul>
             </div>
+
             <ul className="slider">
-                <li ref={slide1} className="slideGrid" style={visible === 1 ? {opacity: '1'} : {opacity: '0'}}>
-                    <div style={{backgroundImage: 'url("/assets/gastronomia/cervezas.jpg")'}}></div>
-                    <div>
-                        <h2 className="titulosFont tituloCarrusel">GASTRONOMÍA</h2>
-                    </div>
-                    <div style={{backgroundImage: 'url("/assets/gastronomia/pescado.jpg")'}}></div>
-                    <div style={{backgroundImage: 'url("/assets/gastronomia/macarons.jpg")'}}></div>
-                    <div></div>
-                    <div style={{backgroundImage: 'url("/assets/gastronomia/parrilla.jpeg")'}}></div>
-                    <div style={{backgroundImage: 'url("/assets/gastronomia/helado.jpg")'}}></div>
-                </li>
-                <li ref={slide2} className="slideGrid" style={visible === 2 ? {opacity: '1'} : {opacity: '0'}}>
-                    <div style={{backgroundImage: 'url("/assets/tecnologia/bitcoin.jpg")'}}></div>
-                    <div>
-                        <h2 className="titulosFont tituloCarrusel">TECNOLOGIA</h2>
-                    </div>
-                    <div style={{backgroundImage: 'url("/assets/tecnologia/smartwatch.jpg")'}}></div>
-                    <div style={{backgroundImage: 'url("/assets/tecnologia/tecnologia.jpg")'}}></div>
-                    <div></div>
-                    <div style={{backgroundImage: 'url("/assets/tecnologia/tecnologia2.jpg")'}}></div>
-                    <div style={{backgroundImage: 'url("/assets/tecnologia/smarthome.jpg")'}}></div>
-                </li>
-                <li ref={slide3} className="slideGrid" style={visible === 3 ? {opacity: '1'} : {opacity: '0'}}>
-                    <div style={{backgroundImage: 'url("/assets/entretenimiento/netflix.jpeg")'}}></div>
-                    <div>
-                        <h2 className="titulosFont tituloCarrusel">ENTRETENIMIENTO</h2>
-                    </div>
-                    <div style={{backgroundImage: 'url("/assets/entretenimiento/musica.jpg")'}}></div>
-                    <div style={{backgroundImage: 'url("/assets/entretenimiento/leer.jpg")'}}></div>
-                    <div></div>
-                    <div style={{backgroundImage: 'url("/assets/entretenimiento/videojuegos.jpg")'}}></div>
-                    <div style={{backgroundImage: 'url("/assets/entretenimiento/peli.jpg")'}}></div>
-                </li>
-                <li ref={slide4} className="slideGrid" style={visible === 4 ? {opacity: '1'} : {opacity: '0'}}>
-                    <div style={{backgroundImage: 'url("/assets/deportes/formula1.jpg")'}}></div>
-                    <div>
-                        <h2 className="titulosFont tituloCarrusel">DEPORTES</h2>
-                    </div>
-                    <div style={{backgroundImage: 'url("/assets/deportes/futbol.jpg")'}}></div>
-                    <div style={{backgroundImage: 'url("/assets/deportes/running.jpg")'}}></div>
-                    <div></div>
-                    <div style={{backgroundImage: 'url("/assets/deportes/volley.jpg")'}}></div>
-                    <div style={{backgroundImage: 'url("/assets/deportes/tenis.jpg")'}}></div>
-                </li>
+                {
+                    cantidadDeSlides.map((slide, index) =>{
+                        let imagenesSlide = index === 0 ? imagenesSlide0 : index === 1 ? imagenesSlide1 : index === 2 ? imagenesSlide2 : imagenesSlide3 
+                        return (
+                            <li key={index} className="slideGrid" style={visible === index ? {opacity: '1'} : {opacity: '0'}}>
+                                <div style={{backgroundImage: imagenesSlide[0]}}></div>
+                                <div>
+                                    <h2 className="titulosFont tituloCarrusel">{slide}</h2>
+                                </div>
+                                <div style={{backgroundImage: imagenesSlide[1]}}></div>
+                                <div style={{backgroundImage: imagenesSlide[2]}}></div>
+                                <div></div>
+                                <div style={{backgroundImage: imagenesSlide[3]}}></div>
+                                <div style={{backgroundImage: imagenesSlide[4]}}></div>
+
+                            </li>
+                        )
+                    })
+                }
             </ul>
             
         </div>

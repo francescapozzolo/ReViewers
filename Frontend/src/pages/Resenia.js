@@ -4,32 +4,33 @@ import Valoracion from "../components/utilidades/Valoracion"
 import Rating from '@material-ui/lab/Rating';
 
 const Resenia = (props)=>{
+
    const [reseniaSeleccionada, setReseniaSeleccionada] = useState({})
 
-   useEffect(async()=>{
+   useEffect(()=>{
       const idResenia = props.match.params.id
       
-      console.log(idResenia)
-      console.log(props.todasLasPublicaciones)
+      //console.log(idResenia)
+      //console.log(props.todasLasPublicaciones)
 
       const findPublicacion = props.todasLasPublicaciones.filter(publicacion => JSON.stringify(publicacion._id) === JSON.stringify(idResenia))
       setReseniaSeleccionada(findPublicacion)
       
 
-      // console.log(reseniaSeleccionada)
+      // //console.log(reseniaSeleccionada)
       
-      // console.log(typeof(idResenia))
-      // console.log(typeof props.todasLasPublicaciones[0]._id)
+      // //console.log(typeof(idResenia))
+      // //console.log(typeof props.todasLasPublicaciones[0]._id)
 
       // if(props.todasLasPublicaciones.length < 0){
          // } else {
             //    const respuesta = await props.callSingleCity(idResenia)
             //    setReseniaSeleccionada(respuesta)
             // }
-            // console.log(reseniaSeleccionada)
+            // //console.log(reseniaSeleccionada)
    }, [])
          
-   console.log(reseniaSeleccionada)
+   //console.log(reseniaSeleccionada)
 
 
 
