@@ -1653,7 +1653,7 @@
     width: 100%;
     /* height: 38vh; */
     height: calc(100% - 1.5rem);
-    background: url('https://www.ctisoluciones.com/sites/default/files/styles/banner_home/public/2019-01/cabecera-home-cti.jpg?itok=xwcDKMHv');
+    /* background: url('https://www.ctisoluciones.com/sites/default/files/styles/banner_home/public/2019-01/cabecera-home-cti.jpg?itok=xwcDKMHv'); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
