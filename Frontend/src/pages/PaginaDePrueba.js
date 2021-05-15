@@ -29,7 +29,7 @@ const PaginaDePrueba = ({filtroPorPalabraClave, obtenerTodasPublicaciones, todas
                ?  publicacionesFiltradas.map( (publicacion) => {
                      return(
                         <div key={publicacion._id} className="reseñaDePrueba-borrar"> {/* Mas adelante la key seria el _id */}
-                           <Link to={`/review/${publicacion._id}`} >
+                           <Link to={`/publicacion/${publicacion._id}`} >
                               <h1> {publicacion.titulo} </h1>
                               <p>Palabras Clave:</p>
                               <div> {publicacion.tags.map(tag => <p>{tag}</p> ) } </div>

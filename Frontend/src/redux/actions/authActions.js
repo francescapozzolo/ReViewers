@@ -7,19 +7,19 @@ const authActions = {
         return async(dispatch, getState) => {
             try {
                 const respuesta = await axios.post('http://localhost:4000/api/usuarios/registrarse', nuevoUsuario)
-                
-                if(respuesta.data.errores.details) {
-                    return respuesta.data.errores.details
-                } else if(!respuesta.data.sucess) { 
-                    alert(respuesta.data.error)
-                } else {
+
+                if(respuesta.data.success) {
                     dispatch({
                         type: 'INGRESO_USUARIO',
                         payload: respuesta.data.respuesta
                     })
+                } else if(respuesta.data.error) { 
+                    alert(respuesta.data.error)
+                } else {
+                    return respuesta.data.errores.details
                 }
-            } catch (error) {
-                error = "Error en action de crear usuario"
+            } catch {
+                alert("Error interno del servidor, intente en un momento")
             }
         }
     },
@@ -36,7 +36,7 @@ const authActions = {
                 } else {
                     alert(respuesta.data.error)
                 }
-            } catch (error) {
+            } catch {
                 alert("Error interno del servidor, intente en un momento")
             }
         }
@@ -48,7 +48,7 @@ const authActions = {
                 dispatch({
                     type: 'DESLOGUEO_USUARIO'
                 })
-            } catch (error) {
+            } catch {
                 alert('Error interno del servidor, intente mas tarde')
             }
         }
@@ -69,7 +69,27 @@ const authActions = {
                         token: ObjUsuarioLS.token
                     }
                 })
-            } catch (error) {
+            } catch {
+                alert('Error interno del servidor, intente mas tarde')
+            }
+        }
+    },
+
+    confirmarUsuario: (rolUsuarioIntereses) => {
+        return async(dispatch, getState) => {
+            try {
+                const respuesta = await axios.put('http://localhost:4000/api/confirmarUsuario', rolUsuarioIntereses, {
+                    headers: {
+                        'Authorization': 'Bearer '+ rolUsuarioIntereses.token
+                    }
+                }) 
+                
+                if(respuesta.data.usuarioConfirmado) {
+                    return respuesta.data.usuarioConfirmado
+                } else if(respuesta.data.error) {
+                    alert(respuesta.data.error)
+                }  
+            } catch {
                 alert('Error interno del servidor, intente mas tarde')
             }
         }
