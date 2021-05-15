@@ -147,8 +147,7 @@
                 width: 3.5rem;
                 height: 3.5rem;
                 background-color: var(--azulOscuro);
-                border-radius: 50%;
-                margin-top: 0.8rem;
+                border-radius: 50%; 
                 background-position: center;
                 background-size: cover;
     
@@ -919,14 +918,7 @@
     
     
     
-    /* UTILIDADES */
-    
-    .cursor-pointer {
-        cursor: pointer;
-    }
-
-    
-
+    /* UTILIDADES */ 
     .mensajeAlerta {
         text-align: center;
         color: rgb(218, 83, 83);
@@ -1546,6 +1538,10 @@
 .mx-auto {
     margin-left: auto;
     margin-right: auto;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
 
 
