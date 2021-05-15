@@ -57,5 +57,4 @@ const mapDispatchToProps = {
     cerrarSesion: authActions.cerrarSesion
 }
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(Header)
