@@ -45,6 +45,7 @@ class App extends React.Component {
     this.setState(state => ({menuOpen: !state.menuOpen}))
   }
   render(){
+
     if(!this.props.usuarioLogeado && localStorage.getItem('token')) {
       const usuarioLS = JSON.parse(localStorage.getItem('usuarioLogeado'))
       const ObjUsuarioLS = {
@@ -52,7 +53,9 @@ class App extends React.Component {
         ...usuarioLS
       }
       this.props.iniciarSesionLS(ObjUsuarioLS)
-    }
+    }    
+
+    console.log(this.props)
 
     
     return(

@@ -22,13 +22,23 @@ const controladoresDeComentarios = {
    cargarNuevoComentario: async(req, res)=>{
       try {
          const idPublicacion = req.params.id
-         var {idUsuario, mensaje} = req.body
+         var {mensaje} = req.body
+         const {_id} = req.user
+
          var publicacionComentada = await Resenia.findOneAndUpdate(
             {_id: idPublicacion},
-            {$push: {comentarios: {idUsuario, mensaje}}}, 
+            {$push: {comentarios: {usuarioId: _id, mensaje}}}, 
             {new: true}
          ) 
-         res.json({success: true, respuesta: {publicacionComentada: publicacionComentada.comentarios}})
+
+         const reseniaAContestar = await Resenia.findOne({_id: idPublicacion})
+         .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1,"imagen":1 } } })
+
+         console.log(reseniaAContestar)
+         // const usuarioQueComento = await Usuario.findOne({_id: _id})
+         // console.log(usuarioQueComento)
+         
+         res.json({success: true, respuesta: reseniaAContestar})
       } catch (err) {
          console.log('Caí en el catch del controlador cargarNuevoComentario y el error es: '+err)
          res.json({success: false, error: "Error: " + err})
