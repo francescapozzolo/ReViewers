@@ -35,9 +35,9 @@ class App extends React.Component {
                 {!this.props.usuarioLogeado && <Route exact path="/" component={Portada} />}
                 {this.props.usuarioLogeado && <Route path="/inicio" component={Inicio} />}
                 {this.props.usuarioLogeado && <Route path="/publicar" component={CrearPublicacion} />}
-                <Route path="/prueba" component={PaginaDePrueba} />
-                <Route path="/review/:id" component={Resenia} />
-                <Route path="/publicaciones" component={Publicaciones} />
+                <Route path="/publicaciones/:categoria" component={Publicaciones}/>
+                <Route path="/publicacion/:id" component={Resenia}/>
+                <Route path="/prueba" component={PaginaDePrueba} />                
                 <Redirect to={this.props.usuarioLogeado ? "/inicio" : "/"} />
             </Switch>
             <Footer component={Footer}/>

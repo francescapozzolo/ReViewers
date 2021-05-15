@@ -4,12 +4,12 @@ import publicacionesActions from '../redux/actions/publicacionesActions'
 import PublicacionIndividual from '../components/utilidades/PublicacionIndividual'
 import Loader from 'react-loader-spinner'
 
-
 const Publicaciones = (props)=>{
    
     useEffect(()=>{
        props.todasPublicaciones()
        console.log(props)
+
     },[])
     if(props.publicaciones.length == 0){
         return(
@@ -27,14 +27,14 @@ const Publicaciones = (props)=>{
     }
     return(
         <>
-        <h1>Categoria:{null}</h1>
-        <div className="contenedorPublic">
-            {props.publicaciones.map((publicacion , index)=>{
-                return(
-                    <PublicacionIndividual publicacion={publicacion}/>
-                )
-            })}
-        </div>
+            <h1>Categoria:{null}</h1>
+            <div className="contenedorPublic">
+                {props.publicaciones.map((publicacion , index)=>{
+                    return(
+                        <PublicacionIndividual publicacion={publicacion}/>
+                    )
+                })}
+            </div>
         </>
     )
 }
