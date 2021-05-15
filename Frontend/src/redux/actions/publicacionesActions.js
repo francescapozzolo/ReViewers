@@ -15,6 +15,13 @@ const publicacionesActions={
         } 
     },
 
+    obtenerUnaPublicacion: (idPublicacion)=>{
+        return async(dispatch, getState)=>{
+            const respuesta = await axios.get("http://localhost:4000/api/publicaciones/"+idPublicacion)
+            return(respuesta.data.respuesta)
+        }
+    },
+
     obtenerCategorias: ()=>{
         return (dispatch, getState)=>{
 
@@ -55,6 +62,16 @@ const publicacionesActions={
         return async(dispatch, getState)=>{
             console.log(valorDelFiltro)
             dispatch({type: 'FILTRO_POR_PALABRA_CLAVE', payload: valorDelFiltro})
+        }
+    },
+    cargarComentario: (idPublicacion, token, mensaje)=>{
+        return async(dispatch, getState)=>{
+            const respuesta = await axios.post('http://localhost:4000/api/comentarios/' + idPublicacion, {mensaje}, {
+                headers: {
+                    'Authorization': 'Bearer '+ token
+                }
+            })
+            console.log(respuesta.data.respuesta)
         }
     }
 
