@@ -9,7 +9,6 @@ import Inicio from './pages/Inicio';
 import Portada from './pages/Portada';
 import CrearPublicacion from './components/CrearPublicacion';
 import Header from './components/Header';
-import publicaciones from './pages/Publicaciones'
 import authActions from './redux/actions/authActions';
 import PaginaDePrueba from './pages/PaginaDePrueba';
 import Publicaciones from './pages/Publicaciones'
@@ -36,9 +35,10 @@ class App extends React.Component {
                 {!this.props.usuarioLogeado && <Route exact path="/" component={Portada} />}
                 {this.props.usuarioLogeado && <Route path="/inicio" component={Inicio} />}
                 {this.props.usuarioLogeado && <Route path="/publicar" component={CrearPublicacion} />}
-                <Route path="/publicacion" component={publicaciones}/>
-                <Route path="/prueba" component={PaginaDePrueba} />    
-                <Route path="/review/:id" component={Resenia} />            
+                <Route path="/publicaciones/:categoria" component={Publicaciones}/>
+                <Route path="/publicacion/:id" component={Resenia}/>
+                <Route path="/prueba" component={PaginaDePrueba} />                
+
                 <Redirect to={this.props.usuarioLogeado ? "/inicio" : "/"} />
             </Switch>
             <Footer component={Footer}/>
