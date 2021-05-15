@@ -36,9 +36,10 @@ router.route('/confirmarUsuario')
 // Reseñas | Publicaciones 
 router.route('/publicaciones')
 .get(controladoresDePublicaciones.todasLasPublicaciones) //anda
-// .post(passport.authenticate('jwt',{session:false}),controladoresDePublicaciones.cargarPublicacion) //anda
+//.post(passport.authenticate('jwt',{session:false}),controladoresDePublicaciones.cargarPublicacion) //anda
 .post(controladoresDePublicaciones.cargarPublicacion) //anda
 
+// passport.authenticate('jwt',{session:false})
 router.route('/publicaciones/:id')
 .get(controladoresDePublicaciones.publicacionPorID)
 .delete(controladoresDePublicaciones.borrarPublicacion) //anda

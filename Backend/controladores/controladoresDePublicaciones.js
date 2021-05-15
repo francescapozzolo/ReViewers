@@ -65,8 +65,8 @@ const controladorPublicaciones = {
             const nuevaPublicacion = await new Resenia(reseniaSchemaAEnviar)
             // .save()
             // const todasLasPublicaciones = await Resenia.find()
-            console.log({succes:true, respues:nuevaPublicacion})
-            // res.json({success: true, respuesta: nuevaPublicacion})
+            console.log({succes:true, respuesta:nuevaPublicacion})
+            res.json({success: true, respuesta: nuevaPublicacion})
 
 
         // cargar publicaciones desde postman

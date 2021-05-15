@@ -6,16 +6,19 @@ import Loader from 'react-loader-spinner'
 import { useParams } from 'react-router-dom';
 
 const Publicaciones = (props)=>{
-   
+   console.log(props.match.params.categoria)
     const [publicaciones, setPublicaciones] = useState()
     const {categoria} = useParams()
+    const [portada, setPortada] = useState(`url('/assets/caratulas/${categoria}.jpg')`)
     const categoriaCapitalized = categoria.charAt(0).toUpperCase() + categoria.slice(1)
+    
+
     useEffect(()=>{
         const fetchear = async()=>{
             const todasLasPublicaciones = await props.todasPublicaciones()
             setPublicaciones(todasLasPublicaciones.filter(publicacion => publicacion.categoria === categoria))
         }
-        fetchear()
+        fetchear();
     },[])
     
     if(!publicaciones || !publicaciones[1]){
@@ -38,7 +41,7 @@ const Publicaciones = (props)=>{
     return(
         <>
         <div className="contenedor-tituloDeResenia">
-            <div className="imagen-de-categoria"></div>
+            <div className="imagen-de-categoria" style={{backgroundImage: portada}}></div>
             <h1 className="titulo-de-resenia titulosAlt" style={{top:'0px'}}>{categoriaCapitalized}</h1>
             {/* <h3 className="titulo-de-resenia titulosAlt">Alquileres de Robots para Eventos</h3> */}
          </div>
