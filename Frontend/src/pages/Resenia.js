@@ -12,8 +12,7 @@ const Resenia = (props)=>{
       console.log(idResenia)
       console.log(props.todasLasPublicaciones)
 
-      const findPublicacion = props.todasLasPublicaciones.filter(publicacion => JSON.stringify(publicacion._id) === JSON.stringify(idResenia))
-      setReseniaSeleccionada(findPublicacion)
+      setReseniaSeleccionada(props.todasLasPublicaciones.find(publicacion => JSON.stringify(publicacion._id) === JSON.stringify(idResenia)))
       
 
       // console.log(reseniaSeleccionada)
@@ -36,8 +35,8 @@ const Resenia = (props)=>{
    return(
       <>
          <div className="contenedor-tituloDeResenia">
-            <div className="imagen-de-categoria"></div>
-            <h3 className="titulo-de-resenia titulosAlt">Alquileres de Robots para Eventos</h3>
+            <div className="imagen-de-categoria" style={{backgroundImage: `url(${reseniaSeleccionada.imagen})`}}></div>
+            <h3 className="titulo-de-resenia titulosAlt">{reseniaSeleccionada.titulo}</h3>
          </div>
 
          <div className="contenedor-de-subtitulo">
