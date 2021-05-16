@@ -39,14 +39,30 @@ const controladoresDeUsuario = {
    },
 
    editarUsuario: async(req,res) =>{
+      let usuario = req.user
+      let error;
+      // let usuarioConfirmado;
+      
       try {
-         const idUsuario = req.params.id
-         const usuarioModificado = await Usuario.findOneAndUpdate({_id:idUsuario},{...req.body}, {new: true}) // el new true va xq sino no me devuelve el objeto modif.
+         const actualizarInfo = {
+        
+         }
+        
+      } catch {
+         error = "Error interno del servidor, intente mas tarde"
+      }
+
+      res.json({
+         success: !error ? true : false,
+         usuario,
+         error
+      })
+
          res.json({success: true, respuesta: usuarioModificado})
-      } catch (err){
+
          console.log('Caí en el catch del controlador editarUsuario y el error es: ' + err)
          res.json({success: false, respuesta: "error: " + err})
-      }
+      
    },
 
    registrarUsuario: async(req, res)=>{
@@ -152,8 +168,8 @@ const controladoresDeUsuario = {
          usuarioConfirmado,
          error
       })
-      
    }
+   
 }
 
 module.exports = controladoresDeUsuario

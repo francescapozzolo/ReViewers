@@ -21,7 +21,7 @@ router.route('/usuarios/registrarse')
 router.route('/usuarios/:id')
 .get(controladoresDeUsuarios.obtenerUnUsuario)
 .delete(controladoresDeUsuarios.eliminarUnUsuario)
-.put(controladoresDeUsuarios.editarUsuario)
+.put(passport.authenticate('jwt', {session: false}),controladoresDeUsuarios.editarUsuario)
 
 router.route('/usuarios/iniciarSesion')
 .post(controladoresDeUsuarios.iniciarSesion)

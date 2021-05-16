@@ -4,6 +4,8 @@ import authActions from '../redux/actions/authActions'
 import CompletarRegistro from './auth/CompletarRegistro'
 import InicioSesion from './auth/InicioSesion'
 import Registro from './auth/Registro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {  faHome, faFeatherAlt, faBookOpen, faUserCog, faStar } from '@fortawesome/free-solid-svg-icons'
 
 const Header = (props) => {
     return(
@@ -28,7 +30,7 @@ const Header = (props) => {
                             !props.usuarioLogeado.usuarioConfirmado && <CompletarRegistro />
                         }
                         <Link to="/publicar">
-                            <span className="btn-crearReview texto">Crear review</span>
+                            <span className="btn-crearReview texto"><FontAwesomeIcon icon={faFeatherAlt}/> Crear review</span>
                         </Link> 
                         <span onClick={props.cerrarSesion} className="mx-1 btn-crearReview texto">Cerrar sesion</span>                  
 
