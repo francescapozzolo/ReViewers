@@ -53,7 +53,6 @@ class Inicio extends React.Component{
       
       
       render() {
-
         const evaluacion = this.state.categoriasSeleccionadas.length === 0 
         let stateOprops = evaluacion ? "props" : "state"
         let array = evaluacion ? "publicaciones" : "categoriasSeleccionadas" 

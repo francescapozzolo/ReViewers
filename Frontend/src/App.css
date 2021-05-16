@@ -288,7 +288,7 @@
                     font-size: 3rem;
                 }
     
-                .slideGrid h2{
+                .slideGrid {
                     font-size: 2rem;
                 }
     
@@ -350,7 +350,7 @@
                     .tituloCarrusel {
                         font-size: 4rem !important;
                     }
-    
+
     /*PÁGINA INICIO*/
     main{
         display: flex;
@@ -497,6 +497,7 @@
     .contenedor-buscador{
         width: 50%;
     }
+
     /* REGISTRO */
 
     
@@ -1078,69 +1079,64 @@
     cursor: pointer;
 }
 
-.centradorDePrueba-borrar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* text-align: center; */
-    background: rgb(209, 255, 209);
-    margin-bottom: 10vh;
-}
-
 .bgPublicacion{
     background-position: center;
     background-size: cover;
     width: 20vw;
-    height: 35vh;
+    height: 100%;
 }
+
 .tarjetaPublicaciones{
     display: flex;
     background-color: #c9f2e7;
-    border: 2px solid black;
-    margin-bottom: 2vh;
     width: 80vw;
+    margin-bottom: 2.5vh;
 }
+
 .contenedorPublic{
     display: flex;
     flex-direction: column;
-    border: 2px solid blue;
     align-items: center;
-    margin-bottom: 2vh;
-    margin-top: 2vh;
+    margin: 3vh auto;
 }
+
 .contenidoPublicacion{
-    padding-left: 5vw;
-    padding-top: 2vh;
+    padding: 3vh 2vw 0 1.5vw;
     width: 100%;
-    height: 45vh;
-    border: 2px solid yellow;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
-.espacio{
-    width: 80%;
-    border: 2px solid red;
-}
+
+    .contenidoPublicacion h2, h3, p{
+        color: black;
+    }
+
+    .contenidoPublicacion p{
+        font-size: 1rem;
+    }
+
 .valoracion{
     display: flex;
-    flex-direction: row-reverse;
-    border: 2px solid rebeccapurple;
-    padding-right: 5vw;
+    flex-direction: column;
+    padding: 0 1vw 1.5vh 0;
+    align-self: flex-end;
 }
+
+    .tarjetaPublicaciones:nth-child(2n){
+        flex-direction: row-reverse;
+    }
 .contenedorLoader{
     display: flex;
     align-items: center;
     justify-content: center;
     height: 80vh;
 }
+
 .descripcion{
     font-size: 24px;
     height: 20vh;
-}
-
-.reseñaDePrueba-borrar{
-    width: 20vw;
-    padding: 20px 10px;
-    border: 1px solid black;
-    margin-bottom: 1vh;
 }
 
 
@@ -1408,6 +1404,14 @@
 .send-icon:hover {
     cursor: pointer;
     color: rgb(58, 58, 58);
+
+.editing-textarea {
+    background: rgb(201,242,231);
+}
+
+.editing-sendIcon {
+    font-size: 23px;
+    align-self: center;
 }
 
 

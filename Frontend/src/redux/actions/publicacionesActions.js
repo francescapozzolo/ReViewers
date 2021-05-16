@@ -40,27 +40,23 @@ const publicacionesActions={
                     'Authorization': 'Bearer '+ tokenUsuario
                 }
             })
-            console.log(respuesta)
         }
     },
     cargarValoracion: (idPublicacion, {idUsuario, valoracion})=>{
         return async(dispatch, getState) =>{
             const respuesta = await axios.post("http://localhost:4000/api/publicacionValorada/" + idPublicacion, {idUsuario, valoracion} )
-            console.log(respuesta.data.respuesta)
             return respuesta.data.respuesta
         }
     },
     cargarLike: (idPublicacion, idUsuario)=>{
         return async(dispatch, getState) =>{
             const respuesta = await axios.post("http://localhost:4000/api//publicacionLikeada/" + idPublicacion, {idUsuario})
-            console.log(respuesta.data)
             return respuesta.data
         }
     },
 
     filtroPorPalabraClave: (valorDelFiltro)=>{
         return async(dispatch, getState)=>{
-            console.log(valorDelFiltro)
             dispatch({type: 'FILTRO_POR_PALABRA_CLAVE', payload: valorDelFiltro})
         }
     },
@@ -71,7 +67,12 @@ const publicacionesActions={
                     'Authorization': 'Bearer '+ token
                 }
             })
-            console.log(respuesta.data.respuesta)
+            return respuesta.data.respuesta
+        }
+    },
+    eliminarComentario: ()=>{
+        return async(dispatch, getState)=>{
+            
         }
     }
 

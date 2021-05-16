@@ -57,6 +57,7 @@ class App extends React.Component {
       }
       this.props.iniciarSesionLS(ObjUsuarioLS)
     }     
+
     return(
       <BrowserRouter id="outer-container">
         <Menu styles={{backgroundImage: 'url("/assets/caratulas/patronSideBar.png")'}}  itemListElement = "div" pageWrapId={ "page-wrap" } isOpen={this.state.menuOpen}  onStateChange={(state) => this.handleStateChange(state)} outerContainerId={ "outer-container" } width={300} >
