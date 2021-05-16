@@ -13,7 +13,9 @@ const CompletarRegistro = (props) =>{
         tecnologia: false,
         entretenimiento: false
     })
-    
+    const toTop = ()=>{
+        window.scrollTo(0,0)
+    }
     const [modal, setModal] = useState(false)
         
     const selectModal = () => {

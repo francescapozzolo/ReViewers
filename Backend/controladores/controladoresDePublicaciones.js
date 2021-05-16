@@ -80,6 +80,18 @@ const controladorPublicaciones = {
             //     res.json({success: true, respuesta: nuevaPublicacion})
     
 
+
+        // cargar publicaciones desde postman
+            // const {categoria, subcategoria, titulo, subtitulo, descripcion, imagen, tags, pro, contra, autor} = req.body
+            // //    const {_id} = req.user
+            //    const reseniaSchemaAEnviar = {categoria,subcategoria, titulo, subtitulo, descripcion, imagen, autor, tags, proContra:{ pro, contra} }
+                
+            //    const nuevaPublicacion = await new Resenia(reseniaSchemaAEnviar).save()
+            //     // const todasLasPublicaciones = await Resenia.find()
+            //     // console.log({succes:true, respues:nuevaPublicacion})
+            //     res.json({success: true, respuesta: nuevaPublicacion})
+    
+
         }catch(error){
             console.log("error cargar publicacion" , error)
             res.json({success: false, respuesta: error})

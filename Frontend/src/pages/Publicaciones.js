@@ -10,13 +10,13 @@ const Publicaciones = (props)=>{
     const [publicaciones, setPublicaciones] = useState()
     const {categoria} = useParams()
     const [portada, setPortada] = useState(`url('/assets/caratulas/${categoria}.jpg')`)
-    const categoriaCapitalized = categoria.charAt(0).toUpperCase() + categoria.slice(1)
+    const categoriaCapitalized = categoria === "all" ? "Todas las publicaciones" : categoria.charAt(0).toUpperCase() + categoria.slice(1)
     
 
     useEffect(()=>{
         const fetchear = async()=>{
             const todasLasPublicaciones = await props.todasPublicaciones()
-            setPublicaciones(todasLasPublicaciones.filter(publicacion => publicacion.categoria === categoria))
+            categoria === "all" ? setPublicaciones(todasLasPublicaciones) : setPublicaciones(todasLasPublicaciones.filter(publicacion => publicacion.categoria === categoria))
         }
         fetchear();
     },[])
@@ -32,11 +32,10 @@ const Publicaciones = (props)=>{
                     width={450}
                     timeout={3000} //3 secs
                 />
-            </div>
+            </div>  
         )
     }
 
-    // setPublicaciones(publicaciones.)
 
     return(
         <>

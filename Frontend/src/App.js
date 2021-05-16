@@ -18,6 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { slide as Menu } from 'react-burger-menu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  faHome, faFeatherAlt, faBookOpen, faUserCog, faStar } from '@fortawesome/free-solid-svg-icons'
+import Configuraciones from './pages/Configuraciones';
 
 
 
@@ -44,6 +45,8 @@ class App extends React.Component {
   toggleMenu () {
     this.setState(state => ({menuOpen: !state.menuOpen}))
   }
+
+
   render(){
 
     if(!this.props.usuarioLogeado && localStorage.getItem('token')) {
@@ -53,9 +56,8 @@ class App extends React.Component {
         ...usuarioLS
       }
       this.props.iniciarSesionLS(ObjUsuarioLS)
-    }    
+    }     
 
-    
     return(
       <BrowserRouter id="outer-container">
         <Menu styles={{backgroundImage: 'url("/assets/caratulas/patronSideBar.png")'}}  itemListElement = "div" pageWrapId={ "page-wrap" } isOpen={this.state.menuOpen}  onStateChange={(state) => this.handleStateChange(state)} outerContainerId={ "outer-container" } width={300} >
@@ -74,7 +76,7 @@ class App extends React.Component {
               <Link to="/publicaciones/all" onClick={() => this.closeMenu()}>
               <FontAwesomeIcon className="sideBar-icon"icon={faBookOpen} />
                 Reseñas</Link>
-              <Link to="/perfil" onClick={() => this.closeMenu()}>
+              <Link to="/configuraciones" onClick={() => this.closeMenu()}>
               <FontAwesomeIcon className="sideBar-icon"icon={faUserCog}/>
                 Configuraciones</Link>
               <Link to="/favoritos" onClick={() => this.closeMenu()}>
@@ -83,7 +85,7 @@ class App extends React.Component {
             </div>            
             <div className="SideFooter">Soy SideFooter</div>            
         </Menu>
-        <div id="page-wrap">
+        <div>
 
             <Header />    
             <Switch >
@@ -93,6 +95,7 @@ class App extends React.Component {
                 <Route path="/publicaciones/:categoria" component={Publicaciones}/>
                 <Route path="/publicacion/:id" component={Resenia} />                
                 <Route path="/prueba" component={PaginaDePrueba} />                
+                <Route path="/configuraciones" component={Configuraciones} />                
                 <Redirect to={this.props.usuarioLogeado ? "/inicio" : "/"} />
             </Switch>
             <Footer component={Footer}/>

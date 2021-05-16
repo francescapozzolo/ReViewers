@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom'
 
 class Inicio extends React.Component{
     
+    
     state = {
         categoriasSeleccionadas: [],
         publicaciones: [],
