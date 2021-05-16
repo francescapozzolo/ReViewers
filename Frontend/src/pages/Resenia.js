@@ -61,6 +61,9 @@ const Resenia = (props)=>{
                   </div>
                </div>
             </div>
+            <Icon icon={bookmarkStar} onClick={() => setPublicacionFaveada(!publicacionFaveada)} className={publicacionFaveada ? "displayNone" : "icono-guardar"}  />
+            <Icon icon={bookmarkStarFill} className={publicacionFaveada ? "icono-guardar" : "displayNone"} 
+            onClick={() => setPublicacionFaveada(!publicacionFaveada)} />
 
             {reseniaSeleccionada.usuariosFav && <GuardarPublicacion reseniaSeleccionada={reseniaSeleccionada} />}
 
