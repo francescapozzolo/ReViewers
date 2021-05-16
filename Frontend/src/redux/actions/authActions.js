@@ -93,6 +93,16 @@ const authActions = {
                 alert('Error interno del servidor, intente mas tarde')
             }
         }
+    },
+    actualizarDatosUsuario: (datos)=>{
+        return async(dispatch, getState)=>{
+            const token = localStorage.getItem('token')
+            const respuesta = await axios.put('http://localhost:4000/api/usuarios/SeUsaToken', {
+                    headers: {
+                        'Authorization': 'Bearer '+ token
+                    }
+                }) 
+        }
     }
 }
 
