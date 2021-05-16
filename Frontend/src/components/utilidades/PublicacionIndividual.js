@@ -1,7 +1,10 @@
+
 import {Link} from 'react-router-dom'
 import Valoracion from '../utilidades/Valoracion'
 
+
 const PublicacionIndividual = ({publicacion}) => {
+
     const {_id , titulo , subtitulo , imagen , autor , descripcion} = publicacion
     let contenidoDescripcion = descripcion.slice(0,301)
 
@@ -14,8 +17,8 @@ const PublicacionIndividual = ({publicacion}) => {
                     </Link>
                 </div>
                 <div className="contenidoPublicacion">
-                    <Link to={`/publicacion/${publicacion._id}`}><h2 className="titulosAlt">{titulo}</h2></Link>
                     <div>
+                        <Link to={`/publicacion/${publicacion._id}`}><h2 className="titulosAlt">{titulo}</h2></Link>
                         <h3 className="titulosAlt">{subtitulo}</h3>
                         <p className="descripcion texto">{contenidoDescripcion}<Link to={`/publicacion/${publicacion._id}`}>... Ver mas!</Link></p>
                     </div>
