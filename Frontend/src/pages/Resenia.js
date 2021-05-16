@@ -11,13 +11,16 @@ import trashIcon from '@iconify-icons/bi/trash';
 import noteEditLine from '@iconify-icons/clarity/note-edit-line';
 import {FiSend} from 'react-icons/fi'
 import Comentarios from '../components/Comentarios'
+import GuardarPublicacion from '../components/utilidades/GuardarPublicacion'
+// import Valoracion from '../components/utilidades/Valoracion'
 
 const Resenia = (props)=>{
 
    const [reseniaSeleccionada, setReseniaSeleccionada] = useState({})
-   const [publicacionFaveada, setPublicacionFaveada] = useState(false)
-   const [todosComentarios, setTodosComentarios] = useState(null)
-   const [nuevoComentario, setNuevoComentario] = useState(null)
+   // const [publicacionFaveada, setPublicacionFaveada] = useState(null)
+   const [todosComentarios, setTodosComentarios] = useState('')
+   const [nuevoComentario, setNuevoComentario] = useState('')
+   // const [valoracionInicial, setValoracionInicial] = useState(0)
 
    useEffect(async()=>{
       const idResenia = props.match.params.id
@@ -28,7 +31,10 @@ const Resenia = (props)=>{
          const respuesta = await props.obtenerUnaPublicacion(idResenia)
          setReseniaSeleccionada(respuesta)
       }
+
+      // const respuesta = await publicacionFueValorada() 
    }, [])   
+
    
    return(
       <>
@@ -38,43 +44,34 @@ const Resenia = (props)=>{
          </div>
 
          <section className="resenia-section">
-            {/* <div className="seccion-resenia-contenedor-general"> */}
-
             <div className="reseniaSection-topContainer">
                <div className="contenedor-de-foto-de-resenia" style={{background: `url(${reseniaSeleccionada.imagen})`}} ></div>
-
                <div className="reseniaSection-right">
                   <div className="valorar-container">
                      <p className="titulosAlt">Valorar</p>
-                     <Rating name={"rating"} style={{fontSize:"40px"}} />
-                     </div>
-                     <h4 className="titulosAlt subtitulo-resenia">{reseniaSeleccionada.subtitulo}</h4>
+                  
+                  {   reseniaSeleccionada.valoraciones && <Valoracion reseniaSeleccionada={reseniaSeleccionada} />}
+                     {/* <Rating name={"rating"} value={valoracionInicial} style={{fontSize:"40px"}}
+                        onChange={(e, value) => props.cargarValoracion(reseniaSeleccionada._id, {valoracion: value}, props.usuarioLogeado.token)} /> */}
+                  
+                  </div>
+                  <h4 className="titulosAlt subtitulo-resenia">{reseniaSeleccionada.subtitulo}</h4>
                   <div className="reseniaText-container">
                      <p className="descripcion-resenia texto">{reseniaSeleccionada.descripcion}</p>
                   </div>
                </div>
             </div>
-            <Icon icon={bookmarkStar} className={publicacionFaveada ? "displayNone" : "icono-guardar"} 
-            onClick={() => setPublicacionFaveada(!publicacionFaveada)}  />
-            <Icon icon={bookmarkStarFill} className={publicacionFaveada ? "icono-guardar" : "displayNone"} 
-            onClick={() => setPublicacionFaveada(!publicacionFaveada)} />
+
+            {reseniaSeleccionada.usuariosFav && <GuardarPublicacion reseniaSeleccionada={reseniaSeleccionada} />}
 
             {/* COMMENTARIOS */}
-            {
-               reseniaSeleccionada.comentarios &&
-               <Comentarios reseniaSeleccionada={reseniaSeleccionada} />
-            }
-               
-
-            {/* <div className="send-message-container">
-               <input type="text" className="input-comentar" onChange={e => setNuevoComentario(e.target.value)} placeholder="Dejanos tu opinion!" />
-               <FiSend className="send-icon" onClick={()=>mandarComentario(nuevoComentario)} />
-            </div> */}
+            { reseniaSeleccionada.comentarios && <Comentarios reseniaSeleccionada={reseniaSeleccionada} />}
+         
          </section>
 
 
       </>
-      )
+   )
 }
 
 const mapStateToProps = (state)=>{
@@ -86,7 +83,11 @@ const mapStateToProps = (state)=>{
 
 const mapDispatchToProps = {
    obtenerUnaPublicacion: publicacionesActions.obtenerUnaPublicacion,
-   cargarComentario: publicacionesActions.cargarComentario
+   cargarComentario: publicacionesActions.cargarComentario,
+   guardarPublicacion: publicacionesActions.guardarPublicacion,
+   publicacionFueGuardada: publicacionesActions.publicacionFueGuardada,
+   cargarValoracion: publicacionesActions.cargarValoracion,
+   publicacionFueValorada: publicacionesActions.publicacionFueValorada
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Resenia)

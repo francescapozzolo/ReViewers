@@ -1342,6 +1342,10 @@
     
 }
 
+.modifyComment-icon {
+    transition: all .2s ease;
+}
+
 .modifyComment-icon:hover{
     color: blue;
     cursor: pointer;
@@ -1349,6 +1353,7 @@
 
 .deleteComment-icon {
     margin-top: 5px;
+    transition: all .2s ease;
 }
 
 .deleteComment-icon:hover {
@@ -1404,7 +1409,7 @@
 .send-icon:hover {
     cursor: pointer;
     color: rgb(58, 58, 58);
-
+}
 .editing-textarea {
     background: rgb(201,242,231);
 }
