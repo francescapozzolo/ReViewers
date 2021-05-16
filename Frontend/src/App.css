@@ -1878,6 +1878,15 @@
     color: rgb(58, 58, 58);
 }
 
+.editing-textarea {
+    background: rgb(201,242,231);
+}
+
+.editing-sendIcon {
+    font-size: 23px;
+    align-self: center;
+}
+
 
 
 

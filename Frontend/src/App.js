@@ -54,6 +54,7 @@ class App extends React.Component {
       }
       this.props.iniciarSesionLS(ObjUsuarioLS)
     }    
+
     
     return(
       <BrowserRouter id="outer-container">
