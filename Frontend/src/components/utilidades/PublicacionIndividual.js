@@ -2,25 +2,27 @@ import {Link} from 'react-router-dom'
 import Valoracion from '../utilidades/Valoracion'
 
 const PublicacionIndividual = ({publicacion}) => {
-    //console.log('soy publicacion individual' , publicacion)
     const {_id , titulo , subtitulo , imagen , autor , descripcion} = publicacion
-    let contenidoDescripcion = descripcion.slice(0,201)
-    //console.log(contenidoDescripcion)
+    let contenidoDescripcion = descripcion.slice(0,301)
+
     return(
         <>
         <div className="tarjetaPublicaciones">
                 <div className="contenedorLink">
-                    <Link to={`/review/${publicacion._id}`}>
+                    <Link to={`/publicacion/${publicacion._id}`}>
                         <div className="bgPublicacion" style={{backgroundImage: `url(${imagen})`}}></div>
                     </Link>
                 </div>
                 <div className="contenidoPublicacion">
-                    <Link to={`/review/${publicacion._id}`}><h1>{titulo}</h1></Link>
-                    <div className="espacio"><h3>{subtitulo}</h3></div>
-                    <div className="descripcion"><p>{contenidoDescripcion}
-                    <br></br>
-                    <Link to={`/review/${publicacion._id}`}>... Ver mas!</Link></p></div>
-                    <div className="valoracion"><Valoracion idPublicacion={_id} idUsuario={autor} /></div>
+                    <Link to={`/publicacion/${publicacion._id}`}><h2 className="titulosAlt">{titulo}</h2></Link>
+                    <div>
+                        <h3 className="titulosAlt">{subtitulo}</h3>
+                        <p className="descripcion texto">{contenidoDescripcion}<Link to={`/publicacion/${publicacion._id}`}>... Ver mas!</Link></p>
+                    </div>
+                    <div className="valoracion">
+                        <Valoracion idPublicacion={_id} idUsuario={autor} />
+                        <p className="texto">{publicacion.comentarios.length} comentarios</p>
+                    </div>
                 </div>
         </div>
         </>
