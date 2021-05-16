@@ -27,11 +27,13 @@ const publicacionesActions={
 
         }
     },
+
     obtenerSubCategorias:(categoria)=>{
         return (dispatch, getState)=>{
 
         }
     },
+
     enviarFormulario:(inputs)=>{
         return async(dispatch, getState)=>{
             const tokenUsuario = localStorage.getItem('token')

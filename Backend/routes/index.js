@@ -48,7 +48,6 @@ router.route('/publicaciones/:id')
 router.route('/publicaciones/:categoria')
 .get(controladoresDePublicaciones.publicacionesCategoria) //anda
 
-
 // Valoracion (estrellas) | Likes
 router.route('/publicacionValorada/:id')
 .post(controladoresDePublicaciones.cargarValoracion)

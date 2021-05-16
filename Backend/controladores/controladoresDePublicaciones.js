@@ -33,6 +33,7 @@ const controladorPublicaciones = {
             res.json({success: false , respuesta: error})
         }
     },
+    
     borrarPublicacion: async (req , res)=>{
         try{
             const publicacion = await Resenia.findOneAndDelete({_id: req.params.id})
