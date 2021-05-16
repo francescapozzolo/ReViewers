@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom'
 
 class Inicio extends React.Component{
     
+    
     state = {
         categoriasSeleccionadas: [],
         publicaciones: [],
@@ -14,6 +15,7 @@ class Inicio extends React.Component{
         entretenimiento: [],
         tecnologia: [],
         gastronomia: [],
+
     }   
 
     componentDidMount(){
@@ -51,7 +53,6 @@ class Inicio extends React.Component{
       
       
       render() {
-        // console.log(this.props)
 
         const evaluacion = this.state.categoriasSeleccionadas.length === 0 
         let stateOprops = evaluacion ? "props" : "state"
@@ -60,10 +61,24 @@ class Inicio extends React.Component{
         return(      
             <main>
                 <div className="contenedorLinkCategoria">
-                    <p data-info="entretenimiento" onClick={this.elegirCategorias} className="link titulosAlt">Entretenimiento</p>
-                    <p data-info="deportes" onClick={this.elegirCategorias} className="link titulosAlt">Deportes</p>
-                    <p data-info="gastronomia" onClick={this.elegirCategorias} className="link titulosAlt">Gastronomía</p>
-                    <p data-info="tecnologia" onClick={this.elegirCategorias} className="link titulosAlt">Tecnología</p>
+                    {this.props.usuarioLogeado.intereses.length === 0
+                    ?
+                    <>
+                        <p data-info="entretenimiento" onClick={this.elegirCategorias} style={this.state.entretenimiento.length === 0 ? {color: 'gray'}: {color: 'black'}} className="link titulosAlt">Entretenimiento</p>
+                        <p data-info="deportes" onClick={this.elegirCategorias} style={this.state.deportes.length === 0 ? {color: 'gray'}: {color: 'black'}} className="link titulosAlt">Deportes</p>
+                        <p data-info="gastronomia" onClick={this.elegirCategorias} style={this.state.gastronomia.length === 0 ? {color: 'gray'}: {color: 'black'}} className="link titulosAlt">Gastronomía</p>
+                        <p data-info="tecnologia" onClick={this.elegirCategorias} style={this.state.tecnologia.length === 0 ? {color: 'gray'}: {color: 'black'}}className="link titulosAlt">Tecnología</p>
+                    </>
+                    :
+                    this.props.usuarioLogeado.intereses.map(interes => {
+                        return(
+                            <>
+                                <p data-info={interes} onClick={this.elegirCategorias} style={this.state[interes].length === 0 ? {color: 'gray'}: {color: 'black'}} className="link titulosAlt">{interes}</p>
+                            </>
+                        )
+                    })
+                }
+                    
                 </div>
                 <div className="gridInicio">
                     {
