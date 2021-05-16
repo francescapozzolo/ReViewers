@@ -44,7 +44,7 @@ const CompletarRegistro = (props) =>{
     checked ? setRol('lector') : setRol('escritor')
    };
 
-   const confirmarUsuario = async () => {
+   const confirmarUsuario = async (e) => {
         let arrayIntereses = [categoriaInteres.gastronomia && 'gastronomia', categoriaInteres.deportes && 'deportes', categoriaInteres.tecnologia && 'tecnologia', categoriaInteres.entretenimiento && 'entretenimiento']
         const intereses = arrayIntereses.filter(interes => interes !== false)
 
@@ -54,9 +54,10 @@ const CompletarRegistro = (props) =>{
             rol,
             token: props.usuarioLogeado.token
         }
-
         const respuesta = await props.confirmarUsuario(rolUsuarioIntereses)
+        closeModal(e)
    }
+
    useEffect(() => {
        selectModal()
    }, [])
