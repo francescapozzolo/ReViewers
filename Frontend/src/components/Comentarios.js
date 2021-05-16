@@ -10,60 +10,52 @@ import noteEditLine from '@iconify-icons/clarity/note-edit-line';
 import {FiSend} from 'react-icons/fi'
 import {MdSend} from 'react-icons/md'
 
-const Comentarios = ({reseniaSeleccionada, cargarComentario, usuarioLogeado})=>{
+const Comentarios = ({reseniaSeleccionada, cargarComentario, usuarioLogeado, editarComentario, eliminarComentario})=>{
     
     const [reseniaComentarios, setReseniaComentarios] = useState([])
-    const [nuevoComentario, setNuevoComentario] = useState('')
+    const [nuevoComentario, setNuevoComentario] = useState("")
     const [estaEditando, setEstaEditando] = useState(false)
     const [comentarioEditado, setComentarioEditado] = useState('')
+    const [comentarioEnEdicion, setComentarioEnEdicion] = useState('')
 
     useEffect(()=>{
         setReseniaComentarios(reseniaSeleccionada.comentarios)
     }, [])
     
     const mandarComentario = async(mensaje)=>{
-        if(nuevoComentario !== ' '){
+        console.log(nuevoComentario.value)
+        if(nuevoComentario && nuevoComentario !== ""){
             setNuevoComentario(' ')
             const respuesta = await cargarComentario(reseniaSeleccionada._id, usuarioLogeado.token, mensaje)
             setReseniaComentarios(respuesta.comentarios)
         }
     }
 
-    const mandarComentarioEditado = ()=>{
-        console.log(nuevoComentario)
-        setNuevoComentario('')
-        setEstaEditando(false)
-    }
-
-    const comenzarEdicion = (value)=>{
+    const comenzarEdicion = (value, idComentario)=>{
         setComentarioEditado(value)
         setEstaEditando(!estaEditando)
+        setComentarioEnEdicion(idComentario)
     }
 
+    const mandarComentarioEditado = async(idComentarioModificado)=>{
+        setEstaEditando(false)
+        const respuesta = await editarComentario(idComentarioModificado, reseniaSeleccionada._id, comentarioEditado)
+        setReseniaComentarios(respuesta)
+    }
 
+    const borrarComentario = async(idComentario)=>{
+        const respuesta = await eliminarComentario( reseniaSeleccionada._id, idComentario)
+        setReseniaComentarios(respuesta)
+    }
 
+   //  console.log(reseniaComentarios)
     // console.matu
     return (
         
         <div className="resenia-comments-container">
         <div className="contenedor-general-comentarios">
            <div className="contenedor-de-comentarios">
-
-           <div className="comment">
-                 <div className="comment-image" style={{backgroundImage: `url(https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2018/07/31/15330606597383.jpg)`}}></div>
-                 <div className="comment-content-container">
-                    <p className="titulosAlt" >Nombre Usuario</p>
-                    <div className="comment-content">
-                       <p>cualquier cosa que algun usuario pueda poner tengo que escribir .</p>
-                    </div>
-                 </div>
-                 <div className="icons-container">
-                    <Icon icon={noteEditLine} className="modifyComment-icon" />
-                    <Icon icon={trashIcon} className="deleteComment-icon" />
-                 </div>
-              </div>   
-
-
+               
               {reseniaComentarios.map(comentario => {
                  return(
                     <div className="comment" key={comentario._id} >
@@ -71,14 +63,20 @@ const Comentarios = ({reseniaSeleccionada, cargarComentario, usuarioLogeado})=>{
                        <div className="comment-content-container">
                           <p className="titulosAlt" >{comentario.usuarioId.nombre} {comentario.usuarioId.apellido} </p>
                           <div className="comment-content">
-                             <p className={estaEditando ? "displayNone" : ""}>{comentario.mensaje}</p>
-                             <textarea value={comentarioEditado} onChange={(e)=>setComentarioEditado(e.target.value)} className={estaEditando ? "editing-textarea" : "displayNone"}></textarea>
-                             <MdSend className={estaEditando ? "editing-sendIcon" : "displayNone"} onClick={()=>mandarComentarioEditado()} />
+                             <p className={comentarioEnEdicion === comentario._id
+                                ? estaEditando 
+                                    ? "displayNone" : "" 
+                                : ""}>{comentario.mensaje}</p>
+                             
+                             
+                             <textarea value={comentarioEditado} onChange={(e)=>setComentarioEditado(e.target.value)}
+                             className={ comentarioEnEdicion === comentario._id ? estaEditando ? "editing-textarea" : "displayNone" : "displayNone"}></textarea>
+                             <MdSend className={comentarioEnEdicion === comentario._id ? estaEditando ? "editing-sendIcon" : "displayNone" : "displayNone"} onClick={()=>mandarComentarioEditado(comentario._id)} />
                           </div>
                        </div>
                        <div className="icons-container">
-                          <Icon icon={noteEditLine} onClick={()=>comenzarEdicion(comentario.mensaje)} className="modifyComment-icon" />
-                          <Icon icon={trashIcon} className="deleteComment-icon" />
+                          <Icon icon={noteEditLine} onClick={()=>comenzarEdicion(comentario.mensaje, comentario._id)} className="modifyComment-icon" />
+                          <Icon icon={trashIcon} onClick={()=>borrarComentario(comentario._id)} className="deleteComment-icon" />
                        </div>
                     </div>)
               })}
@@ -104,7 +102,9 @@ const mapStateToProps = (state)=>{
 
 const mapDispatchToProps = {
    obtenerUnaPublicacion: publicacionesActions.obtenerUnaPublicacion,
-   cargarComentario: publicacionesActions.cargarComentario
+   cargarComentario: publicacionesActions.cargarComentario,
+   editarComentario: publicacionesActions.editarComentario,
+   eliminarComentario: publicacionesActions.eliminarComentario
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comentarios)
