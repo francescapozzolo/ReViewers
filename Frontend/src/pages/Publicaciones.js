@@ -43,8 +43,7 @@ const Publicaciones = (props)=>{
         <div className="contenedor-tituloDeResenia">
             <div className="imagen-de-categoria" style={{backgroundImage: portada}}></div>
             <h1 className="titulo-de-resenia titulosAlt" style={{top:'0px'}}>{categoriaCapitalized}</h1>
-            {/* <h3 className="titulo-de-resenia titulosAlt">Alquileres de Robots para Eventos</h3> */}
-         </div>
+        </div>
         <div className="contenedorPublic">
             {publicaciones.map((publicacion , index)=>{
                 return(
