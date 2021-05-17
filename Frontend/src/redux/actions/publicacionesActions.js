@@ -69,11 +69,10 @@ const publicacionesActions={
             return respuesta.data
         }
     },
-
     guardarPublicacion: (idPublicacion, token)=>{
         return async(dispatch, getState) =>{
-            console.log(idPublicacion)
-            console.log(token)
+            // console.log(idPublicacion)
+            // console.log(token)
             const respuesta = await axios.get("http://localhost:4000/api/publicacion/guardarPublicacion/" + idPublicacion, {
                 headers: {
                     'Authorization': 'Bearer '+token
@@ -111,7 +110,9 @@ const publicacionesActions={
                     'Authorization': 'Bearer '+ token
                 }
             })
+            dispatch({type: 'CARGAR_COMENTARIO', payload: respuesta.data.respuesta})
             return respuesta.data.respuesta
+            // console.log(respuesta.data.respuesta.comentarios)
         }
     },
     editarComentario : (idComentario, idPublicacion, comentarioEditado)=>{

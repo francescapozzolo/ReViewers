@@ -32,9 +32,9 @@ const GuardarPublicacion = (props)=>{
     
     return( 
         <>
-            
             <Icon icon={publicacionFaveada ? bookmarkStarFill : bookmarkStar } className={"icono-guardar"} 
             onClick={() => funcionGuardarPublicacion()}  />
+            
         </>
     )
 }

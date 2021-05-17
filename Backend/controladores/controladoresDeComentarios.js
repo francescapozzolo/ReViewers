@@ -32,7 +32,7 @@ const controladoresDeComentarios = {
          ) 
 
          const reseniaAContestar = await Resenia.findOne({_id: idPublicacion})
-         .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1,"imagen":1 } } })
+         .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1, "mail":1 ,"apellido":1,"imagen":1 } } })
 
          console.log(reseniaAContestar)
          // const usuarioQueComento = await Usuario.findOne({_id: _id})
@@ -58,7 +58,7 @@ const controladoresDeComentarios = {
             {$pull: {comentarios: {_id: idComentario}}},
             {new: true}
          )
-         .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1,"imagen":1 } } })
+         .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1, "mail":1, "apellido":1,"imagen":1 } } })
 
          res.json({success: true, respuesta: publicacionModificada.comentarios})
       }catch (err){
@@ -85,7 +85,7 @@ const controladoresDeComentarios = {
             {$set: {"comentarios.$.mensaje": comentarioEditado}},            
             {new: true}
          )
-         .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1,"imagen":1 } } })
+         .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1, "mail":1, "apellido":1,"imagen":1 } } })
 
          
          res.json({success: true, respuesta: publicacionModificada.comentarios})

@@ -19,6 +19,7 @@ class Inicio extends React.Component{
     }   
 
     componentDidMount(){
+        console.log()
         this.props.cargarPublicaciones(this.setState({
             ...this.state,
             publicaciones: [...this.props.publicaciones],
@@ -30,6 +31,8 @@ class Inicio extends React.Component{
         this.setState({
             ...this.state,    
             [categoriaItem]: this.state[categoriaItem].length > 0 ? [] : this.props.publicaciones.filter(publicacion => publicacion.categoria === categoriaItem),
+            // [categoriaItem]: this.state[categoriaItem].length > 0 ? [] : this.props.publicacionesFiltradas.filter(publicacion => publicacion.categoria === categoriaItem),
+
         }, () => {
             const arrayAComparar = [...this.state.deportes, ...this.state.entretenimiento, ...this.state.tecnologia, ...this.state.gastronomia]
             this.setState({
@@ -108,6 +111,7 @@ class Inicio extends React.Component{
 const mapStateToProps = state => {
     return{
         publicaciones: state.publicacionReducer.todasLasPublicaciones,
+        publicacionesFiltradas: state.publicacionReducer.publicacionesFiltradas,
         usuarioLogeado: state.authReducer.usuarioLogeado
     }
 }

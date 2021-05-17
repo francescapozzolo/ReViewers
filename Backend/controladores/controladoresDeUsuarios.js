@@ -104,7 +104,7 @@ const controladoresDeUsuario = {
                await usuarioARegistrar.save()
                console.log(usuarioARegistrar)
                const token = jwt.sign({...usuarioARegistrar}, process.env.SECRET_OR_KEY)            
-               respuesta = {token, imagen: usuarioARegistrar.imagen, nombre: usuarioARegistrar.nombre, usuarioConfirmado: usuarioARegistrar.usuarioConfirmado, rol: usuarioARegistrar.rol, intereses: usuarioARegistrar.intereses}
+               respuesta = {token, imagen: usuarioARegistrar.imagen, mail: usuarioARegistrar.mail, nombre: usuarioARegistrar.nombre, usuarioConfirmado: usuarioARegistrar.usuarioConfirmado, rol: usuarioARegistrar.rol, intereses: usuarioARegistrar.intereses}
             } catch (err){ //no pinta mostrar el error posta porque el usuario no lo va a entender 
                console.log('Caí en el catch del condicional del controlador de Registrar Usuario y el error es: '+ err)
                error = "Parece que algo salió mal tratando de registrar su cuenta. Por favor, intente de nuevo"
@@ -137,7 +137,7 @@ const controladoresDeUsuario = {
             const contraseñaEsCorrecta = bcryptjs.compareSync(clave, usuarioRegistrado.clave)
             if(contraseñaEsCorrecta){
                const token = jwt.sign({...usuarioRegistrado}, process.env.SECRET_OR_KEY)
-               respuesta = {token, imagen: usuarioRegistrado.imagen, nombre: usuarioRegistrado.nombre, usuarioConfirmado: usuarioRegistrado.usuarioConfirmado, rol: usuarioRegistrado.rol, idUsuario: usuarioRegistrado._id, intereses: usuarioRegistrado.intereses}
+               respuesta = {token, imagen: usuarioRegistrado.imagen, mail: usuarioRegistrado.mail, nombre: usuarioRegistrado.nombre, usuarioConfirmado: usuarioRegistrado.usuarioConfirmado, rol: usuarioRegistrado.rol, idUsuario: usuarioRegistrado._id, intereses: usuarioRegistrado.intereses}
             } else {
                error = 'Mail o clave incorrectos'
             }
@@ -158,7 +158,7 @@ const controladoresDeUsuario = {
    inicioForzado: (req, res) => {
       res.json({
          success: true,
-         respuesta: {imagen: req.user.imagen, nombre: req.user.nombre, usuarioConfirmado: req.user.usuarioConfirmado, rol: req.user.rol, intereses: req.user.intereses}
+         respuesta: {imagen: req.user.imagen, nombre: req.user.nombre, mail: req.user.mail, usuarioConfirmado: req.user.usuarioConfirmado, rol: req.user.rol, intereses: req.user.intereses}
      })
    },
 

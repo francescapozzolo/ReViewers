@@ -6,7 +6,7 @@ const controladorPublicaciones = {
     publicacionPorID: async (req , res) => {
         try{
             const unicaPublicacion = await Resenia.findOne({_id: req.params.id})
-            .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1,"imagen":1 } } })
+            .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1, "mail":1, "imagen":1 } } })
 
             res.json({success: true , respuesta: unicaPublicacion})
         }catch(error){
@@ -17,7 +17,7 @@ const controladorPublicaciones = {
     todasLasPublicaciones: async (req , res)=>{
         try{
             const todasPublicaciones = await Resenia.find()
-            .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1,"imagen":1 } } })
+            .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1, "mail":1, "imagen":1 } } })
             res.json({success: true, respuesta: todasPublicaciones})
         }catch(error){
             console.log("error controlador publicaciones" , error)
@@ -27,7 +27,7 @@ const controladorPublicaciones = {
     publicacionesCategoria: async (req , res)=>{
         try{
             const publicacionCategoria = await Resenia.findOne({categoria: req.params.categoria})
-            .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1,"imagen":1 } } })
+            .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1, "mail":1, "apellido":1,"imagen":1 } } })
 
             res.json({success: true , respuesta: publicacionCategoria})
 

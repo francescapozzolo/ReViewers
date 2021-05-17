@@ -18,7 +18,8 @@ const Header = (props) => {
                         <img alt="logo" className="logo" src='/assets/logo.png'></img>
                     </Link>
                 </div>
-                
+               
+
                 {
                 !props.usuarioLogeado 
                 ? <div className="contenedorEnlaces flex flex-end">
@@ -67,6 +68,7 @@ const mapStateToProps = state => {
    
 const mapDispatchToProps = {
     cerrarSesion: authActions.cerrarSesion,
+
     changeState: sideBarActions.changeState
 }
 
