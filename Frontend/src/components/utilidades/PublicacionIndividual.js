@@ -1,6 +1,7 @@
 
 import {Link} from 'react-router-dom'
-// import Valoracion from '../utilidades/Valoracion'
+import { Box } from '@material-ui/core';
+import Rating from '@material-ui/lab/Rating';
 
 
 const PublicacionIndividual = ({publicacion}) => {
@@ -23,7 +24,9 @@ const PublicacionIndividual = ({publicacion}) => {
                         <p className="descripcion texto">{contenidoDescripcion}<Link to={`/publicacion/${_id}`}>... Ver mas!</Link></p>
                     </div>
                     <div className="valoracion">
-                        {/* <Valoracion reseniaSeleccionada={publicacion} idUsuario={autor} /> */}
+                        <Box component="fieldset" mb={3} borderColor="transparent">
+                            <Rating name="read-only" value={1} readOnly />
+                        </Box>
                         <p className="texto">{publicacion.comentarios.length} comentarios</p>
                     </div>
                 </div>
