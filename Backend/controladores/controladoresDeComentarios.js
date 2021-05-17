@@ -32,7 +32,7 @@ const controladoresDeComentarios = {
          ) 
 
          const reseniaAContestar = await Resenia.findOne({_id: idPublicacion})
-         .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1,"imagen":1 } } })
+         .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1, "mail":1 ,"apellido":1,"imagen":1 } } })
 
          console.log(reseniaAContestar)
          // const usuarioQueComento = await Usuario.findOne({_id: _id})
@@ -49,11 +49,16 @@ const controladoresDeComentarios = {
       try {
          const idPublicacion = req.params.id
          const idComentario = req.body.idComentario
+         console.log(req)
+         console.log(idPublicacion)
+         console.log(idComentario)
+
          var publicacionModificada = await Resenia.findOneAndUpdate(
             {_id: idPublicacion},
             {$pull: {comentarios: {_id: idComentario}}},
             {new: true}
          )
+         .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1, "mail":1, "apellido":1,"imagen":1 } } })
 
          res.json({success: true, respuesta: publicacionModificada.comentarios})
       }catch (err){
@@ -64,6 +69,7 @@ const controladoresDeComentarios = {
    
    editarComentario: async(req, res)=>{
       try {
+         console.log('entré al controlador de editar comentario')
          const idPublicacion = req.params.id
          const idComentario = req.body.idComentario
          const comentarioEditado = req.body.comentarioEditado
@@ -72,13 +78,15 @@ const controladoresDeComentarios = {
          console.log(comentarioEditado)
 
          const publicacionEncontrada = await Resenia.findOne({_id: idPublicacion})
-         console.log(publicacionEncontrada)
+         // console.log(publicacionEncontrada)
 
          var publicacionModificada = await Resenia.findOneAndUpdate( 
             {_id: idPublicacion, "comentarios._id": idComentario},  
             {$set: {"comentarios.$.mensaje": comentarioEditado}},            
             {new: true}
          )
+         .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1, "mail":1, "apellido":1,"imagen":1 } } })
+
          
          res.json({success: true, respuesta: publicacionModificada.comentarios})
       }catch (err){

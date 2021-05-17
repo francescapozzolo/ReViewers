@@ -20,32 +20,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  faHome, faFeatherAlt, faBookOpen, faUserCog, faStar } from '@fortawesome/free-solid-svg-icons'
 import Favoritos from './pages/Favoritos'
 import Configuraciones from './pages/Configuraciones';
-
+import SideBar from './components/SideBar'
 
 
 
 
 class App extends React.Component {
-
-
-  state ={
-    menuOpen: false
-  }
-  handleStateChange (state) {
-    this.setState({menuOpen: state.isOpen})  
-  }
-  
-  // This can be used to close the menu, e.g. when a user clicks a menu item
-  closeMenu () {
-    this.setState({menuOpen: false})
-  }
-
-  // This can be used to toggle the menu, e.g. when using a custom icon
-  // Tip: You probably want to hide either/both default icons if using a custom icon
-  // See https://github.com/negomi/react-burger-menu#custom-icons
-  toggleMenu () {
-    this.setState(state => ({menuOpen: !state.menuOpen}))
-  }
 
 
   render(){
@@ -57,47 +37,24 @@ class App extends React.Component {
         ...usuarioLS
       }
       this.props.iniciarSesionLS(ObjUsuarioLS)
+      return null
     }     
 
     return(
       <BrowserRouter id="outer-container">
-        <Menu styles={{backgroundImage: 'url("/assets/caratulas/patronSideBar.png")'}}  itemListElement = "div" pageWrapId={ "page-wrap" } isOpen={this.state.menuOpen}  onStateChange={(state) => this.handleStateChange(state)} outerContainerId={ "outer-container" } width={300} >
-            <div className="SideHeader">
-              <div>
-                    <Link to="/" onClick={() => this.closeMenu()}>
-                        <img alt="logo" className="logo2" src='/assets/logo2.png'></img>
-                    </Link>
-                </div>
-                </div>            
-            <div className="SideMain">
-              
-              <Link to="/" onClick={() => this.closeMenu()}>
-                <FontAwesomeIcon className="sideBar-icon"icon={faHome} />
-                Inicio</Link>
-              <Link to="/publicaciones/all" onClick={() => this.closeMenu()}>
-              <FontAwesomeIcon className="sideBar-icon"icon={faBookOpen} />
-                Reseñas</Link>
-              <Link to="/configuraciones" onClick={() => this.closeMenu()}>
-              <FontAwesomeIcon className="sideBar-icon"icon={faUserCog}/>
-                Configuraciones</Link>
-              <Link to="/favoritos" onClick={() => this.closeMenu()}>
-              <FontAwesomeIcon className="sideBar-icon"icon={faStar} />
-                Favoritos</Link>
-            </div>            
-            <div className="SideFooter">Soy SideFooter</div>            
-        </Menu>
+        <SideBar/>
         <div>
-
             <Header />    
             <Switch >
                 {!this.props.usuarioLogeado && <Route exact path="/" component={Portada} />}
                 {this.props.usuarioLogeado && <Route path="/inicio" component={Inicio} />}
-                {this.props.usuarioLogeado && <Route path="/publicar" component={CrearPublicacion} />}
                 <Route path="/publicaciones/:categoria" component={Publicaciones}/>
-                <Route path="/publicacion/:id" component={Resenia} />                
-                <Route path="/prueba" component={PaginaDePrueba} />                
-                <Route path="/configuraciones" component={Configuraciones} />
+
                 <Route path="/favoritos" component={Favoritos} />                
+                <Route path="/publicacion/:id" component={Resenia} />
+                {this.props.usuarioLogeado && this.props.usuarioLogeado.rol === "escritor" && <Route path="/publicar" component={CrearPublicacion} />}
+                {/* <Route path="/prueba" component={PaginaDePrueba} />                 */}
+                {this.props.usuarioLogeado && <Route path="/configuraciones" component={Configuraciones} /> }               
                 <Redirect to={this.props.usuarioLogeado ? "/inicio" : "/"} />
             </Switch>
             <Footer component={Footer}/>
