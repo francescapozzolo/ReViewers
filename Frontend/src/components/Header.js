@@ -20,9 +20,8 @@ const Header = (props) => {
                 {
                 !props.usuarioLogeado
                 ? <div className="contenedorEnlaces flex flex-end">
-                    <NavLink className="link titulosAlt mx-1" to="/nosotros">Nosotros</NavLink>
-                    <InicioSesion />
-                    <Registro />
+                    {/* <InicioSesion /> */}
+                    {/* <Registro /> */} 
                 </div> 
                 : <>
                     <div className="contenedorUsuarioHeader">

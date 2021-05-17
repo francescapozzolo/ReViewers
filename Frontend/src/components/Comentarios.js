@@ -23,12 +23,16 @@ const Comentarios = ({reseniaSeleccionada, cargarComentario, usuarioLogeado, edi
     }, [])
     
     const mandarComentario = async(mensaje)=>{
-        console.log(nuevoComentario.value)
-        if(nuevoComentario && nuevoComentario !== ""){
-            setNuevoComentario(' ')
-            const respuesta = await cargarComentario(reseniaSeleccionada._id, usuarioLogeado.token, mensaje)
-            setReseniaComentarios(respuesta.comentarios)
-        }
+
+       if(usuarioLogeado) {
+         if(nuevoComentario && nuevoComentario !== ""){
+             setNuevoComentario(' ')
+             const respuesta = await cargarComentario(reseniaSeleccionada._id, usuarioLogeado.token, mensaje)
+             setReseniaComentarios(respuesta.comentarios)
+         }
+      } else {
+         alert('Debes estar logeado para comentar')
+      }
     }
 
     const comenzarEdicion = (value, idComentario)=>{
@@ -38,9 +42,13 @@ const Comentarios = ({reseniaSeleccionada, cargarComentario, usuarioLogeado, edi
     }
 
     const mandarComentarioEditado = async(idComentarioModificado)=>{
-        setEstaEditando(false)
-        const respuesta = await editarComentario(idComentarioModificado, reseniaSeleccionada._id, comentarioEditado)
-        setReseniaComentarios(respuesta)
+       if(usuarioLogeado) {
+          setEstaEditando(false)
+          const respuesta = await editarComentario(idComentarioModificado, reseniaSeleccionada._id, comentarioEditado)
+          setReseniaComentarios(respuesta)
+       } else {
+          alert('Debes estar logeado para editar un comentario')
+       }
     }
 
     const borrarComentario = async(idComentario)=>{
@@ -83,8 +91,13 @@ const Comentarios = ({reseniaSeleccionada, cargarComentario, usuarioLogeado, edi
 
 
             <div className="send-message-container">
-               <input type="text" className="input-comentar" value={nuevoComentario} onChange={e => setNuevoComentario(e.target.value)} placeholder="Dejanos tu opinion!" />
-               <FiSend className="send-icon" onClick={()=>mandarComentario(nuevoComentario)} />
+               {
+                  <>
+                  <input type="text" className="input-comentar" value={nuevoComentario} onChange={e => setNuevoComentario(e.target.value)} placeholder="Dejanos tu opinion!" />
+                  <FiSend className="send-icon" onClick={()=>mandarComentario(nuevoComentario)} />
+                  </>
+               
+               }
             </div>
 
            </div>

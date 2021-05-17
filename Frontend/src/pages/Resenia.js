@@ -17,10 +17,10 @@ import GuardarPublicacion from '../components/utilidades/GuardarPublicacion'
 const Resenia = (props)=>{
 
    const [reseniaSeleccionada, setReseniaSeleccionada] = useState({})
-   // const [publicacionFaveada, setPublicacionFaveada] = useState(null)
+   const [publicacionFaveada, setPublicacionFaveada] = useState(null)
    const [todosComentarios, setTodosComentarios] = useState('')
    const [nuevoComentario, setNuevoComentario] = useState('')
-   // const [valoracionInicial, setValoracionInicial] = useState(0)
+   const [valoracionInicial, setValoracionInicial] = useState(0)
 
    useEffect(async()=>{
       const idResenia = props.match.params.id
@@ -48,7 +48,7 @@ const Resenia = (props)=>{
                <div className="contenedor-de-foto-de-resenia" style={{background: `url(${reseniaSeleccionada.imagen})`}} ></div>
                <div className="reseniaSection-right">
                   <div className="valorar-container">
-                     <p className="titulosAlt">Valorar</p>
+                     <p className="titulosAlt text-red">Valorar</p>
                   
                   {   reseniaSeleccionada.valoraciones && <Valoracion reseniaSeleccionada={reseniaSeleccionada} />}
                      {/* <Rating name={"rating"} value={valoracionInicial} style={{fontSize:"40px"}}

@@ -23,7 +23,7 @@ const PublicacionIndividual = ({publicacion}) => {
                         <p className="descripcion texto">{contenidoDescripcion}<Link to={`/publicacion/${publicacion._id}`}>... Ver mas!</Link></p>
                     </div>
                     <div className="valoracion">
-                        <Valoracion idPublicacion={_id} idUsuario={autor} />
+                        {/* <Valoracion idPublicacion={_id} idUsuario={autor} /> */}
                         <p className="texto">{publicacion.comentarios.length} comentarios</p>
                     </div>
                 </div>
