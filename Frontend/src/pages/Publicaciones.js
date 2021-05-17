@@ -1,15 +1,15 @@
 import {connect} from 'react-redux'
-import React , {useEffect , useState, useMatch} from 'react'
+import React , {useEffect , useState} from 'react'
 import publicacionesActions from '../redux/actions/publicacionesActions'
 import PublicacionIndividual from '../components/utilidades/PublicacionIndividual'
 import Loader from 'react-loader-spinner'
 import { useParams } from 'react-router-dom';
 
 const Publicaciones = (props)=>{
-   console.log(props.match.params.categoria)
+//    console.log(props.match.params.categoria)
     const [publicaciones, setPublicaciones] = useState()
     const {categoria} = useParams()
-    const [portada, setPortada] = useState(`url('/assets/caratulas/${categoria}.jpg')`)
+    const [portada] = useState(`url('/assets/caratulas/${categoria}.jpg')`)
     const categoriaCapitalized = categoria === "all" ? "Todas las publicaciones" : categoria.charAt(0).toUpperCase() + categoria.slice(1)
     
 
@@ -19,6 +19,7 @@ const Publicaciones = (props)=>{
             categoria === "all" ? setPublicaciones(todasLasPublicaciones) : setPublicaciones(todasLasPublicaciones.filter(publicacion => publicacion.categoria === categoria))
         }
         fetchear();
+        // eslint-disable-next-line
     },[])
     
     if(!publicaciones || !publicaciones[1]){
@@ -28,9 +29,9 @@ const Publicaciones = (props)=>{
                     type="Puff"
                     color="#161c26"
                     secondaryColor="#161c26"
-                    height={450}
+                    height={1050}
                     width={450}
-                    timeout={3000} //3 secs
+                    // timeout={3000} //3 secs
                 />
             </div>  
         )

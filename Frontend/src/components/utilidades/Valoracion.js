@@ -8,10 +8,14 @@ const Valoracion = ({cargarValoracion, usuarioLogeado, reseniaSeleccionada, publ
    
    const [valoracionInicial, setValoracionInicial] = useState(2)
 
-   useEffect(async()=>{
-      const respuesta = await publicacionFueValorada(reseniaSeleccionada._id, usuarioLogeado.token)
-      console.log(respuesta)
-      setValoracionInicial(respuesta.valoracion)
+   useEffect(()=>{
+      const fetch = async()=>{
+         const respuesta = await publicacionFueValorada(reseniaSeleccionada._id, usuarioLogeado.token)
+         console.log(respuesta)
+         setValoracionInicial(respuesta.valoracion)
+      }
+      fetch()
+      // eslint-disable-next-line
    }, [])
 
    const funcionCargarValoracion = async(valor)=>{

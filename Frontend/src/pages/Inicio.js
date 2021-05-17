@@ -69,11 +69,9 @@ class Inicio extends React.Component{
                         <p data-info="tecnologia" onClick={this.elegirCategorias} style={this.state.tecnologia.length === 0 ? {color: 'gray'}: {color: 'black'}}className="link titulosAlt">Tecnología</p>
                     </>
                     :
-                    this.props.usuarioLogeado.intereses.map(interes => {
+                    this.props.usuarioLogeado.intereses.map((interes, index) => {
                         return(
-                            <>
-                                <p data-info={interes} onClick={this.elegirCategorias} style={this.state[interes].length === 0 ? {color: 'gray'}: {color: 'black'}} className="link titulosAlt">{interes}</p>
-                            </>
+                                <p data-info={interes} key={index} onClick={this.elegirCategorias} style={this.state[interes].length === 0 ? {color: 'gray'}: {color: 'black'}} className="link titulosAlt">{interes}</p>
                         )
                     })
                 }

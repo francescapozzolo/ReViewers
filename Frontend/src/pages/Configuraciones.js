@@ -1,13 +1,14 @@
 import React, { createRef } from "react";
 import { connect } from "react-redux";
-import publicacionesActions from "../redux/actions/publicacionesActions";
+// import publicacionesActions from "../redux/actions/publicacionesActions";
 import styled from "styled-components";
 import Tooltip from "@material-ui/core/Tooltip";
 import { toast } from "react-toastify";
-import { Icon, InlineIcon } from '@iconify/react';
+import { Icon } from '@iconify/react';
 import editIcon from '@iconify-icons/carbon/edit';
 import imageEditLine from '@iconify-icons/ri/image-edit-line';
 import checkmarkCircleOutline from '@iconify-icons/eva/checkmark-circle-outline';
+import authActions from "../redux/actions/authActions";
 
 
 const Imagen = styled.div`
@@ -19,7 +20,7 @@ const Imagen = styled.div`
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url(${(props) => props.imagen});
+    background-image: url(${(props) => props.imagen.imagen ? props.imagen.imagen : props.imagen});
     cursor: pointer;
   }
   ${(props) =>
@@ -40,18 +41,7 @@ const Imagen = styled.div`
         }`
       : null}
 `;
-const NoImagen = styled.div`
-  & {
-    width: 30%;
-    height: 30%;
-    position: relative;
-    border-radius: 10px;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-image: url("/assets/noPic.png");
-  }
-`;
+
 
 class Configuraciones extends React.Component {
   state = {
@@ -60,13 +50,14 @@ class Configuraciones extends React.Component {
       apellido:{apellido:"",disabled:true},
       mail: {mail:"",disabled:true},
       clave: {clave:"",disabled:true},
+      claveNueva: {claveNueva:""},
       imagen: {imagen:"",disabled:true},
       intereses: [],
       rol:"lector"
     },
   };
 
-  inputImagen = React.createRef()
+  inputImagen = createRef()
 
   setearInput = (e) => {
     const valueInput = e.target.value;
@@ -140,15 +131,19 @@ class Configuraciones extends React.Component {
       autoClose,
     });
   };
-  enviarForm = (e) => {
+  enviarForm = async (e) => {
     e.preventDefault();
+    let nombre = this.state.valoresInput.nombre.nombre.trim()
+    let apellido = this.state.valoresInput.apellido.apellido.trim()
+    let mail = this.state.valoresInput.mail.mail.trim()
+    let imagen = this.state.valoresInput.imagen.imagen.trim()
+    let clave = this.state.valoresInput.clave.clave.trim()
+    let claveNueva = this.state.valoresInput.claveNueva.claveNueva.trim()
+    let rol = this.state.valoresInput.rol
+    let intereses = this.state.valoresInput.intereses
 
-    
-
-
-
-
-
+    const datos = {nombre,apellido,mail,clave,claveNueva,imagen,rol,intereses}
+    const respuesta = await this.props.actualizarDatos(datos)
 
   };
 
@@ -292,7 +287,7 @@ class Configuraciones extends React.Component {
                   </label>
                   <Tooltip arrow title="Su nueva clave" placement="top-end">
                     <input
-                      value={this.state.valoresInput.claveNueva}
+                      value={this.state.valoresInput.claveNueva.claveNueva}
                       type="password"
                       placeholder="Nueva clave"
                       autoComplete="off"
@@ -448,5 +443,8 @@ const mapStateToProps = state =>{
     usuarioLogeado: state.authReducer.usuarioLogeado
   }
 }
+const mapDispatchToProps = {
+  actualizarDatos:authActions.actualizarDatosUsuario
+}
 
-export default connect(mapStateToProps)(Configuraciones);
+export default connect(mapStateToProps, mapDispatchToProps)(Configuraciones);

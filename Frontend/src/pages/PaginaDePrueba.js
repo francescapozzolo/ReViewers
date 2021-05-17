@@ -1,6 +1,6 @@
 import MeGusta from '../components/utilidades/MeGusta'
 import Valoracion from '../components/utilidades/Valoracion'
-import FiltroPorPClave from '../components/utilidades/FiltroPorPClave'
+// import FiltroPorPClave from '../components/utilidades/FiltroPorPClave'
 import {connect} from 'react-redux'
 import publicacionesActions from '../redux/actions/publicacionesActions'
 import { useEffect } from 'react'
@@ -10,7 +10,8 @@ const PaginaDePrueba = ({filtroPorPalabraClave, obtenerTodasPublicaciones, todas
 
    useEffect(()=>{
       obtenerTodasPublicaciones()
-      console.log(todasLasPublicaciones)
+      // console.log(todasLasPublicaciones)
+      // eslint-disable-next-line
    },[])
 
    // console.log(todasLasPublicaciones)
