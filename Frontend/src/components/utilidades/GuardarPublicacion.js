@@ -26,11 +26,9 @@ const GuardarPublicacion = (props)=>{
     
     return( 
         <>
-            <Icon icon={bookmarkStar} className={publicacionFaveada ? "displayNone" : "icono-guardar"} 
+            <Icon icon={publicacionFaveada ? bookmarkStarFill : bookmarkStar } className={"icono-guardar"} 
             onClick={() => funcionGuardarPublicacion()}  />
-        
-            <Icon icon={bookmarkStarFill} className={publicacionFaveada ? "icono-guardar" : "displayNone"} 
-            onClick={() => funcionGuardarPublicacion()} />                
+            
         </>
     )
 }

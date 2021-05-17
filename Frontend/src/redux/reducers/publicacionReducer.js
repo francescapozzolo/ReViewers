@@ -1,3 +1,4 @@
+
 const initialState = {
     todasLasPublicaciones: [],
     publicacionesFiltradas: []
@@ -21,6 +22,15 @@ const publicacionReducer = (state = initialState, action) => {
             return publicacion.tags.find(tag => tag.toLowerCase().trim().slice(0, valorDelFiltro.length) === valorDelFiltro.toLowerCase())
           })
         }
+      break
+      
+      case 'CARGAR_COMENTARIO':
+        const publicacionModificada = state.todasLasPublicaciones.find(publicacion => publicacion._id ===  action.payload._id)
+        return {
+          ...state,
+          todasLasPublicaciones: state.todasLasPublicaciones.map(publicacion => publicacion._id === publicacionModificada._id ? publicacionModificada: publicacion) 
+        }
+      break
 
     default:
       return state;

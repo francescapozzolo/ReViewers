@@ -33,6 +33,7 @@ router.route('/confirmarUsuario')
 .put(passport.authenticate('jwt', {session: false}), controladoresDeUsuarios.confirmarUsuario)
 
 
+
 // Reseñas | Publicaciones 
 router.route('/publicaciones')
 .get(controladoresDePublicaciones.todasLasPublicaciones) //anda

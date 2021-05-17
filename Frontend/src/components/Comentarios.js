@@ -20,12 +20,16 @@ const Comentarios = ({reseniaSeleccionada, cargarComentario, usuarioLogeado, edi
 
     useEffect(()=>{
         setReseniaComentarios(reseniaSeleccionada.comentarios)
+        console.log(usuarioLogeado)
+        console.log(usuarioLogeado.mail)
     }, [])
     
     const mandarComentario = async(mensaje)=>{
         console.log(nuevoComentario.value)
         if(nuevoComentario && nuevoComentario !== ""){
             setNuevoComentario(' ')
+            
+            // const respuesta = await cargarComentario(reseniaSeleccionada._id, usuarioLogeado.token, mensaje)
             const respuesta = await cargarComentario(reseniaSeleccionada._id, usuarioLogeado.token, mensaje)
             setReseniaComentarios(respuesta.comentarios)
         }
@@ -48,13 +52,13 @@ const Comentarios = ({reseniaSeleccionada, cargarComentario, usuarioLogeado, edi
         setReseniaComentarios(respuesta)
     }
 
-   //  console.log(reseniaComentarios)
-    // console.matu
+   //  console.log(reseniaSeleccionada)
+   console.log(reseniaComentarios)
     return (
-        
-        <div className="resenia-comments-container">
-        <div className="contenedor-general-comentarios">
-           <div className="contenedor-de-comentarios">
+         <div className="resenia-comments-container">
+            <h1 className="titulo-comentarios titulosAlt" >Comentarios!</h1>
+            <div className="contenedor-general-comentarios">
+               <div className="contenedor-de-comentarios">
                
               {reseniaComentarios.map(comentario => {
                  return(
@@ -74,10 +78,15 @@ const Comentarios = ({reseniaSeleccionada, cargarComentario, usuarioLogeado, edi
                              <MdSend className={comentarioEnEdicion === comentario._id ? estaEditando ? "editing-sendIcon" : "displayNone" : "displayNone"} onClick={()=>mandarComentarioEditado(comentario._id)} />
                           </div>
                        </div>
-                       <div className="icons-container">
-                          <Icon icon={noteEditLine} onClick={()=>comenzarEdicion(comentario.mensaje, comentario._id)} className="modifyComment-icon" />
-                          <Icon icon={trashIcon} onClick={()=>borrarComentario(comentario._id)} className="deleteComment-icon" />
-                       </div>
+                        
+        
+                        {console.log(comentario.usuarioId.mail) }
+                        {usuarioLogeado.mail === comentario.usuarioId.mail &&
+                           <div className="icons-container">
+                           <Icon icon={noteEditLine} onClick={()=>comenzarEdicion(comentario.mensaje, comentario._id)} className="modifyComment-icon" />
+                           <Icon icon={trashIcon} onClick={()=>borrarComentario(comentario._id)} className="deleteComment-icon" />
+                           </div>
+                        }
                     </div>)
               })}
 

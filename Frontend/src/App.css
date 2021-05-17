@@ -1749,6 +1749,7 @@ justify-content: space-between;
     color: rgb(223, 1, 1);
 }
 
+
 .valorar-container {
     display: flex;
     align-items: center;
@@ -1772,7 +1773,14 @@ justify-content: space-between;
     /* align-self: center; */
 }
 
+.titulo-comentarios {
+    /* margin-left: 15vw; */
+    margin-bottom: 5vh;
+    font-size: 2rem;
+}
+
 .resenia-comments-container {
+    /* background: red; */
     /* margin-top: 200px; */
     width: 90%;
     /* height: 30vh; */
@@ -1804,9 +1812,9 @@ justify-content: space-between;
 }
 
 .comment-image {
-    width: 90px;
-    height: 100px;
-    /* border-radius: 100%; */
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
     /* border: 1px solid black; */
     background-position: center;
     background-size: cover;
@@ -1814,6 +1822,7 @@ justify-content: space-between;
 
 .comment-content-container {
     flex-grow: 1;
+    margin-top: 20px;
     /* background-color: lightcoral; */
     padding-left: 20px;
     /* border: 1px solid black; */
@@ -1912,6 +1921,23 @@ justify-content: space-between;
 .editing-sendIcon {
     font-size: 23px;
     align-self: center;
+}
+
+.input-filtrador {
+    display: flex;
+    justify-content: center;
+}
+
+.input-filtrador {
+    width: 50%;
+    padding: 13px 40px;
+    border-radius: 50px;
+    background: rgb(239,239,239);
+    border: none;
+    outline: none;
+    font-family: "montserrat";
+    font-size: 1rem;
+    margin: 0px auto;
 }
 
 
@@ -2127,7 +2153,7 @@ justify-content: space-between;
 }
 .input-text:disabled{
     background-color: var(--verdeAgua) !important;
-
+}
   
   
 @media (max-width: 530px) {

@@ -21,28 +21,40 @@ const Publicaciones = (props)=>{
         fetchear();
     },[])
     
-    if(!publicaciones || !publicaciones[1]){
-        return(
-            <div className="contenedorLoader">
-                <Loader
-                    type="Puff"
-                    color="#161c26"
-                    secondaryColor="#161c26"
-                    height={450}
-                    width={450}
-                    timeout={3000} //3 secs
-                />
-            </div>  
-        )
-    }
+    // if(!publicaciones || !publicaciones[1]){
+    //     return(
+    //         <div className="contenedorLoader">
+    //             <Loader
+    //                 type="Puff"
+    //                 color="#161c26"
+    //                 secondaryColor="#161c26"
+    //                 height={450}
+    //                 width={450}
+    //                 timeout={3000} //3 secs
+    //             />
+    //         </div>  
+    //     )
+    // }
 
+    const filtrarPublicaciones = (valorDelFiltro)=>{
+        props.filtroPorPalabraClave(valorDelFiltro)
+        categoria === "all" ? setPublicaciones(props.publicacionesFiltradas) : setPublicaciones(props.publicaciones.filter(publicacion => publicacion.categoria === categoria))
+        setPublicaciones(props.publicacionesFiltradas)
+    }
 
     return(
         <>
+        {/* <input type="text" onChange={(e)=> filtroPorPalabraClave(e.target.value)} placeholder="Busca tus temas favoritos!" /> */}
         <div className="contenedor-tituloDeResenia">
             <div className="imagen-de-categoria" style={{backgroundImage: portada}}></div>
             <h1 className="titulo-de-resenia titulosAlt" style={{top:'0px'}}>{categoriaCapitalized}</h1>
         </div>
+
+        <div className="input-filtrador-container">
+            <input type="text" className="input-filtrador" placeholder="Busca tus temas favoritos!"
+                onChange={(e)=> filtrarPublicaciones(e.target.value)} />
+        </div>
+        
         <div className="contenedorPublic">
             {publicaciones.map((publicacion , index)=>{
                 return(
@@ -57,11 +69,13 @@ const Publicaciones = (props)=>{
 
 const mapStateToProps = state => {
     return {
-        publicaciones: state.publicacionReducer.todasLasPublicaciones
+        publicaciones: state.publicacionReducer.todasLasPublicaciones,
+        publicacionesFiltradas: state.publicacionReducer.publicacionesFiltradas
     }
 }
 const mapDispatchToProps = {
-    todasPublicaciones: publicacionesActions.obtenerTodasPublicaciones
+    todasPublicaciones: publicacionesActions.obtenerTodasPublicaciones,
+    filtroPorPalabraClave: publicacionesActions.filtroPorPalabraClave
 }
 
 export default connect(mapStateToProps , mapDispatchToProps)(Publicaciones)

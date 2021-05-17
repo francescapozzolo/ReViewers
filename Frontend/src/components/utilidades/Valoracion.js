@@ -8,10 +8,15 @@ const Valoracion = ({cargarValoracion, usuarioLogeado, reseniaSeleccionada, publ
    
    const [valoracionInicial, setValoracionInicial] = useState(2)
 
-   useEffect(async()=>{
-      const respuesta = await publicacionFueValorada(reseniaSeleccionada._id, usuarioLogeado.token)
-      console.log(respuesta)
-      setValoracionInicial(respuesta.valoracion)
+   useEffect(()=>{
+      
+      const fetch = async ()=>{
+         const respuesta = await publicacionFueValorada(reseniaSeleccionada._id, usuarioLogeado.token)
+         console.log(respuesta)
+         setValoracionInicial(respuesta.valoracion)
+      }
+      fetch()
+
    }, [])
 
    const funcionCargarValoracion = async(valor)=>{
@@ -20,10 +25,8 @@ const Valoracion = ({cargarValoracion, usuarioLogeado, reseniaSeleccionada, publ
    }
    
    return (
-      <Rating name={"rating"} precision={.5} value={valoracionInicial} style={{fontSize:"40px"}}
-      onChange={(e, value) => funcionCargarValoracion(value)}  /> 
-      // return <Rating name={"rating"} onChange={(e, value) => cargarValoracion(idPublicacion, {idUsuario, valoracion: value})}  /> 
-      
+      <Rating name={"rating"} precision={.5} value={valoracionInicial ? valoracionInicial : 1} style={{fontSize:"40px"}}
+         onChange={(e, value) => funcionCargarValoracion(value)}  />       
    ) 
 }
 

@@ -9,11 +9,15 @@ import {Link} from 'react-router-dom'
 const PaginaDePrueba = ({filtroPorPalabraClave, obtenerTodasPublicaciones, todasLasPublicaciones, publicacionesFiltradas})=> {
 
    useEffect(()=>{
-      obtenerTodasPublicaciones()
-      console.log(todasLasPublicaciones)
+      const fetch = async()=>{
+         await obtenerTodasPublicaciones()
+         console.log(todasLasPublicaciones)
+      }
+
+      fetch()
    },[])
 
-   // console.log(todasLasPublicaciones)
+   console.log(todasLasPublicaciones)
    // console.log(publicacionesFiltradas)
    return (
       <>
@@ -23,7 +27,7 @@ const PaginaDePrueba = ({filtroPorPalabraClave, obtenerTodasPublicaciones, todas
          {/* Filtro por Palabra Clave */}
          <div className="centradorDePrueba-borrar">
 
-            <input type="text" onChange={(e)=> filtroPorPalabraClave(e.target.value)} placeholder="Busca por Palabra Clave" />
+            <input type="text" onChange={(e)=> filtroPorPalabraClave(e.target.value)} placeholder="Busca tus temas favoritos!" />
 
             { publicacionesFiltradas.length > 0
                ?  publicacionesFiltradas.map( (publicacion) => {
