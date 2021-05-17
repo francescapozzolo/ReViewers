@@ -7,7 +7,7 @@ const controladorPublicaciones = {
         try{
             const unicaPublicacion = await Resenia.findOne({_id: req.params.id})
             .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1,"imagen":1 } } })
-
+            console.log("estoy aquir",unicaPublicacion)
             res.json({success: true , respuesta: unicaPublicacion})
         }catch(error){
             console.log("error en publicacionPorID" , error)

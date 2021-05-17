@@ -64,5 +64,8 @@ router.route('/comentarios/:id')
 .delete(controladoresDeComentarios.borrarComentario)
 .put(controladoresDeComentarios.editarComentario)
 
+
+
+
 module.exports = router 
 

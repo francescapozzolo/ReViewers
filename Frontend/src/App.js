@@ -18,6 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { slide as Menu } from 'react-burger-menu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  faHome, faFeatherAlt, faBookOpen, faUserCog, faStar } from '@fortawesome/free-solid-svg-icons'
+import Favoritos from './pages/Favoritos'
 import Configuraciones from './pages/Configuraciones';
 
 
@@ -95,7 +96,8 @@ class App extends React.Component {
                 <Route path="/publicaciones/:categoria" component={Publicaciones}/>
                 <Route path="/publicacion/:id" component={Resenia} />                
                 <Route path="/prueba" component={PaginaDePrueba} />                
-                <Route path="/configuraciones" component={Configuraciones} />                
+                <Route path="/configuraciones" component={Configuraciones} />
+                <Route path="/favoritos" component={Favoritos} />                
                 <Redirect to={this.props.usuarioLogeado ? "/inicio" : "/"} />
             </Switch>
             <Footer component={Footer}/>
