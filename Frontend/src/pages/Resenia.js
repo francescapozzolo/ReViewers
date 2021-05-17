@@ -19,6 +19,7 @@ import bookmarkStarFill from '@iconify-icons/bi/bookmark-star-fill';
 const Resenia = (props)=>{
 
    const [reseniaSeleccionada, setReseniaSeleccionada] = useState({})
+
    useEffect(()=>{
       const fetch = async ()=>{
          const idResenia = props.match.params.id

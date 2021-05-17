@@ -13,7 +13,7 @@ const Header = (props) => {
     return(
         <header>
             <nav>
-                <div style={{marginLeft: "calc(1rem + 24px)"}}>
+                <div className="cajaLogo" style={{marginLeft: "calc(1rem + 24px)"}}>
                     <Link to="/">
                         <img alt="logo" className="logo" src='/assets/logo.png'></img>
                     </Link>
