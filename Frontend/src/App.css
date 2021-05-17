@@ -1662,8 +1662,16 @@ justify-content: space-between;
 .valoracion{
     display: flex;
     flex-direction: column;
-    padding: 0 1vw 1.5vh 0;
+    padding: 0 1vw 0 0;
     align-self: flex-end;
+}
+
+.MuiBox-root-2{
+ margin-bottom: 0 !important;
+}
+
+.valoracion p{
+    margin-top: 0;
 }
 
     .tarjetaPublicaciones:nth-child(2n){
