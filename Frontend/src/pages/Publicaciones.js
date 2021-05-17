@@ -2,36 +2,30 @@ import {connect} from 'react-redux'
 import React , {useEffect , useState} from 'react'
 import publicacionesActions from '../redux/actions/publicacionesActions'
 import PublicacionIndividual from '../components/utilidades/PublicacionIndividual'
-import Loader from 'react-loader-spinner'
 import { useParams } from 'react-router-dom';
 
 const Publicaciones = (props)=>{
-//    console.log(props.match.params.categoria)
     const [publicaciones, setPublicaciones] = useState([])
     const {categoria} = useParams("")
     const [portada, setPortada] = useState(`url('/assets/caratulas/${categoria === 'all' ? 'bgTodasPublicaciones' : categoria}.jpg')`)
     const categoriaCapitalized = categoria === "all" ? "Todas las publicaciones" : categoria.charAt(0).toUpperCase() + categoria.slice(1)
-    // console.log(categoria)
+
     
     useEffect(()=>{
         const fetchear = async()=>{
             const todasLasPublicaciones = await props.todasPublicaciones()
-            console.log(todasLasPublicaciones)
             categoria === "all" ? setPublicaciones(todasLasPublicaciones) : setPublicaciones(todasLasPublicaciones.filter(publicacion => publicacion.categoria === categoria))
         }
         fetchear();
         
         // eslint-disable-next-line
-        console.log(publicaciones)
     },[])
 
     const filtrarPublicaciones = async(valorDelFiltro)=>{
-        console.log(valorDelFiltro)
 
         props.filtroPorPalabraClave(valorDelFiltro)
 
         // if(publicaciones.length === 0){
-        //     console.log(props.publicaciones)
         //     setPublicaciones(props.publicaciones)
         // }
         
@@ -39,9 +33,6 @@ const Publicaciones = (props)=>{
             ? setPublicaciones(props.publicacionesFiltradas) 
             : setPublicaciones(props.publicacionesFiltradas.filter(publicacion => publicacion.categoria === categoria))
         
-
-        console.log(categoria)
-        console.log(publicaciones)
     }
     return(
         <>

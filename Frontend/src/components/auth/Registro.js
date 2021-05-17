@@ -54,10 +54,8 @@ const Registro = (props) =>{
     const enviarInfoUsuario = async (e = null, usuarioGoogle = null) => {
         e && e.preventDefault();
         let usuario = usuarioGoogle ? usuarioGoogle : nuevoUsuario
-        console.log(usuario)
         if(!Object.values(usuario).some(value => value === '')) {
             const respuestaConErrores = await props.crearUsuario(usuario)
-            console.log('entre')
             let campos = ({
                 nombre: '',
                 apellido: '',
@@ -76,7 +74,6 @@ const Registro = (props) =>{
         }
     }
 
-    // console.log(props)
 
     const respuestaGoogle = (respuesta) => {
         const { email, familyName, givenName, googleId, imageUrl } = respuesta.profileObj

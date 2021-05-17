@@ -19,7 +19,6 @@ class Inicio extends React.Component{
     }   
 
     componentDidMount(){
-        console.log()
         this.props.cargarPublicaciones(this.setState({
             ...this.state,
             publicaciones: [...this.props.publicaciones],
@@ -92,7 +91,7 @@ class Inicio extends React.Component{
                                 <div className="capa">
                                     <Link to={`/publicaciones/${publicacion.categoria}`} className="textoCategoria">{publicacion.categoria}</Link>
                                     <p className="textoTit">{publicacion.titulo}</p>
-                                    <p className="textoAutor">Publicado por </p>
+                                    <p className="textoAutor">Publicado por {publicacion.autor.nombre}</p>
                                     <Box component="fieldset" mb={3} borderColor="transparent">
                                         <Rating name="read-only" value={valoracion} readOnly />
                                     </Box>

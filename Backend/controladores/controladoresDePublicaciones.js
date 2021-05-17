@@ -17,7 +17,7 @@ const controladorPublicaciones = {
     todasLasPublicaciones: async (req , res)=>{
         try{
             const todasPublicaciones = await Resenia.find()
-            .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1, "mail":1, "imagen":1 } } })
+            .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1, "mail":1, "imagen":1 } } }).populate({ path:"autor", select:{ "nombre": 1,"apellido":1, "imagen":1}})
             res.json({success: true, respuesta: todasPublicaciones})
         }catch(error){
             console.log("error controlador publicaciones" , error)
@@ -65,8 +65,6 @@ const controladorPublicaciones = {
             // version original
            const {categoria, subcategoria, titulo, subtitulo, descripcion, imagen, tags, pro, contra} = req.body
            const {_id} = req.user
-        //    console.log("soy el usuario:   ",req.user)
-        //    console.log("soy el body:   ",req.body)
            const reseniaSchemaAEnviar = {categoria,subcategoria, titulo, subtitulo, descripcion, imagen, autor:_id, tags, proContra:{ pro, contra} }
             const nuevaPublicacion = await new Resenia(reseniaSchemaAEnviar).save()
             // const todasLasPublicaciones = await Resenia.find()
@@ -105,16 +103,13 @@ const controladorPublicaciones = {
 
     cargarValoracion: async(req, res)=>{
         try{
-            // console.log(req.user)
             const idPublicacion = req.params.id
             const {valoracion} = req.body
             const {_id} = req.user
             
             var publicacionValorada = await Resenia.findOne({_id: idPublicacion})
-            // console.log('publicacion valorada: '+ publicacionValorada)
 
             const valoracionExiste = publicacionValorada.valoraciones.find(element => JSON.stringify(element.idUsuario) == JSON.stringify(_id))
-            // console.log('Valoracion existe: ' + valoracionExiste)
             
             if(!valoracionExiste){
                 publicacionValorada = await Resenia.findOneAndUpdate(
@@ -122,17 +117,14 @@ const controladorPublicaciones = {
                     {$push: {valoraciones: {idUsuario: _id, valoracion}}}, 
                     {new: true}
                 )
-            
-                console.log(publicacionValorada)
+
                 res.json({success: true, respuesta: publicacionValorada})
             } else {
-                console.log('Este usuario ya valoró, el id de la valoracion es: ' + valoracionExiste)
                 publicacionValorada = await Resenia.findOneAndUpdate(
                     {_id: idPublicacion, "valoraciones._id": valoracionExiste._id},
                     {$set: {"valoraciones.$.valoracion": valoracion}}, //si vuelve a valorar, se reemplaza la valoracions
                     {new: true}
                 )
-                console.log(publicacionValorada.valoraciones)
                 res.json({respuesta: {success:true, valoraciones: publicacionValorada.valoraciones}})
             }
         }catch(err){
@@ -146,8 +138,6 @@ const controladorPublicaciones = {
             const idPublicacion = req.params.id
             const {_id} = req.user
             var usuarioYaValoro;
-            console.log(idPublicacion)
-            console.log(_id)
 
             const publicacionBuscada = await Resenia.findOne({_id: idPublicacion})
             console.log(JSON.stringify(publicacionBuscada.valoraciones[0].idUsuario) == JSON.stringify(_id))
@@ -155,7 +145,6 @@ const controladorPublicaciones = {
             const usuarioYahabiaValorado = publicacionBuscada.valoraciones.find(elemento => {
                return JSON.stringify(elemento.idUsuario) == JSON.stringify(_id)}
             )
-            console.log(usuarioYahabiaValorado)
 
             if (usuarioYahabiaValorado){
                 usuarioYaValoro = true
@@ -208,7 +197,6 @@ const controladorPublicaciones = {
             var usuarioYaGuardoPublicacion;
 
             const publicacionBuscada = await Resenia.findOne({_id: idPublicacion})
-            console.log(publicacionBuscada.usuariosFav)
 
             const usuarioYaGuardo = publicacionBuscada.usuariosFav.find(usuario => JSON.stringify(usuario._id) == JSON.stringify(_id))
 

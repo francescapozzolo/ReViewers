@@ -153,7 +153,6 @@ class Configuraciones extends React.Component {
     if(!this.props.usuarioLogeado){
       return null
     }
-    // console.log(this.props);
     return (
       <main className="contenedor">
         <form className="contenedor-reseña">

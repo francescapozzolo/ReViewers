@@ -59,8 +59,7 @@ const Comentarios = ({reseniaSeleccionada, cargarComentario, usuarioLogeado, edi
         setReseniaComentarios(respuesta)
     }
 
-   //  console.log(reseniaSeleccionada)
-   console.log(reseniaComentarios)
+
     return (
          <div className="resenia-comments-container">
             <h1 className="titulo-comentarios titulosAlt" >Comentarios!</h1>
@@ -87,7 +86,6 @@ const Comentarios = ({reseniaSeleccionada, cargarComentario, usuarioLogeado, edi
                        </div>
                         
         
-                        {console.log(comentario.usuarioId.mail) }
                         {usuarioLogeado.mail === comentario.usuarioId.mail &&
                            <div className="icons-container">
                            <Icon icon={noteEditLine} onClick={()=>comenzarEdicion(comentario.mensaje, comentario._id)} className="modifyComment-icon" />

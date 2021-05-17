@@ -11,7 +11,6 @@ const PaginaDePrueba = ({filtroPorPalabraClave, obtenerTodasPublicaciones, todas
    useEffect(()=>{
       const fetch = async()=>{
          await obtenerTodasPublicaciones()
-         console.log(todasLasPublicaciones)
       }
 
       fetch()
@@ -19,8 +18,6 @@ const PaginaDePrueba = ({filtroPorPalabraClave, obtenerTodasPublicaciones, todas
 
    },[])
 
-   console.log(todasLasPublicaciones)
-   // console.log(publicacionesFiltradas)
    return (
       <>
          <Valoracion idPublicacion={"609d4be85ea53f26e899e7ce"} idUsuario={"609c5cc478d84916706c147c"} />
