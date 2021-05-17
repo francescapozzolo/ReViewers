@@ -3,6 +3,7 @@ import GoogleLogin from 'react-google-login';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import authActions from '../../redux/actions/authActions'
+import { toast } from "react-toastify";
 
 const InicioSesion = (props) =>{
     
@@ -19,6 +20,28 @@ const InicioSesion = (props) =>{
         })
     }
 
+    const toasts = (
+        tipo,
+        mensaje,
+        position,
+        autoClose,
+        closeOnClick,
+        pauseOnHover,
+        draggable,
+        toastId,
+        closeButton
+      ) => {
+        toast[tipo](mensaje, {
+          position,
+          closeOnClick,
+          pauseOnHover,
+          draggable,
+          toastId,
+          closeButton,
+          autoClose,
+        });
+      };
+
     const enviarInfoUsuario = async (e = null, usuarioGoogle = null) => {
         e && e.preventDefault();
         let usuario = usuarioGoogle ? usuarioGoogle : usuarioPagina
@@ -26,7 +49,7 @@ const InicioSesion = (props) =>{
         if(!Object.values(usuario).some(value => value === '')) {
             props.iniciarSesion(usuario)
         } else {
-            alert('No pueden haber campos vacios')
+            toasts('info',"No pueden haber campos vacios", 'top-center', 5000, true, true, true, 'errorCamposVacios',true)
         }
     }
 

@@ -12,6 +12,9 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import sideBarActions from "../redux/actions/sideBarActions";
 import authActions from "../redux/actions/authActions";
+// import useMediaQuery from '@material-ui/core/useMediaQuery';
+// const matches = useMediaQuery('(min-width:600px)');
+// return <span>{`(min-width:600px) matches: ${matches}`}</span>;
 
 class SideBar extends React.Component {
   // closeMenu () {
@@ -21,7 +24,11 @@ class SideBar extends React.Component {
   // toggleMenu () {
   //   this.setState(state => ({menuOpen: !state.menuOpen}))
   // }
+  cerrarSesion = ()=>{
 
+    this.props.changeState()
+    this.props.cerrarSesion()
+  }
   render() {
     return (
       <Menu
@@ -73,7 +80,7 @@ class SideBar extends React.Component {
             <FontAwesomeIcon className="sideBar-icon" icon={faUserCog} />
             Configuraciones
           </Link>
-          <span onClick={this.props.cerrarSesion} style={{cursor:'pointer'}} className="mx-1 btn-crearReview texto">Cerrar sesion</span>                  
+          <span onClick={ this.cerrarSesion } style={{cursor:'pointer'}} className="mx-1 btn-crearReview texto">Cerrar sesion</span>                  
           </>
         ):<>
         

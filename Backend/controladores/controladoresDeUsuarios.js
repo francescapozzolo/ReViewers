@@ -43,8 +43,6 @@ const controladoresDeUsuario = {
       let error;
       let datos;
       let {nombre, apellido, mail, clave, claveNueva, imagen, intereses, rol} = req.body
-      console.log(req.body)
-      // console.log(req.user)
       try {
          nombre !== "" && nombre !== usuario.nombre ? nombre = nombre : nombre = usuario.nombre
          apellido !== "" && apellido !== usuario.apellido ? apellido = apellido : apellido = usuario.apellido
@@ -64,11 +62,9 @@ const controladoresDeUsuario = {
             datos = {nombre, apellido, mail, imagen, intereses, rol, clave:usuario.clave}
          }
 
-         console.log("datos: ",datos)
          const usuarioAEditar = await Usuario.findOneAndUpdate({_id:usuario._id},datos,{new:true})
          
          const token = jwt.sign({...usuarioAEditar},process.env.SECRET_OR_KEY)
-         console.log(token)
          respuesta = {token, imagen: usuarioAEditar.imagen, nombre: usuarioAEditar.nombre, usuarioConfirmado: usuarioAEditar.usuarioConfirmado, rol: usuarioAEditar.rol, intereses: usuarioAEditar.intereses}
 
          res.json({
@@ -102,7 +98,6 @@ const controladoresDeUsuario = {
             try{
                usuarioARegistrar = new Usuario({...req.body, clave})
                await usuarioARegistrar.save()
-               console.log(usuarioARegistrar)
                const token = jwt.sign({...usuarioARegistrar}, process.env.SECRET_OR_KEY)            
                respuesta = {token, imagen: usuarioARegistrar.imagen, mail: usuarioARegistrar.mail, nombre: usuarioARegistrar.nombre, usuarioConfirmado: usuarioARegistrar.usuarioConfirmado, rol: usuarioARegistrar.rol, intereses: usuarioARegistrar.intereses}
             } catch (err){ //no pinta mostrar el error posta porque el usuario no lo va a entender 
@@ -156,10 +151,11 @@ const controladoresDeUsuario = {
    },
 
    inicioForzado: (req, res) => {
-      res.json({
-         success: true,
-         respuesta: {imagen: req.user.imagen, nombre: req.user.nombre, mail: req.user.mail, usuarioConfirmado: req.user.usuarioConfirmado, rol: req.user.rol, intereses: req.user.intereses}
-     })
+         res.json({
+            success: true,
+            respuesta: {imagen: req.user.imagen, nombre: req.user.nombre, mail: req.user.mail, usuarioConfirmado: req.user.usuarioConfirmado, rol: req.user.rol, intereses: req.user.intereses}
+         })
+     
    },
 
    confirmarUsuario: async (req, res) => {

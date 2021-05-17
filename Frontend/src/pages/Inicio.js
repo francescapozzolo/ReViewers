@@ -31,7 +31,6 @@ class Inicio extends React.Component{
         this.setState({
             ...this.state,    
             [categoriaItem]: this.state[categoriaItem].length > 0 ? [] : this.props.publicaciones.filter(publicacion => publicacion.categoria === categoriaItem),
-            // [categoriaItem]: this.state[categoriaItem].length > 0 ? [] : this.props.publicacionesFiltradas.filter(publicacion => publicacion.categoria === categoriaItem),
 
         }, () => {
             const arrayAComparar = [...this.state.deportes, ...this.state.entretenimiento, ...this.state.tecnologia, ...this.state.gastronomia]

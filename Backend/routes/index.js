@@ -6,7 +6,6 @@ const passport = require('passport')
 const controladoresDeUsuarios = require('../controladores/controladoresDeUsuarios')
 const controladoresDeComentarios = require('../controladores/controladoresDeComentarios')
 const controladoresDePublicaciones = require('../controladores/controladoresDePublicaciones')
-const { session } = require('passport')
 
 
 

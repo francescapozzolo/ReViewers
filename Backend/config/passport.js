@@ -12,6 +12,7 @@ let options = {
 module.exports = passport.use(new jwtStrategy({
     ...options
 }, (payload, done) => {
+    console.log(payload)
     User.findById(payload._doc._id)
     .then(user => {
         if(user) {
