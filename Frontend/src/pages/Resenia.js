@@ -2,11 +2,13 @@ import { useEffect, useState } from "react"
 import {connect} from "react-redux"
 import Valoracion from "../components/utilidades/Valoracion"
 import publicacionesActions from '../redux/actions/publicacionesActions'
+
 import Rating from '@material-ui/lab/Rating';
 import bookmarkStar from '@iconify-icons/bi/bookmark-star';
 import trashIcon from '@iconify-icons/bi/trash';
 import noteEditLine from '@iconify-icons/clarity/note-edit-line';
 import {FiSend} from 'react-icons/fi'
+
 import Comentarios from '../components/Comentarios'
 import GuardarPublicacion from '../components/utilidades/GuardarPublicacion'
 
@@ -17,20 +19,20 @@ import bookmarkStarFill from '@iconify-icons/bi/bookmark-star-fill';
 const Resenia = (props)=>{
 
    const [reseniaSeleccionada, setReseniaSeleccionada] = useState({})
-
    useEffect(()=>{
       const fetch = async ()=>{
          const idResenia = props.match.params.id
+
          if(props.todasLasPublicaciones.length > 0){
          setReseniaSeleccionada(props.todasLasPublicaciones.find(publicacion => JSON.stringify(publicacion._id) === JSON.stringify(idResenia)))
       } else {
          const respuesta = await props.obtenerUnaPublicacion(idResenia)
          setReseniaSeleccionada(respuesta)
       }
-      // console.log(reseniaSeleccionada)
    }
    fetch()
-   }, [])
+   // eslint-disable-next-line
+   }, [])      
    console.log(reseniaSeleccionada)
    
    return(
@@ -44,6 +46,7 @@ const Resenia = (props)=>{
                 }')`
             }}></div>
             <h3 className="titulo-de-resenia titulosAlt">{reseniaSeleccionada.titulo}</h3>
+
          </div>
 
          <section className="resenia-section">
@@ -61,6 +64,7 @@ const Resenia = (props)=>{
                </div>
             </div>
 
+            {reseniaSeleccionada.usuariosFav && <GuardarPublicacion reseniaSeleccionada={reseniaSeleccionada} />}
 
             {reseniaSeleccionada.usuariosFav && <GuardarPublicacion reseniaSeleccionada={reseniaSeleccionada} />}
             {/* <div> */}

@@ -37,11 +37,13 @@ const publicacionesActions={
     enviarFormulario:(inputs)=>{
         return async(dispatch, getState)=>{
             const tokenUsuario = localStorage.getItem('token')
-            const respuesta = await axios.post("http://localhost:4000/api/publicaciones",{...inputs},{
+            // const respuesta = 
+            await axios.post("http://localhost:4000/api/publicaciones",{...inputs},{
                 headers: {
                     'Authorization': 'Bearer '+ tokenUsuario
                 }
             })
+
         }
     },
     cargarValoracion: (idPublicacion, valoracion, token)=>{
@@ -130,7 +132,6 @@ const publicacionesActions={
                 }
             })
             return respuesta.data.respuesta
-            console.log(respuesta.data.respuesta)
         }
     }
 

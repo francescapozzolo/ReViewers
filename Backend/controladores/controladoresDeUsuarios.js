@@ -41,28 +41,50 @@ const controladoresDeUsuario = {
    editarUsuario: async(req,res) =>{
       let usuario = req.user
       let error;
-      // let usuarioConfirmado;
-      
+      let datos;
+      let {nombre, apellido, mail, clave, claveNueva, imagen, intereses, rol} = req.body
+      console.log(req.body)
+      // console.log(req.user)
       try {
-         const actualizarInfo = {
-        
+         nombre !== "" && nombre !== usuario.nombre ? nombre = nombre : nombre = usuario.nombre
+         apellido !== "" && apellido !== usuario.apellido ? apellido = apellido : apellido = usuario.apellido
+         mail !== "" && mail !== usuario.mail ? mail = mail : mail = usuario.mail
+         imagen !== "" && imagen !== usuario.imagen ? imagen = imagen : imagen = usuario.imagen
+         rol !== "" && rol !== usuario.rol ? rol = rol : rol = usuario.rol
+         
+         if(clave && claveNueva){
+            const contraseña = bcryptjs.compareSync(clave, usuario.clave)
+            if(contraseña){
+               clave = bcryptjs.hashSync(claveNueva, 10)
+            }else{   
+               error="Error contraseña erronea."   
+            }
+            datos = {nombre, apellido, mail, imagen, intereses, rol}
+         }else{
+            datos = {nombre, apellido, mail, imagen, intereses, rol, clave:usuario.clave}
          }
+
+         console.log("datos: ",datos)
+         const usuarioAEditar = await Usuario.findOneAndUpdate({_id:usuario._id},datos,{new:true})
+         
+         const token = jwt.sign({...usuarioAEditar},process.env.SECRET_OR_KEY)
+         console.log(token)
+         respuesta = {token, imagen: usuarioAEditar.imagen, nombre: usuarioAEditar.nombre, usuarioConfirmado: usuarioAEditar.usuarioConfirmado, rol: usuarioAEditar.rol, intereses: usuarioAEditar.intereses}
+
+         res.json({
+            success: !error ? true : false,
+            respuesta,
+            error
+         })
         
       } catch {
          error = "Error interno del servidor, intente mas tarde"
+         res.json({
+            success: false,
+            error
+         })
+         
       }
-
-      res.json({
-         success: !error ? true : false,
-         usuario,
-         error
-      })
-
-         res.json({success: true, respuesta: usuarioModificado})
-
-         console.log('Caí en el catch del controlador editarUsuario y el error es: ' + err)
-         res.json({success: false, respuesta: "error: " + err})
-      
    },
 
    registrarUsuario: async(req, res)=>{
@@ -153,21 +175,22 @@ const controladoresDeUsuario = {
          }
          const usuario = await Usuario.findOneAndUpdate({_id: usuarioId}, {...actualizarInfo}, {new: true})
          
-         if(usuario) {
+         if(usuario.usuarioConfirmado) {
             usuarioConfirmado = true   
          } else {
             error = "Usuario no encontrado en la base de datos"
             usuarioConfirmado = false
          }
+         res.json({
+            success: !error ? true : false,
+            usuario,
+            error
+         })
       } catch {
          error = "Error interno del servidor, intente mas tarde"
       }
 
-      res.json({
-         success: !error ? true : false,
-         usuarioConfirmado,
-         error
-      })
+      
    }
    
 }

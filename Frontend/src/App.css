@@ -90,6 +90,7 @@
     
     link, a  {
         text-decoration: none;
+        /* color: initial; */
     }
     
     link:visited, a:visited  {
@@ -162,7 +163,28 @@
                 border-radius: 50%; 
                 background-position: center;
                 background-size: cover;
-    
+                cursor: pointer;
+                position: relative;
+
+            }
+            .usuarioPic::after{
+                content: "";
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width:10px 6px 0 6px;
+                border-color: rgba(0, 0, 0, 0.2) transparent transparent transparent;
+                position: absolute;
+                top: 105%;
+                left: 40%;
+            }
+            .usuarioPic:hover::after{
+                border-color: rgba(0, 0, 0, 0.57) transparent transparent transparent;
+            }
+
+
+            .contenedor-usuarioPic{
+                margin-left: 20px;
             }
     
             /* .btn-crearReview { */
@@ -591,18 +613,18 @@
         height: 100%;
     }
     .input-text{
-        height: 40%;
-        width: 95%;
-        border:none;
+        height: 40% !important;
+        width: 95% !important;
+        border:none !important;
     
-        margin: 0 2px;
-        outline: none;
-        border-radius: .5rem;
-        display: flex;
-        justify-contenedorLintent: center;
-        align-items: center;
-        padding: 5px;
-        background-color: #e8f0fe;
+        margin: 0 2px !important;
+        outline: none !important;
+        border-radius: .5rem !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 5px !important;
+        background-color: #e8f0fe !important;
         /* text-align: center; */
     }
     
@@ -877,6 +899,9 @@
         display: flex;
         justify-content: center;
         font-family: 'Fjalla One', sans-serif !important;
+    }
+    .botonGoogle > div{
+        background: none !important;
     }
     
     .botonGoogle:hover, #registroIngreso:hover {
@@ -1961,7 +1986,7 @@ justify-content: space-between;
     width: 36px;
     height: 30px;
     left: 10px;
-    top: 30px;
+    top: 25px;
   }
   
   /* Color/shape of burger icon bars */
@@ -2051,6 +2076,12 @@ justify-content: space-between;
         width: 100%;
         height: 60%;
         display: flex !important;
+        flex-direction: column;
+    }
+    .SideFooter > *{
+        margin: .5rem 0;
+    }
+    .SideFooter{
         flex-direction: column;
     }
 
