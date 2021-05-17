@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react'
+import {useEffect, useState} from 'react'
 
 let aux = 0;
 
@@ -36,7 +36,7 @@ const Carrusel = () => {
         <div id="contenedorCarrusel">
             <div className="contenedorTituloDots">
                 <div>
-                    <h1 className="texto titulosAlt">Mejores Reviews</h1>
+                    <h1 className="texto titulosAlt ">Mejores Reviews</h1>
                 </div>
 
                 <ul className="menuSlides">

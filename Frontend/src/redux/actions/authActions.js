@@ -84,14 +84,30 @@ const authActions = {
                     }
                 }) 
                 
-                if(respuesta.data.usuarioConfirmado) {
-                    return respuesta.data.usuarioConfirmado
+                console.log(respuesta.data)
+                if(respuesta.data.usuario) {
+                    dispatch({type:'INGRESO_USUARIO', payload:respuesta.data.usuario})
                 } else if(respuesta.data.error) {
                     alert(respuesta.data.error)
                 }  
             } catch {
                 alert('Error interno del servidor, intente mas tarde')
             }
+        }
+    },
+    actualizarDatosUsuario: (datos)=>{
+        return async(dispatch, getState)=>{
+            const token = localStorage.getItem('token')
+            const respuesta = await axios.put('http://localhost:4000/api/usuarios/SeUsaToken',datos, {
+                    headers: {
+                        'Authorization': 'Bearer '+ token
+                    }
+                }) 
+                if(respuesta.data.success){
+                    dispatch({type:'INGRESO_USUARIO', payload:respuesta.data.respuesta})
+                }else{
+                    return "Error"
+                }
         }
     }
 }

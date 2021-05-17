@@ -21,7 +21,7 @@ router.route('/usuarios/registrarse')
 router.route('/usuarios/:id')
 .get(controladoresDeUsuarios.obtenerUnUsuario)
 .delete(controladoresDeUsuarios.eliminarUnUsuario)
-.put(controladoresDeUsuarios.editarUsuario)
+.put(passport.authenticate('jwt', {session: false}),controladoresDeUsuarios.editarUsuario)
 
 router.route('/usuarios/iniciarSesion')
 .post(controladoresDeUsuarios.iniciarSesion)
@@ -33,11 +33,12 @@ router.route('/confirmarUsuario')
 .put(passport.authenticate('jwt', {session: false}), controladoresDeUsuarios.confirmarUsuario)
 
 
+
 // Reseñas | Publicaciones 
 router.route('/publicaciones')
 .get(controladoresDePublicaciones.todasLasPublicaciones) //anda
-//.post(passport.authenticate('jwt',{session:false}),controladoresDePublicaciones.cargarPublicacion) //anda
-.post(controladoresDePublicaciones.cargarPublicacion) //anda
+.post(passport.authenticate('jwt',{session:false}),controladoresDePublicaciones.cargarPublicacion) //anda
+// .post(controladoresDePublicaciones.cargarPublicacion) //anda
 
 // passport.authenticate('jwt',{session:false})
 router.route('/publicaciones/:id')
@@ -48,13 +49,20 @@ router.route('/publicaciones/:id')
 router.route('/publicaciones/:categoria')
 .get(controladoresDePublicaciones.publicacionesCategoria) //anda
 
-
 // Valoracion (estrellas) | Likes
 router.route('/publicacionValorada/:id')
-.post(controladoresDePublicaciones.cargarValoracion)
+.post(passport.authenticate('jwt', {session:false}), controladoresDePublicaciones.cargarValoracion)
 
-router.route('/publicacionLikeada/:id')
-.post(controladoresDePublicaciones.cargarLike)
+router.route('/publicacion/fueValorada/:id')
+.get(passport.authenticate('jwt', {session:false}), controladoresDePublicaciones.publicacionFueValorada)
+
+router.route('/publicacion/guardarPublicacion/:id')
+.get(passport.authenticate('jwt', {session:false}), controladoresDePublicaciones.guardarPublicacion)
+
+router.route('/publicacion/fueGuardada/:id')
+.get( passport.authenticate('jwt', {session:false}), controladoresDePublicaciones.publicacionFueGuardada)
+
+
 
 
 // Comentarios 

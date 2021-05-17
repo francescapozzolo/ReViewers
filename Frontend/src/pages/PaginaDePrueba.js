@@ -1,6 +1,6 @@
 import MeGusta from '../components/utilidades/MeGusta'
 import Valoracion from '../components/utilidades/Valoracion'
-import FiltroPorPClave from '../components/utilidades/FiltroPorPClave'
+// import FiltroPorPClave from '../components/utilidades/FiltroPorPClave'
 import {connect} from 'react-redux'
 import publicacionesActions from '../redux/actions/publicacionesActions'
 import { useEffect } from 'react'
@@ -9,11 +9,17 @@ import {Link} from 'react-router-dom'
 const PaginaDePrueba = ({filtroPorPalabraClave, obtenerTodasPublicaciones, todasLasPublicaciones, publicacionesFiltradas})=> {
 
    useEffect(()=>{
-      obtenerTodasPublicaciones()
-      console.log(todasLasPublicaciones)
+      const fetch = async()=>{
+         await obtenerTodasPublicaciones()
+         console.log(todasLasPublicaciones)
+      }
+
+      fetch()
+      // eslint-disable-next-line
+
    },[])
 
-   // console.log(todasLasPublicaciones)
+   console.log(todasLasPublicaciones)
    // console.log(publicacionesFiltradas)
    return (
       <>
@@ -23,7 +29,7 @@ const PaginaDePrueba = ({filtroPorPalabraClave, obtenerTodasPublicaciones, todas
          {/* Filtro por Palabra Clave */}
          <div className="centradorDePrueba-borrar">
 
-            <input type="text" onChange={(e)=> filtroPorPalabraClave(e.target.value)} placeholder="Busca por Palabra Clave" />
+            <input type="text" onChange={(e)=> filtroPorPalabraClave(e.target.value)} placeholder="Busca tus temas favoritos!" />
 
             { publicacionesFiltradas.length > 0
                ?  publicacionesFiltradas.map( (publicacion) => {

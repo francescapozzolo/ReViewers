@@ -1,9 +1,15 @@
-import React from "react";
+import React, { createRef } from "react";
 import { connect } from "react-redux";
-import publicacionesActions from "../redux/actions/publicacionesActions";
+// import publicacionesActions from "../redux/actions/publicacionesActions";
 import styled from "styled-components";
 import Tooltip from "@material-ui/core/Tooltip";
 import { toast } from "react-toastify";
+import { Icon } from '@iconify/react';
+import editIcon from '@iconify-icons/carbon/edit';
+import imageEditLine from '@iconify-icons/ri/image-edit-line';
+import checkmarkCircleOutline from '@iconify-icons/eva/checkmark-circle-outline';
+import authActions from "../redux/actions/authActions";
+
 
 const Imagen = styled.div`
   & {
@@ -14,7 +20,7 @@ const Imagen = styled.div`
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url(${(props) => props.imagen});
+    background-image: url(${(props) => props.imagen.imagen ? props.imagen.imagen : props.imagen});
     cursor: pointer;
   }
   ${(props) =>
@@ -35,34 +41,23 @@ const Imagen = styled.div`
         }`
       : null}
 `;
-const NoImagen = styled.div`
-  & {
-    width: 30%;
-    height: 30%;
-    position: relative;
-    border-radius: 10px;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-image: url("/assets/noPic.png");
-  }
-`;
+
 
 class Configuraciones extends React.Component {
   state = {
     valoresInput: {
-      nombre: "",
-      apellido: "",
-      mail: "",
-      clave: "",
-      imagen: "",
-      intereses: "",
-      rol: "",
-      favoritos: "",
-      seguidores: "",
-      usuarioConfirmado: "",
+      nombre:{nombre:"",disabled:true},
+      apellido:{apellido:"",disabled:true},
+      mail: {mail:"",disabled:true},
+      clave: {clave:"",disabled:true},
+      claveNueva: {claveNueva:""},
+      imagen: {imagen:"",disabled:true},
+      intereses: [],
+      rol:"lector"
     },
   };
+
+  inputImagen = createRef()
 
   setearInput = (e) => {
     const valueInput = e.target.value;
@@ -71,10 +66,49 @@ class Configuraciones extends React.Component {
       ...this.state,
       valoresInput: {
         ...this.state.valoresInput,
-        [campoInput]: valueInput,
+        [campoInput]:{...this.state.valoresInput[campoInput], [campoInput]:valueInput},
       },
     });
   };
+  setearIntereses = (e) => {
+    const valueInput = e.target.value;
+    if(!this.state.valoresInput.intereses.find(interes=> interes === valueInput)){ 
+      this.setState({
+        ...this.state,
+        valoresInput: {
+          ...this.state.valoresInput,
+          intereses: [...this.state.valoresInput.intereses,valueInput]
+        },
+      });
+    }else{
+      this.setState({
+        ...this.state,
+        valoresInput: {
+          ...this.state.valoresInput,
+          intereses: this.state.valoresInput.intereses.filter(interes => interes !== valueInput)
+        },
+      });
+    }
+  };
+  setearCreador = (e)=>{
+    this.setState({
+      ...this.state,
+      valoresInput:{...this.state.valoresInput, rol:e.target.checked ? "escritor" : "lector"}})
+  }
+  editarCampo = (e)=>{
+    e.preventDefault()
+    const campo = e.target.dataset.campo
+    if(campo){
+      const disabled = this.state.valoresInput[campo].disabled
+      this.setState({
+        ...this.state,
+        valoresInput:{
+          ...this.state.valoresInput,
+          [campo]:{...this.state.valoresInput[campo], disabled:!disabled}
+        }
+      })
+    }
+  }
 
   toasts = (
     tipo,
@@ -97,21 +131,29 @@ class Configuraciones extends React.Component {
       autoClose,
     });
   };
-
-  comprobarImagen = (e) => {
+  enviarForm = async (e) => {
     e.preventDefault();
-    this.setState({
-      ...this.state,
-      comprobarImagen: !this.state.comprobarImagen,
-    });
+    let nombre = this.state.valoresInput.nombre.nombre.trim()
+    let apellido = this.state.valoresInput.apellido.apellido.trim()
+    let mail = this.state.valoresInput.mail.mail.trim()
+    let imagen = this.state.valoresInput.imagen.imagen.trim()
+    let clave = this.state.valoresInput.clave.clave.trim()
+    let claveNueva = this.state.valoresInput.claveNueva.claveNueva.trim()
+    let rol = this.state.valoresInput.rol
+    let intereses = this.state.valoresInput.intereses
+
+    const datos = {nombre,apellido,mail,clave,claveNueva,imagen,rol,intereses}
+    const respuesta = await this.props.actualizarDatos(datos)
+
   };
 
-  enviarForm = (e) => {
-    e.preventDefault();
-  };
-
+  
   render() {
-    console.log(this.state);
+
+    if(!this.props.usuarioLogeado){
+      return null
+    }
+    // console.log(this.props);
     return (
       <main className="contenedor">
         <form className="contenedor-reseña">
@@ -121,14 +163,20 @@ class Configuraciones extends React.Component {
               <div className="contenedor-inputs-externo-configuraciones">
                 <div className="contenedor-inputs-interno-configuraciones">
                   <label
+                    data-campo="nombre" onClick={this.editarCampo} 
                     htmlFor="input-nombre"
                     className="label-subtitulo-titulo titulosAlt"
                   >
                     Nuevo nombre
+                    <div data-campo="nombre" onClick={this.editarCampo} >
+                    { <Icon  className="edit-form-config" data-campo="nombre" icon={ this.state.valoresInput.nombre.disabled ? editIcon : checkmarkCircleOutline}/>}
+                    {/* <Icon icon={} /> */}
+                    </div>
+
                   </label>
-                  <Tooltip arrow title="Su nuevo nombre" placement="top">
+                  <Tooltip  title={!this.state.valoresInput.nombre.disabled ? "Su nuevo nombre" : "Presione el icono para editar"} placement="top-end">
                     <input
-                      value={this.state.valoresInput.nombre}
+                      value={this.state.valoresInput.nombre.nombre}
                       type="text"
                       placeholder="Nombre"
                       autoComplete="off"
@@ -136,19 +184,24 @@ class Configuraciones extends React.Component {
                       onChange={this.setearInput}
                       className="input-text"
                       id="input-nombre"
+                      disabled={this.state.valoresInput.nombre.disabled}
                     />
                   </Tooltip>
                 </div>
                 <div className="contenedor-inputs-interno-configuraciones">
                   <label
+                    onClick={this.editarCampo} data-campo="apellido"
                     htmlFor="input-apellido"
                     className="label-subtitulo-titulo titulosAlt"
                   >
                     Nuevo apellido
+                    <div onClick={this.editarCampo} data-campo="apellido">
+                    <Icon  data-campo="apellido" className="edit-form-config" icon={this.state.valoresInput.apellido.disabled ? editIcon : checkmarkCircleOutline}/>
+                    </div>
                   </label>
-                  <Tooltip arrow title="Su nuevo apellido" placement="top-end">
+                  <Tooltip  title={!this.state.valoresInput.apellido.disabled ? "Su nuevo apellido" : "Presione el icono para editar"} placement="top-end">
                     <input
-                      value={this.state.valoresInput.apellido}
+                      value={this.state.valoresInput.apellido.apellido}
                       type="text"
                       placeholder="Apellido"
                       autoComplete="off"
@@ -156,20 +209,26 @@ class Configuraciones extends React.Component {
                       onChange={this.setearInput}
                       className="input-text"
                       id="input-apellido"
-                      style={{ alignSelf: "flex-end" }}
+                      disabled={this.state.valoresInput.apellido.disabled}
                     />
                   </Tooltip>
                 </div>
-                <div className="contenedor-inputs-interno-configuraciones">
+              </div>
+              <div className="contenedor-inputs-externo-configuraciones">
+                <div className="contenedor-inputs-interno-configuraciones" style={{width:'100%'}}>
                   <label
+                    onClick={this.editarCampo} data-campo="mail"
                     htmlFor="input-mail"
                     className="label-subtitulo-titulo titulosAlt"
                   >
                     Nuevo email
+                    <div onClick={this.editarCampo} data-campo="mail">
+                    <Icon data-campo="mail" className="edit-form-config" icon={this.state.valoresInput.mail.disabled ? editIcon : checkmarkCircleOutline}/>
+                    </div>
                   </label>
-                  <Tooltip arrow title="Su nuevo Email" placement="top-end">
+                  <Tooltip  title={!this.state.valoresInput.mail.disabled ? "Su nuevo Email" : "Presione el icono para editar"} placement="top-end">
                     <input
-                      value={this.state.valoresInput.mail}
+                      value={this.state.valoresInput.mail.mail}
                       type="text"
                       placeholder="Email"
                       autoComplete="off"
@@ -177,33 +236,50 @@ class Configuraciones extends React.Component {
                       onChange={this.setearInput}
                       className="input-text"
                       id="input-mail"
-                      style={{ alignSelf: "flex-end" }}
+                      style={{width:'100%'}}
+                      disabled={this.state.valoresInput.mail.disabled}
                     />
                   </Tooltip>
                 </div>
-                <div className="contenedor-inputs-interno-configuraciones">
+              </div>
+              <div className="contenedor-inputs-externo-configuraciones">
+                <div className="contenedor-inputs-interno-configuraciones" style={this.state.valoresInput.clave.disabled ? {width:'100%'} : null}>
                   <label
+                    onClick={this.editarCampo} data-campo="clave"
                     htmlFor="input-claveActual"
                     className="label-subtitulo-titulo titulosAlt"
                   >
-                    Clave actual
+                    {!this.state.valoresInput.clave.disabled ?
+                      "Clave actual" 
+                      :
+                      <> Cambiar clave 
+                        <div onClick={this.editarCampo} data-campo="clave">
+                          <Icon  data-campo="clave" className="edit-form-config" icon={this.state.valoresInput.clave.disabled ? editIcon : checkmarkCircleOutline}/>
+                        </div>
+                      </>
+                    }
+
                   </label>
-                  <Tooltip arrow title="Su clave actual" placement="top-end">
+                  <Tooltip  title={!this.state.valoresInput.clave.disabled ? "Su clave actual" : "Presione el icono para editar"} placement="top-end">
                     <input
                       value={this.state.valoresInput.claveActual}
                       type="password"
-                      // placeholder="Clave"
+                      placeholder="Clave"
                       autoComplete="off"
                       name="clave"
                       onChange={this.setearInput}
                       className="input-text"
                       id="input-claveActual"
-                      style={{ alignSelf: "flex-end" }}
+                      disabled={this.state.valoresInput.clave.disabled}
                     />
                   </Tooltip>
                 </div>
+                {
+                  this.state.valoresInput.clave.disabled ? null :
+
                 <div className="contenedor-inputs-interno-configuraciones">
                   <label
+                  style={{cursor:'inherit'}}
                     htmlFor="input-claveNueva"
                     className="label-subtitulo-titulo titulosAlt"
                   >
@@ -211,149 +287,146 @@ class Configuraciones extends React.Component {
                   </label>
                   <Tooltip arrow title="Su nueva clave" placement="top-end">
                     <input
-                      value={this.state.valoresInput.claveNueva}
+                      value={this.state.valoresInput.claveNueva.claveNueva}
                       type="password"
-                      placeholder=""
+                      placeholder="Nueva clave"
                       autoComplete="off"
                       name="claveNueva"
                       onChange={this.setearInput}
                       className="input-text"
                       id="input-claveNueva"
-                      style={{ alignSelf: "flex-end" }}
-                    />
+                      disabled={this.state.valoresInput.clave.disabled}
+                      />
                   </Tooltip>
                 </div>
+                }
               </div>
-            </div>
+              <div className="contenedor-inputs-externo-configuraciones">
+                  <Tooltip                    
+                    title="Aqui puede seleccionar sus temas de interés"
+                    placement="top-start"
+                  >
+                  <label
+                    className="label-subtitulo-titulo titulosAlt"
+                    style={{width:'100%'}}
+                  >
+                  Intereses:
+                  </label>               
+                  </Tooltip>
+                <div className="contenedor-inputs-interno-checkbox-configuraciones">
+                  <div className="input-checkbox-configuraciones">
+                    
+                    <input
+                      type="checkbox"
+                      value={"gastronomia"}
+                      name={"intereses"}
+                      id="gastronomia"
+                      onChange={this.setearIntereses}
+                      /> <label htmlFor="gastronomia">Gastronomia</label>
+                  </div>
+                    
+                  <div className="input-checkbox-configuraciones">
+                    <input
+                      type="checkbox"
+                      value={"deportes"}
+                      name={"intereses"}
+                      id="deportes"
+                      onChange={this.setearIntereses}
+                      /> <label htmlFor="deportes">Deportes</label>
+                    </div>
+
+                  <div className="input-checkbox-configuraciones">
+                    <input
+                      type="checkbox"
+                      value={"rol"}
+                      name="rol"
+                      id="rol"
+                      onChange={this.setearCreador}
+                      /> <label htmlFor="rol">Ser creador de contenido?</label>
+                    </div>
+
+                
+                  </div>
+                <div className="contenedor-inputs-interno-checkbox-configuraciones">
+                  <div className="input-checkbox-configuraciones">
+                    <input
+                      type="checkbox"
+                      value={"entretenimiento"}
+                      name={"intereses"}
+                      id="entretenimiento"
+                      autoComplete="off"
+                      onChange={this.setearIntereses}
+                      /> <label htmlFor="entretenimiento">Entretenimiento</label>
+                    </div>
+                  <div className="input-checkbox-configuraciones">
+                    <input
+                      type="checkbox"
+                      value={"tecnologia"}
+                      name={"intereses"}
+                      id="tecnologia"
+                      autoComplete="off"
+                      onChange={this.setearIntereses}
+                      /> <label htmlFor="tecnologia">Tecnologia</label>
+                    </div>
+                  </div>
+              </div>
+          </div>
           </div>
           <div className="contenedor-input-foto">
-            <div className="input-imagen-boton-comprobar">
+            <div className="contenedor-inputs-externo-configuraciones" >
+              <div className="contenedor-inputs-interno-configuraciones" style={{width:'100%'}}>
+            <Tooltip                    
+                    title={this.state.valoresInput.imagen.disabled ? "Presione el icono para editar" : "Ingrese su nueva imagen"}
+                    placement="top-end"
+                  >
+                  <label
+                    onClick={this.editarCampo} data-campo="imagen"
+                    className="label-subtitulo-titulo titulosAlt"
+                    style={{width:'100%'}}
+                  >
+                  {<>{ this.state.valoresInput.imagen.disabled ? "Editar imagen" : "Seleccione su imagen"} <div onClick={this.editarCampo} data-campo="imagen"> <Icon data-campo="imagen"  icon={this.state.valoresInput.imagen.disabled ? imageEditLine : checkmarkCircleOutline}/> </div> </>}
+                  </label>               
+              </Tooltip>
               <Tooltip
-                arrow
-                title="La imagen de perfil que todos verán"
-                placement="top-start"
+                title={this.state.valoresInput.imagen.disabled ? "Presione el icono para editar" : "Ingrese su nueva imagen"}
+                placement="top-end"
               >
                 <input
-                  value={this.state.valoresInput.imagen}
+                  value={this.state.valoresInput.imagen.imagen}
                   type="text"
-                  ref={this.ingresarImagen}
+                  ref={this.inputImagen}
                   autoComplete="off"
                   name="imagen"
                   onChange={this.setearInput}
-                  placeholder="Cargue su imagen de perfil"
-                  className="input-imagen"
+                  placeholder="Cambiar imagen de perfil"
+                  className="input-text"
+                  disabled={this.state.valoresInput.imagen.disabled}
                 />
-              </Tooltip>
-              <Tooltip
-                title="Compruebe si su imagen se muestra correctamente"
-                placement="bottom-start"
-              >
-                <button
-                  onClick={this.comprobarImagen}
-                  className="boton-comprobar"
-                >
-                  {this.state.comprobarImagen
-                    ? "Editar Pros / Contras / Tags"
-                    : "Comprobar imagen"}
-                </button>
               </Tooltip>
             </div>
-            {this.state.comprobarImagen ? (
-              <Tooltip
-                arrow
-                title={
-                  this.state.valoresInput.imagen.length > 32
-                    ? "Imagen de portada"
-                    : "Imagen de portada NO VALIDA"
-                }
-                placement="bottom"
-              >
+            </div>
+
+            {!this.state.valoresInput.imagen.disabled ? (
                 <Imagen
                   imagen={this.state.valoresInput.imagen}
-                  done={this.state.valoresInput.imagen.length > 32}
-                  onClick={() => this.ingresarImagen.current.focus()}
+                  onClick={() => this.inputImagen.current.focus()}
                 />
-              </Tooltip>
             ) : (
-              <div className="contenedor-pro-contra-tag">
-                <label
-                  htmlFor="pro"
-                  className="label-subtitulo-titulo titulosAlt label-pro-contra"
-                >
-                  Pros:
-                </label>
-                <Tooltip
-                  arrow
-                  title="Ingrese el/los Pros de lo reseñado separados por una coma ' , '"
-                  placement="top-end"
-                >
-                  <input
-                    type="text"
-                    value={this.state.valoresInput.pro}
-                    id="pro"
-                    autoComplete="off"
-                    name="pro"
-                    onChange={this.setearInput}
-                    placeholder="Pros"
-                    className="input-imagen"
-                  />
-                </Tooltip>
-                <label
-                  htmlFor="contra"
-                  className="label-subtitulo-titulo titulosAlt label-pro-contra"
-                >
-                  Contras:
-                </label>
-                <Tooltip
-                  arrow
-                  title="Ingrese el/los Contras de lo reseñado separados por una coma ' , '"
-                  placement="top-end"
-                >
-                  <input
-                    type="text"
-                    value={this.state.valoresInput.contra}
-                    id="contra"
-                    autoComplete="off"
-                    name="contra"
-                    onChange={this.setearInput}
-                    placeholder="Contras"
-                    className="input-imagen"
-                  />
-                </Tooltip>
-                <label
-                  htmlFor="tags"
-                  className="label-subtitulo-titulo titulosAlt label-pro-contra"
-                >
-                  Tags:
-                </label>
-                <Tooltip
-                  arrow
-                  title="Ingrese el/los Tags de lo reseñado separados por una coma ' , '"
-                  placement="top-end"
-                >
-                  <input
-                    type="text"
-                    value={this.state.valoresInput.tags}
-                    id="tags"
-                    autoComplete="off"
-                    name="tags"
-                    onChange={this.setearInput}
-                    placeholder="Tags"
-                    className="input-imagen"
-                  />
-                </Tooltip>
-              </div>
+             // // ACA VA EL USUARIO LOGUEADO DESDE REDUX // // // 
+              <Imagen
+              imagen={this.props.usuarioLogeado.imagen}
+            />
             )}
           </div>
           <div className="contenedor-enviarForm">
             {/* Boton enviar formulario */}
-            <Tooltip arrow title="Postear Reseña" placement="bottom">
+            <Tooltip arrow title="Guardar cambios" placement="bottom">
               <button
                 onClick={this.enviarForm}
                 data-done={this.state.valoresInput.imagen.length > 12}
                 className="boton-postear texto texto-white texto-negrita"
               >
-                Postear
+                Guardar
               </button>
             </Tooltip>
           </div>
@@ -365,4 +438,13 @@ class Configuraciones extends React.Component {
   }
 }
 
-export default connect(null)(Configuraciones);
+const mapStateToProps = state =>{
+  return {
+    usuarioLogeado: state.authReducer.usuarioLogeado
+  }
+}
+const mapDispatchToProps = {
+  actualizarDatos:authActions.actualizarDatosUsuario
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Configuraciones);
