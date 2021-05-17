@@ -2112,6 +2112,51 @@ justify-content: space-between;
     width: 50%;
     height: 100%;
 }
+
+.bgfavoritos{
+    background-position: center;
+    background-size: cover;
+    width: 20vw;
+    height: 100%;
+}
+.contenedorBotonesFavoritos{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2vh;
+}
+.botonEliminarFavorito{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white !important;
+    border-radius: 0 25px 0 25px;
+    background-color: red;
+    width: 26%;
+    height: 4vh;
+}
+.botonEliminarFavorito:hover{
+    cursor: pointer;
+    background-color: #161c26;
+}
+.TituloFavoritos{
+    font-size: 6vh;
+    margin-bottom: 3vh;
+}
+.GridPublic{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    border: 2px solid black;
+    flex-wrap: wrap;
+}
+.tarjetaFavoritos{
+    display: flex;
+    background-color: #c9f2e7;
+    width: 49%;
+    margin-bottom: 2.5vh;
+}
+
+
 .contenedor-inputs-interno-checkbox-configuraciones{
     display: flex;
     width: 50%;

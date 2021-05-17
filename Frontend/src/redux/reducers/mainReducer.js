@@ -7,6 +7,5 @@ const mainReducer = combineReducers({
     publicacionReducer,
     authReducer,
     sideBarReducer
-
 })
 export default mainReducer;

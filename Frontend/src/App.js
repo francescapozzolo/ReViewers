@@ -15,6 +15,10 @@ import Resenia from './pages/Resenia'
 import Publicaciones from './pages/Publicaciones'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { slide as Menu } from 'react-burger-menu'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {  faHome, faFeatherAlt, faBookOpen, faUserCog, faStar } from '@fortawesome/free-solid-svg-icons'
+import Favoritos from './pages/Favoritos'
 import Configuraciones from './pages/Configuraciones';
 import SideBar from './components/SideBar'
 
@@ -45,6 +49,8 @@ class App extends React.Component {
                 {!this.props.usuarioLogeado && <Route exact path="/" component={Portada} />}
                 {this.props.usuarioLogeado && <Route path="/inicio" component={Inicio} />}
                 <Route path="/publicaciones/:categoria" component={Publicaciones}/>
+
+                <Route path="/favoritos" component={Favoritos} />                
                 <Route path="/publicacion/:id" component={Resenia} />
                 {this.props.usuarioLogeado && this.props.usuarioLogeado.rol === "escritor" && <Route path="/publicar" component={CrearPublicacion} />}
                 {/* <Route path="/prueba" component={PaginaDePrueba} />                 */}
