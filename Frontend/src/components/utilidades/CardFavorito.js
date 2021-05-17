@@ -1,7 +1,6 @@
 
 import {useState} from 'react'
 
-
 const CardFavorito = (props) =>{
     const {categoria , descripcion , imagen , titulo , subtitulo } = props.publicacion
     const [publicacionFaveada, setPublicacionFaveada] = useState(false)
@@ -21,5 +20,6 @@ const CardFavorito = (props) =>{
         </div>
     )
 }
+
 
 export default CardFavorito
