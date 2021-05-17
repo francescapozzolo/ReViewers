@@ -98,7 +98,6 @@ class CrearPublicacion extends React.Component {
     if(descripcion.length >= 500 && titulo !== "" && subtitulo !== "" && imagen !== ""){
       const schemaAEnviar = {categoria,subcategoria,titulo,subtitulo,descripcion,imagen,pro,contra,tags}
       const respuestaErrorOConfirmacion = this.props.enviarPublicacion(schemaAEnviar);
-      console.log(respuestaErrorOConfirmacion)
       // ACA MAPEAR ERRORES
     }else if(descripcion.length < 500 ){
       this.toasts("warning","La reseña debe contener 500 caracteres como minimo", "top-center", 5000, true, false, true, "error500Caracteres", true)
@@ -115,7 +114,6 @@ class CrearPublicacion extends React.Component {
 
   presionoEnter = (e)=>{
     if (e.key === 'Enter') {
-      console.log('do validate');
     }
   }
 

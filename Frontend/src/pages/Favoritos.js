@@ -10,7 +10,6 @@ const Favoritos =(props)=>{
         const publicaciones = axios.get('http://localhost:4000/api/publicaciones')
         .then(result => setTodasPublicaciones(result.data.respuesta))
     },[])
-    console.log("soy todas las publicaciones",todasLasPublicaciones)
     return(
         <>
         <div className="contenedor-tituloDeResenia">

@@ -10,6 +10,7 @@ import { faFeatherAlt} from '@fortawesome/free-solid-svg-icons'
 import sideBarActions from '../redux/actions/sideBarActions'
 
 const Header = (props) => {
+
     return(
         <header>
             <nav>

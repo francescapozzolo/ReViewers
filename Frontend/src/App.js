@@ -32,7 +32,6 @@ class App extends React.Component {
   render(){
 
     if(!this.props.usuarioLogeado && localStorage.getItem('token')) {
-      console.log("entre")
       const respuesta = this.props.iniciarSesionLS()
       if(!respuesta){
         //aca va loader
@@ -48,10 +47,10 @@ class App extends React.Component {
             <Switch >
                 {!this.props.usuarioLogeado && <Route exact path="/" component={Portada} />}
                 {this.props.usuarioLogeado && <Route path="/inicio" component={Inicio} />}
-                <Route path="/publicaciones/:categoria" component={Publicaciones}/>
+                {this.props.usuarioLogeado &&<Route path="/publicaciones/:categoria" component={Publicaciones}/>}
 
-                <Route path="/favoritos" component={Favoritos} />                
-                <Route path="/publicacion/:id" component={Resenia} />
+                {this.props.usuarioLogeado && <Route path="/favoritos" component={Favoritos} />}
+                {this.props.usuarioLogeado && <Route path="/publicacion/:id" component={Resenia} />}
                 {this.props.usuarioLogeado && this.props.usuarioLogeado.rol === "escritor" && <Route path="/publicar" component={CrearPublicacion} />}
                 {/* <Route path="/prueba" component={PaginaDePrueba} />                 */}
                 {this.props.usuarioLogeado && <Route path="/configuraciones" component={Configuraciones} /> }               

@@ -32,7 +32,6 @@ const Resenia = (props)=>{
    fetch()
    // eslint-disable-next-line
    }, [])      
-   console.log(reseniaSeleccionada)
    
    return(
       <>

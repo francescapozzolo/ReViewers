@@ -14,20 +14,16 @@ const Publicaciones = (props)=>{
     // console.log(categoria)
     
     useEffect(()=>{
-        const fetchear = async()=>{
-            const todasLasPublicaciones = await props.todasPublicaciones()
-            console.log(todasLasPublicaciones)
-            categoria === "all" ? setPublicaciones(todasLasPublicaciones) : setPublicaciones(todasLasPublicaciones.filter(publicacion => publicacion.categoria === categoria))
-        }
         fetchear();
-        
         // eslint-disable-next-line
-        console.log(publicaciones)
     },[])
 
-    const filtrarPublicaciones = async(valorDelFiltro)=>{
-        console.log(valorDelFiltro)
+    const fetchear = async()=>{
+        const todasLasPublicaciones = await props.todasPublicaciones()
+        categoria === "all" ? setPublicaciones(todasLasPublicaciones) : setPublicaciones(todasLasPublicaciones.filter(publicacion => publicacion.categoria === categoria))
+    }
 
+    const filtrarPublicaciones = async(valorDelFiltro)=>{
         props.filtroPorPalabraClave(valorDelFiltro)
 
         // if(publicaciones.length === 0){
@@ -39,9 +35,6 @@ const Publicaciones = (props)=>{
             ? setPublicaciones(props.publicacionesFiltradas) 
             : setPublicaciones(props.publicacionesFiltradas.filter(publicacion => publicacion.categoria === categoria))
         
-
-        console.log(categoria)
-        console.log(publicaciones)
     }
     return(
         <>

@@ -66,7 +66,8 @@ const Registro = (props) =>{
                 imagen: ''
             })
             // si existe respuestaConErrores
-            respuestaConErrores ? setErrores({campos}) : setNuevoUsuario({campos})
+            // respuestaConErrores ? setErrores({campos}) : setNuevoUsuario({campos})
+            respuestaConErrores && setErrores({campos})
 
             respuestaConErrores && respuestaConErrores.map(err => setErrores(prevState => {
                 return {...prevState, [err.context.label]: err.message}
