@@ -32,7 +32,7 @@ class App extends React.Component {
   render(){
 
     if(!this.props.usuarioLogeado && localStorage.getItem('token')) {
-      console.log("entre")
+      // console.log("entre")
       const respuesta = this.props.iniciarSesionLS()
       if(!respuesta){
         //aca va loader
