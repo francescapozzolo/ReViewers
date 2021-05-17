@@ -11,7 +11,6 @@ const publicacionReducer = (state = initialState, action) => {
         todasLasPublicaciones: action.payload,
         publicacionesFiltradas: action.payload
       }
-      break
       
       case 'FILTRO_POR_PALABRA_CLAVE':
         const valorDelFiltro = action.payload

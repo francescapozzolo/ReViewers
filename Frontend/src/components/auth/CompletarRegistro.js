@@ -56,12 +56,14 @@ const CompletarRegistro = (props) =>{
             rol,
             token: props.usuarioLogeado.token
         }
-        const respuesta = await props.confirmarUsuario(rolUsuarioIntereses)
+        await props.confirmarUsuario(rolUsuarioIntereses)
         closeModal(e)
    }
 
    useEffect(() => {
+       toTop()
        selectModal()
+       // eslint-disable-next-line
    }, [])
     return(
     <div className="App">
