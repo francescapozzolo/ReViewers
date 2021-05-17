@@ -5,7 +5,9 @@ import CompletarRegistro from './auth/CompletarRegistro'
 import InicioSesion from './auth/InicioSesion'
 import Registro from './auth/Registro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {  faHome, faFeatherAlt, faBookOpen, faUserCog, faStar } from '@fortawesome/free-solid-svg-icons'
+// import {  faHome, faFeatherAlt, faBookOpen, faUserCog, faStar } from '@fortawesome/free-solid-svg-icons'
+import { faFeatherAlt} from '@fortawesome/free-solid-svg-icons'
+import sideBarActions from '../redux/actions/sideBarActions'
 
 const Header = (props) => {
     return(
@@ -16,9 +18,10 @@ const Header = (props) => {
                         <img alt="logo" className="logo" src='/assets/logo.png'></img>
                     </Link>
                 </div>
-                
+               
+
                 {
-                !props.usuarioLogeado
+                !props.usuarioLogeado 
                 ? <div className="contenedorEnlaces flex flex-end">
                     <InicioSesion />
                     <Registro />
@@ -28,13 +31,22 @@ const Header = (props) => {
                         {
                             !props.usuarioLogeado.usuarioConfirmado && <CompletarRegistro />
                         }
-                        <Link to="/publicar">
-                            <span className="btn-crearReview texto"><FontAwesomeIcon icon={faFeatherAlt}/> Crear review</span>
-                        </Link> 
-                        <span onClick={props.cerrarSesion} className="mx-1 btn-crearReview texto">Cerrar sesion</span>                  
-
-                        <div className="">
-                            <div className="usuarioPic mx-auto" style={{
+                        {
+                            props.usuarioLogeado && props.usuarioLogeado.rol === "escritor" ?
+                            <Link to="/publicar" className="link texto" >
+                                <span className="btn-crearReview texto">
+                                    <FontAwesomeIcon style={{color:'blueviolet', marginRight:'5px'}} icon={faFeatherAlt}/> 
+                                    Crear review
+                                    </span>
+                            </Link> 
+                            :  <div className="contenedorEnlaces flex flex-end">
+                                    <Link to="/" className="link texto">
+                                        Inicio
+                                    </Link>
+                                </div> 
+                        }
+                        <div className="contenedor-usuarioPic">
+                            <div className="usuarioPic mx-auto" onClick={props.changeState} style={{
                                 backgroundImage: `url(${props.usuarioLogeado && props.usuarioLogeado.imagen})`
                             }}></div>
                         </div>
@@ -55,7 +67,9 @@ const mapStateToProps = state => {
 }
    
 const mapDispatchToProps = {
-    cerrarSesion: authActions.cerrarSesion
+    cerrarSesion: authActions.cerrarSesion,
+
+    changeState: sideBarActions.changeState
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

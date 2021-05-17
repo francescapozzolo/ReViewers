@@ -6,7 +6,7 @@ const controladorPublicaciones = {
     publicacionPorID: async (req , res) => {
         try{
             const unicaPublicacion = await Resenia.findOne({_id: req.params.id})
-            .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1,"imagen":1 } } })
+            .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1, "mail":1, "imagen":1 } } })
 
             res.json({success: true , respuesta: unicaPublicacion})
         }catch(error){
@@ -17,7 +17,7 @@ const controladorPublicaciones = {
     todasLasPublicaciones: async (req , res)=>{
         try{
             const todasPublicaciones = await Resenia.find()
-            .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1,"imagen":1 } } })
+            .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1, "mail":1, "imagen":1 } } })
             res.json({success: true, respuesta: todasPublicaciones})
         }catch(error){
             console.log("error controlador publicaciones" , error)
@@ -27,7 +27,7 @@ const controladorPublicaciones = {
     publicacionesCategoria: async (req , res)=>{
         try{
             const publicacionCategoria = await Resenia.findOne({categoria: req.params.categoria})
-            .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1,"imagen":1 } } })
+            .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1, "mail":1, "apellido":1,"imagen":1 } } })
 
             res.json({success: true , respuesta: publicacionCategoria})
 
@@ -65,9 +65,10 @@ const controladorPublicaciones = {
             // version original
            const {categoria, subcategoria, titulo, subtitulo, descripcion, imagen, tags, pro, contra} = req.body
            const {_id} = req.user
+        //    console.log("soy el usuario:   ",req.user)
+        //    console.log("soy el body:   ",req.body)
            const reseniaSchemaAEnviar = {categoria,subcategoria, titulo, subtitulo, descripcion, imagen, autor:_id, tags, proContra:{ pro, contra} }
-            const nuevaPublicacion = await new Resenia(reseniaSchemaAEnviar)
-            // .save()
+            const nuevaPublicacion = await new Resenia(reseniaSchemaAEnviar).save()
             // const todasLasPublicaciones = await Resenia.find()
             console.log({succes:true, respuesta:nuevaPublicacion})
             res.json({success: true, respuesta: nuevaPublicacion})
@@ -93,7 +94,7 @@ const controladorPublicaciones = {
             //    const nuevaPublicacion = await new Resenia(reseniaSchemaAEnviar).save()
             //     // const todasLasPublicaciones = await Resenia.find()
             //     // console.log({succes:true, respues:nuevaPublicacion})
-            //     res.json({success: true, respuesta: nuevaPublicacion})
+                // res.json({success: true, respuesta: nuevaPublicacion})
     
 
         }catch(error){
