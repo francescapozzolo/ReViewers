@@ -35,18 +35,6 @@ const Imagen = styled.div`
         }`
       : null}
     `
-      const NoImagen =  styled.div`
-      & {
-          width: 30%;
-          height: 30%;
-          position: relative;
-          border-radius:10px;
-          background-size:contain;
-          background-position:center;
-          background-repeat:no-repeat;
-          background-image:url('/assets/noPic.png');
-        }
-      `
 
 class CrearPublicacion extends React.Component {
   state = {
@@ -67,6 +55,11 @@ class CrearPublicacion extends React.Component {
       },
     });
   };
+
+  componentDidMount(){
+    const fetch = async ()=> await this.props.obtenerTodasPublicaciones()
+    fetch()
+  }
 
   toasts = (tipo, mensaje, position, autoClose, closeOnClick, pauseOnHover, draggable, toastId, closeButton)=>{
     toast[tipo](mensaje, {
@@ -126,12 +119,18 @@ class CrearPublicacion extends React.Component {
     }
   }
 
-
-
   ingresarImagen = React.createRef()
 
 
   render() {
+
+    let categorias = this.props.publicaciones.map(publicacion => publicacion.categoria)
+    categorias = new Set(categorias)
+    categorias = Array.from(categorias)
+    let subCategorias = this.props.publicaciones.map(publicacion => publicacion.subcategoria)
+    subCategorias = new Set(subCategorias)
+    subCategorias = Array.from(subCategorias)
+
     return (
       <main className="contenedor">
 
@@ -158,8 +157,12 @@ class CrearPublicacion extends React.Component {
                       Categoria
                     </option>
                   {/* Mapeo de categorias */}
-                    <option value="Opcion 1">Opcion 1</option>
-                    <option value="Opcion 2">Opcion 2</option>
+
+                  {categorias.map((categoria, index) =>{
+                    const categoriaCapitalized = categoria.charAt(0).toUpperCase() + categoria.slice(1)
+                    return (<option key={index} value={categoria}>{categoriaCapitalized}</option>)}
+                    
+                    )}
                   </select>
                 </Tooltip>
                 <Tooltip arrow title="La Sub Categoria de su reseña" placement="top-start">
@@ -179,8 +182,10 @@ class CrearPublicacion extends React.Component {
                       Sub categoria
                     </option>
                     {/* Mapeo de Subcategorias */}
-                    <option value="Opcion 1">Opcion 1</option>
-                    <option value="Opcion 2">Opcion 2</option>
+                    {subCategorias.map((subCategoria, index) =>{
+                    const subCategoriaCapitalized = subCategoria.charAt(0).toUpperCase() + subCategoria.slice(1)
+                    return (<option key={index} value={subCategoria}>{subCategoriaCapitalized}</option>)}  
+                    )}
                   </select>
                 </Tooltip>
               </div>
@@ -300,7 +305,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = {
   enviarPublicacion: publicacionesActions.enviarFormulario,
-  cargarPublicaciones: publicacionesActions.obtenerTodasPublicaciones
+  obtenerTodasPublicaciones: publicacionesActions.obtenerTodasPublicaciones
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CrearPublicacion);

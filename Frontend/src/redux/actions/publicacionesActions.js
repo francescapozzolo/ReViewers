@@ -37,11 +37,13 @@ const publicacionesActions={
     enviarFormulario:(inputs)=>{
         return async(dispatch, getState)=>{
             const tokenUsuario = localStorage.getItem('token')
-            const respuesta = await axios.post("http://localhost:4000/api/publicaciones",{...inputs},{
+            // const respuesta = 
+            await axios.post("http://localhost:4000/api/publicaciones",{...inputs},{
                 headers: {
                     'Authorization': 'Bearer '+ tokenUsuario
                 }
             })
+
         }
     },
     cargarValoracion: (idPublicacion, valoracion, token)=>{
@@ -67,11 +69,10 @@ const publicacionesActions={
             return respuesta.data
         }
     },
-
     guardarPublicacion: (idPublicacion, token)=>{
         return async(dispatch, getState) =>{
-            console.log(idPublicacion)
-            console.log(token)
+            // console.log(idPublicacion)
+            // console.log(token)
             const respuesta = await axios.get("http://localhost:4000/api/publicacion/guardarPublicacion/" + idPublicacion, {
                 headers: {
                     'Authorization': 'Bearer '+token
@@ -109,7 +110,9 @@ const publicacionesActions={
                     'Authorization': 'Bearer '+ token
                 }
             })
+            dispatch({type: 'CARGAR_COMENTARIO', payload: respuesta.data.respuesta})
             return respuesta.data.respuesta
+            // console.log(respuesta.data.respuesta.comentarios)
         }
     },
     editarComentario : (idComentario, idPublicacion, comentarioEditado)=>{
@@ -129,7 +132,6 @@ const publicacionesActions={
                 }
             })
             return respuesta.data.respuesta
-            console.log(respuesta.data.respuesta)
         }
     }
 
