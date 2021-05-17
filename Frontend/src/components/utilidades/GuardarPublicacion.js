@@ -15,6 +15,7 @@ const GuardarPublicacion = (props)=>{
     
     const [publicacionFaveada, setPublicacionFaveada] = useState(false)
 
+
     useEffect(()=>{
         const fetch = async ()=>{
 
@@ -26,8 +27,12 @@ const GuardarPublicacion = (props)=>{
     },[])
 
     const funcionGuardarPublicacion = async ()=>{
-        setPublicacionFaveada(!publicacionFaveada)
-        props.guardarPublicacion(props.reseniaSeleccionada._id, props.usuarioLogeado.token)
+        if(props.usuarioLogeado) {
+            setPublicacionFaveada(!publicacionFaveada)
+            props.guardarPublicacion(props.reseniaSeleccionada._id, props.usuarioLogeado.token)
+        } else {
+            alert('Debes estar logeado para guardar una publicacion')
+        }
      }
     
     return( 

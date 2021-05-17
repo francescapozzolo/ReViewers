@@ -9,9 +9,9 @@ const Publicaciones = (props)=>{
 //    console.log(props.match.params.categoria)
     const [publicaciones, setPublicaciones] = useState()
     const {categoria} = useParams()
-    const [portada] = useState(`url('/assets/caratulas/${categoria}.jpg')`)
+    const [portada, setPortada] = useState(`url('/assets/caratulas/${categoria === 'all' ? 'bgTodasPublicaciones' : categoria}.jpg')`)
     const categoriaCapitalized = categoria === "all" ? "Todas las publicaciones" : categoria.charAt(0).toUpperCase() + categoria.slice(1)
-    
+    console.log(categoria)
 
     useEffect(()=>{
         const fetchear = async()=>{
@@ -33,7 +33,7 @@ const Publicaciones = (props)=>{
         {/* <input type="text" onChange={(e)=> filtroPorPalabraClave(e.target.value)} placeholder="Busca tus temas favoritos!" /> */}
         <div className="contenedor-tituloDeResenia">
             <div className="imagen-de-categoria" style={{backgroundImage: portada}}></div>
-            <h1 className="titulo-de-resenia titulosAlt" style={{top:'0px'}}>{categoriaCapitalized}</h1>
+        <h1 className="titulo-de-resenia titulosAlt" style={{top:'0px'}}>{categoriaCapitalized}</h1>
         </div>
 
         <div className="input-filtrador-container">

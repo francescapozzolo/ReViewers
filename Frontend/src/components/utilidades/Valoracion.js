@@ -8,19 +8,25 @@ const Valoracion = ({cargarValoracion, usuarioLogeado, reseniaSeleccionada, publ
    
    const [valoracionInicial, setValoracionInicial] = useState(2)
 
+
    useEffect(()=>{
       const fetch = async ()=>{
          const respuesta = await publicacionFueValorada(reseniaSeleccionada._id, usuarioLogeado.token)
          console.log(respuesta)
          setValoracionInicial(respuesta.valoracion)
       }
+
       fetch()
       // eslint-disable-next-line
    }, [])
 
    const funcionCargarValoracion = async(valor)=>{
-      setValoracionInicial(valor)
-      await cargarValoracion(reseniaSeleccionada._id, {valoracion: valor}, usuarioLogeado.token)
+      if(usuarioLogeado) {
+         setValoracionInicial(valor)
+         await cargarValoracion(reseniaSeleccionada._id, {valoracion: valor}, usuarioLogeado.token)
+      } else {
+         alert('Debes estar logeado para valorar una publicacion')
+      }
    }
    
    return (

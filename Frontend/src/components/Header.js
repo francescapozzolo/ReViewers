@@ -23,6 +23,7 @@ const Header = (props) => {
                 {
                 !props.usuarioLogeado 
                 ? <div className="contenedorEnlaces flex flex-end">
+
                     <InicioSesion />
                     <Registro />
                 </div> 
