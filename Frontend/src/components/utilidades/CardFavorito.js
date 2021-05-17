@@ -21,4 +21,5 @@ const CardFavorito = (props) =>{
     )
 }
 
+
 export default CardFavorito
