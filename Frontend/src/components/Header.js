@@ -11,7 +11,7 @@ const Header = (props) => {
     return(
         <header>
             <nav>
-                <div style={{marginLeft: "calc(1rem + 24px)"}}>
+                <div className="cajaLogo" style={{marginLeft: "calc(1rem + 24px)"}}>
                     <Link to="/">
                         <img alt="logo" className="logo" src='/assets/logo.png'></img>
                     </Link>
@@ -20,7 +20,6 @@ const Header = (props) => {
                 {
                 !props.usuarioLogeado
                 ? <div className="contenedorEnlaces flex flex-end">
-                    <NavLink className="link titulosAlt mx-1" to="/nosotros">Nosotros</NavLink>
                     <InicioSesion />
                     <Registro />
                 </div> 

@@ -17,10 +17,10 @@ import GuardarPublicacion from '../components/utilidades/GuardarPublicacion'
 const Resenia = (props)=>{
 
    const [reseniaSeleccionada, setReseniaSeleccionada] = useState({})
-   // const [publicacionFaveada, setPublicacionFaveada] = useState(null)
+   const [publicacionFaveada, setPublicacionFaveada] = useState(null)
    const [todosComentarios, setTodosComentarios] = useState('')
    const [nuevoComentario, setNuevoComentario] = useState('')
-   // const [valoracionInicial, setValoracionInicial] = useState(0)
+   const [valoracionInicial, setValoracionInicial] = useState(0)
 
    useEffect(async()=>{
       const idResenia = props.match.params.id
