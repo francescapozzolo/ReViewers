@@ -3,6 +3,7 @@ import GoogleLogin from 'react-google-login';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import authActions from '../../redux/actions/authActions' 
+import { toast } from "react-toastify";
 
 const Registro = (props) =>{
 
@@ -29,7 +30,27 @@ const Registro = (props) =>{
             [e.target.name]: e.target.value
         })
     }
-    
+    const toasts = (
+        tipo,
+        mensaje,
+        position,
+        autoClose,
+        closeOnClick,
+        pauseOnHover,
+        draggable,
+        toastId,
+        closeButton
+      ) => {
+        toast[tipo](mensaje, {
+          position,
+          closeOnClick,
+          pauseOnHover,
+          draggable,
+          toastId,
+          closeButton,
+          autoClose,
+        });
+      };
     const enviarInfoUsuario = async (e = null, usuarioGoogle = null) => {
         e && e.preventDefault();
         let usuario = usuarioGoogle ? usuarioGoogle : nuevoUsuario
@@ -51,7 +72,7 @@ const Registro = (props) =>{
                 return {...prevState, [err.context.label]: err.message}
             }))
         } else {
-            alert('Por favor completa todos los campos! :)')
+            toasts('info',"Por favor completa todos los campos! :)", 'top-center', 5000, true, true, true, 'errorCamposVacios',true)
         }
     }
 

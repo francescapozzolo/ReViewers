@@ -1,5 +1,26 @@
+import { toast } from "react-toastify";
 import axios from 'axios';
-
+const toasts = (
+    tipo,
+    mensaje,
+    position,
+    autoClose,
+    closeOnClick,
+    pauseOnHover,
+    draggable,
+    toastId,
+    closeButton
+  ) => {
+    toast[tipo](mensaje, {
+      position,
+      closeOnClick,
+      pauseOnHover,
+      draggable,
+      toastId,
+      closeButton,
+      autoClose,
+    });
+  };
 
 const authActions = {
 
@@ -13,13 +34,15 @@ const authActions = {
                         type: 'INGRESO_USUARIO',
                         payload: respuesta.data.respuesta
                     })
+                    toasts('success',"Bienvenido!", 'top-center', 5000, true, true, true, 'InicioSesion',true)
+
                 } else if(respuesta.data.error) { 
-                    alert(respuesta.data.error)
+                    toasts('info',respuesta.data.error, 'top-center', 5000, true, true, true, 'errorCamposVacios',true)
                 } else {
                     return respuesta.data.errores.details
                 }
             } catch {
-                alert("Error interno del servidor, intente en un momento")
+            toasts('info',"Error interno del servidor, intente en un momento", 'top-center', 5000, true, true, true, 'errorCamposVacios',true)
             }
         }
     },
@@ -33,44 +56,53 @@ const authActions = {
                         type: 'INGRESO_USUARIO',
                         payload: respuesta.data.respuesta
                     })
+                    toasts('success',"Bienvenido!", 'top-center', 5000, true, true, true, 'InicioSesion',true)
                 } else {
-                    alert(respuesta.data.error)
+                    toasts('info',respuesta.data.error, 'top-center', 5000, true, true, true, 'errorCamposVacios',true)
                 }
             } catch {
-                alert("Error interno del servidor, intente en un momento")
+            toasts('info',"Error interno del servidor, intente en un momento", 'top-center', 5000, true, true, true, 'errorCamposVacios',true)
             }
         }
     },
 
     cerrarSesion: () => {
         return(dispatch, getState) => {
-            try {
                 dispatch({
                     type: 'DESLOGUEO_USUARIO'
                 })
-            } catch {
-                alert('Error interno del servidor, intente mas tarde')
-            }
+                toasts("warning","Hasta pronto!", 'top-center', 5000, true, true, true, 'CierreSesion',true)
+            
         }
     },
 
-    iniciarSesionLS: (ObjUsuarioLS) => {
+    iniciarSesionLS: () => {
         return async(dispatch, getState) => {
             try {
+                const token = localStorage.getItem('token')
                 const respuesta = await axios.get('http://localhost:4000/api/iniciarSesionLS', {
                     headers: {
-                        'Authorization': 'Bearer '+ ObjUsuarioLS.token
+                        'Authorization': 'Bearer '+ token
                     }
-                })
-                dispatch({
-                    type: 'INGRESO_USUARIO',
-                    payload: {
-                        ...respuesta.data.respuesta,
-                        token: ObjUsuarioLS.token
-                    }
-                })
-            } catch {
-                alert('Error interno del servidor, intente mas tarde')
+                }) 
+                if(respuesta.data.success){
+                    dispatch({
+                        type: 'INGRESO_USUARIO',
+                        payload: {
+                            ...respuesta.data.respuesta,
+                            token
+                        }
+                    })  
+                    toasts('success',"Bienvenido!", 'top-center', 5000, true, true, true, 'InicioSesion',true)
+
+                }else{
+                    dispatch({type:'DESLOGUEO_USUARIO'})
+                    toasts('info',"Inicie sesión nuevamente, su sesión expiró.", 'top-center', 5000, true, true, true, 'errorCamposVacios',true)
+                }
+            } catch (error){
+                dispatch({type:'DESLOGUEO_USUARIO'})
+                toasts('error',"Inicie sesión nuevamente, su sesión expiró.", 'top-center', 5000, true, true, true, 'errorInicioLS',true)
+                return true
             }
         }
     },
@@ -88,17 +120,19 @@ const authActions = {
                 if(respuesta.data.usuario) {
                     dispatch({type:'INGRESO_USUARIO', payload:respuesta.data.usuario})
                 } else if(respuesta.data.error) {
-                    alert(respuesta.data.error)
+                    toasts('info',respuesta.data.error, 'top-center', 5000, true, true, true, 'errorCamposVacios',true)
                 }  
             } catch {
-                alert('Error interno del servidor, intente mas tarde')
+            toasts('info',"Error interno del servidor, intente en un momento", 'top-center', 5000, true, true, true, 'errorCamposVacios',true)
             }
         }
     },
     actualizarDatosUsuario: (datos)=>{
         return async(dispatch, getState)=>{
-            const token = localStorage.getItem('token')
-            const respuesta = await axios.put('http://localhost:4000/api/usuarios/SeUsaToken',datos, {
+            try{
+
+                const token = localStorage.getItem('token')
+                const respuesta = await axios.put('http://localhost:4000/api/usuarios/SeUsaToken',datos, {
                     headers: {
                         'Authorization': 'Bearer '+ token
                     }
@@ -106,9 +140,12 @@ const authActions = {
                 if(respuesta.data.success){
                     dispatch({type:'INGRESO_USUARIO', payload:respuesta.data.respuesta})
                 }else{
-                    return "Error"
+                    toasts('info',respuesta.data.error, 'top-center', 5000, true, true, true, 'errorCamposVacios',true)
                 }
-        }
+            }catch(e){
+                toasts('info',"Error interno del servidor, intente en un momento", 'top-center', 5000, true, true, true, 'errorCamposVacios',true)
+            }
+            }
     }
 }
 
