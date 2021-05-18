@@ -25,19 +25,19 @@ import SideBar from './components/SideBar'
 
 
 
+
 class App extends React.Component {
 
 
   render(){
 
     if(!this.props.usuarioLogeado && localStorage.getItem('token')) {
-      const usuarioLS = JSON.parse(localStorage.getItem('usuarioLogeado'))
-      const ObjUsuarioLS = {
-        token: localStorage.getItem('token'),
-        ...usuarioLS
+      console.log("entre")
+      const respuesta = this.props.iniciarSesionLS()
+      if(!respuesta){
+        //aca va loader
+        return null
       }
-      this.props.iniciarSesionLS(ObjUsuarioLS)
-      return null
     }     
 
     return(
