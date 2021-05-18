@@ -7,14 +7,15 @@ import { useParams } from 'react-router-dom';
 const Publicaciones = (props)=>{
     const [publicaciones, setPublicaciones] = useState([])
     const [publicacionesPorCategoria, setPublicacionesPorCategoria] = useState([])
-    // const [totalPublicaciones, setTotalPublicaciones]
     const {categoria} = useParams("")
     const [portada, setPortada] = useState(`url('/assets/caratulas/${categoria === 'all' ? 'bgTodasPublicaciones' : categoria}.jpg')`)
     const categoriaCapitalized = categoria === "all" ? "Todas las publicaciones" : categoria.charAt(0).toUpperCase() + categoria.slice(1)
 
-    
     useEffect(()=>{
-        
+        window.scroll({
+            top: 0,
+            left: 0,
+          })
         if(props.todasLasPublicaciones.length === 0){
             const fetchear = async()=>{
                 const traerTodasLasPublicaciones = await props.todasPublicaciones()
@@ -40,7 +41,7 @@ const Publicaciones = (props)=>{
     },[categoria])
 
 
-    
+
     const filtrarPublicaciones = async(valorDelFiltro)=>{
         categoria === "all" 
             ?  setPublicaciones(publicacionesPorCategoria.filter( publicacion => {

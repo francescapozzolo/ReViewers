@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import authActions from '../../redux/actions/authActions' 
 import { toast } from "react-toastify";
+import sideBarActions from '../../redux/actions/sideBarActions';
 
 const Registro = (props) =>{
 
@@ -54,8 +55,11 @@ const Registro = (props) =>{
     const enviarInfoUsuario = async (e = null, usuarioGoogle = null) => {
         e && e.preventDefault();
         let usuario = usuarioGoogle ? usuarioGoogle : nuevoUsuario
-        if(!Object.values(usuario).some(value => value === '')) {
-            const respuestaConErrores = await props.crearUsuario(usuario)
+        console.log(usuario)
+        if(!usuarioGoogle){
+            if(!Object.values(usuario).some(value => value === '')) {
+                const respuestaConErrores = await props.crearUsuario(usuario)
+            console.log('entre')
             let campos = ({
                 nombre: '',
                 apellido: '',
@@ -65,15 +69,22 @@ const Registro = (props) =>{
             })
             // si existe respuestaConErrores
             respuestaConErrores ? setErrores({campos}) : setNuevoUsuario({campos})
-
+            
             respuestaConErrores && respuestaConErrores.map(err => setErrores(prevState => {
                 return {...prevState, [err.context.label]: err.message}
             }))
         } else {
             toasts('info',"Por favor completa todos los campos! :)", 'top-center', 5000, true, true, true, 'errorCamposVacios',true)
         }
+    }else{
+        const respuestaConErrores = await props.crearUsuario(usuario)
+        respuestaConErrores && respuestaConErrores.map(err => setErrores(prevState => {
+            return {...prevState, [err.context.label]: err.message}
+        }))
     }
 
+    }
+    
 
     const respuestaGoogle = (respuesta) => {
         const { email, familyName, givenName, googleId, imageUrl } = respuesta.profileObj
@@ -83,7 +94,8 @@ const Registro = (props) =>{
             apellido: familyName,
             mail: email,
             clave: googleId,
-            imagen: imageUrl
+            imagen: imageUrl,
+            usuarioGoogle:true
         }
         enviarInfoUsuario(null, usuarioGoogle)
    }
@@ -149,11 +161,12 @@ const Registro = (props) =>{
                                 onFailure={respuestaGoogle}
                                 cookiePolicy={'single_host_origin'}
                                 className="botonGoogle"
+                                
                             />
                         </div>
 
                         <div className="text-center">
-                            <Link to="/">
+                            <Link to="/" >
                                 <div className="LinkIngresoRegistro titulosTexto text-azul-900">Ya tienes una cuenta?, ingresar!</div>
                             </Link>
                         </div>
@@ -169,6 +182,7 @@ const Registro = (props) =>{
 const mapStateToProps = state => {
     return{
         usuarioLogeado: state.authReducer.usuarioLogeado
+
     }
 }
 

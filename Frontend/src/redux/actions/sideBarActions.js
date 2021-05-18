@@ -7,7 +7,13 @@ const sideBarActions = {
         return (dispatch, getState)=>{
             dispatch({type:'CHANGE_STATE'})
         }
+    },
+    closeSide: ()=>{
+        return (dispatch, getState)=>{
+            dispatch({type:'CLOSE'})
+        }
     }
+
 
 }
 
