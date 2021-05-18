@@ -31,11 +31,6 @@ const controladoresDeComentarios = {
          const reseniaAContestar = await Resenia.findOne({_id: idPublicacion})
          .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1, "mail":1 ,"apellido":1,"imagen":1 } } })
 
-<<<<<<< HEAD
-=======
-         // const usuarioQueComento = await Usuario.findOne({_id: _id})
-
->>>>>>> e07c7c9de32ba84f1a446ab9024dd8d954f8ce82
          res.json({success: true, respuesta: reseniaAContestar})
       } catch (err) {
          res.json({success: false, error: "Error: " + err})

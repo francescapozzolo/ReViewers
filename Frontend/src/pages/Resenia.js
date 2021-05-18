@@ -57,6 +57,7 @@ const Resenia = (props)=>{
             </div>
 
             {reseniaSeleccionada.usuariosFav && <GuardarPublicacion reseniaSeleccionada={reseniaSeleccionada} />}
+
             {/* <div> */}
                {/* <h1 className="titulo-comentarios titulosAlt" >Comentarios!</h1> */}
                {reseniaSeleccionada.comentarios && <Comentarios reseniaSeleccionada={reseniaSeleccionada} />}

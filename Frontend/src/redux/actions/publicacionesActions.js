@@ -79,6 +79,7 @@ const publicacionesActions={
     },
     publicacionFueGuardada: (idPublicacion, token)=>{
         return async(dispatch, getState) => {            
+
             const respuesta = await axios.get("http://localhost:4000/api/publicacion/fueGuardada/"+idPublicacion  ,{
                 headers: {
                     'Authorization': 'Bearer ' + token

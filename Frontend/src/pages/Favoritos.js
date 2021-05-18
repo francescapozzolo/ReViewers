@@ -10,14 +10,22 @@ import {Link} from 'react-router-dom'
 
 const Favoritos =(props)=>{
     const [todasLasPublicaciones , setTodasPublicaciones] = useState([])
+    
+    // const {categoria , descripcion , imagen , titulo , subtitulo } = props.publicacion
+    const [publicacionFaveada, setPublicacionFaveada] = useState(false)
+    const token = localStorage.getItem("token")
 
     useEffect(()=>{
         window.scroll({
             top: 0,
             left: 0,
           })
-        const publicaciones = axios.get('http://localhost:4000/api/publicaciones')
-        .then(result => setTodasPublicaciones(result.data.respuesta))
+        console.log(props)
+        const fetch = async()=>{
+            const respuesta = await props.obtenerFavoritos()
+            setTodasPublicaciones(respuesta.publicacionesGuardadas)
+        }
+        fetch()
     },[])
 
     const quitarPublicacion = (idPublicacion, token)=>{
@@ -25,7 +33,6 @@ const Favoritos =(props)=>{
             return publicacion._id !== idPublicacion
         }))
         props.guardarPublicacion(idPublicacion, token)
-
 
     }
 
@@ -46,6 +53,7 @@ const Favoritos =(props)=>{
                                     </div>
                                     <div className="contenidoPublicacion ">
                                         <h2 className="favoritos-titulo titulosAlt">{publicacion.titulo}</h2>
+
                                         {/* <p className="descripcion texto">{publicacion.descripcion.slice(0,200)}</p> */}
                                         <div className="contenedorBotonesFavoritos">
                                             <h2 className="favoritos-categoria titulosAlt" >Categoria: {publicacion.categoria}</h2>
@@ -59,6 +67,7 @@ const Favoritos =(props)=>{
                     })}
                 </div>
             </main>
+
     )
 }
 

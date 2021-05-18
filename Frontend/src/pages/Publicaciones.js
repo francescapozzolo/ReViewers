@@ -7,11 +7,13 @@ import { useParams } from 'react-router-dom';
 const Publicaciones = (props)=>{
     const [publicaciones, setPublicaciones] = useState([])
     const [publicacionesPorCategoria, setPublicacionesPorCategoria] = useState([])
+
     const {categoria} = useParams("")
     const [portada, setPortada] = useState(`url('/assets/caratulas/${categoria === 'all' ? 'bgTodasPublicaciones' : categoria}.jpg')`)
     const categoriaCapitalized = categoria === "all" ? "Todas las publicaciones" : categoria.charAt(0).toUpperCase() + categoria.slice(1)
 
     useEffect(()=>{
+
         window.scroll({
             top: 0,
             left: 0,
@@ -40,8 +42,6 @@ const Publicaciones = (props)=>{
         console.log(publicaciones)
     },[categoria])
 
-
-
     const filtrarPublicaciones = async(valorDelFiltro)=>{
         categoria === "all" 
             ?  setPublicaciones(publicacionesPorCategoria.filter( publicacion => {
@@ -57,7 +57,14 @@ const Publicaciones = (props)=>{
     }
 
       
-
+    if(!props.todasLasPublicaciones || props.todasLasPublicaciones.length < 1 ){
+        return <div className="sk-folding-cube">
+        <div className="sk-cube1 sk-cube"></div>
+        <div className="sk-cube2 sk-cube"></div>
+        <div className="sk-cube4 sk-cube"></div>
+        <div className="sk-cube3 sk-cube"></div>
+      </div>
+    }
 
 
     return(
