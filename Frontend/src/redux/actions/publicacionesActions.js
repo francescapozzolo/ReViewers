@@ -48,7 +48,7 @@ const publicacionesActions={
     },
     cargarValoracion: (idPublicacion, valoracion, token)=>{
         return async(dispatch, getState) =>{
-            const respuesta = await axios.post("http://localhost:4000/api/publicacionValorada/" + idPublicacion, valoracion, {
+            await axios.post("http://localhost:4000/api/publicacionValorada/" + idPublicacion, valoracion, {
                 headers: {
                     'Authorization': 'Bearer ' + token
                 }
@@ -69,7 +69,7 @@ const publicacionesActions={
     },
     guardarPublicacion: (idPublicacion, token)=>{
         return async(dispatch, getState) =>{
-            const respuesta = await axios.get("http://localhost:4000/api/publicacion/guardarPublicacion/" + idPublicacion, {
+            await axios.get("http://localhost:4000/api/publicacion/guardarPublicacion/" + idPublicacion, {
                 headers: {
                     'Authorization': 'Bearer '+token
                 }

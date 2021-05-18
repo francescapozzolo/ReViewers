@@ -1623,6 +1623,7 @@ div > h2.titulosAlt,h3.titulosAlt{
         font-size: 1rem;
         margin-top: 2vh;
         color: rgb(80, 80, 80);
+        word-break: break-word;
     }
 
 .valoracion{
@@ -1785,6 +1786,7 @@ div > h2.titulosAlt,h3.titulosAlt{
     margin-top: 2vh;
     font-size: 1.1rem;
     text-align: justify;
+    word-break: break-all;
     /* align-self: center; */
 }
 
@@ -2751,7 +2753,7 @@ div > h2.titulosAlt,h3.titulosAlt{
         .valorar-container {
             margin-top: 1.5vh;
             display: flex;
-            justify-content: start !important;
+            justify-content: flex-start !important;
             align-items: center;
             /* border: 2px solid black; */
             width: 320px;

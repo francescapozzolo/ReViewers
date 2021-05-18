@@ -1,18 +1,14 @@
 import { connect } from 'react-redux'
-import axios from 'axios'
 import {useState , useEffect} from 'react'
-import CardFavorito from '../components/utilidades/CardFavorito'
 import publicacionesActions from '../redux/actions/publicacionesActions'
+ // eslint-disable-next-line 
 import { Icon, InlineIcon } from '@iconify/react';
 import trashIcon from '@iconify-icons/bpmn/trash';
 import {Link} from 'react-router-dom'
 
 
 const Favoritos =(props)=>{
-    const [todasLasPublicaciones , setTodasPublicaciones] = useState([])
-    
-    // const {categoria , descripcion , imagen , titulo , subtitulo } = props.publicacion
-    const [publicacionFaveada, setPublicacionFaveada] = useState(false)
+    const [todasLasPublicaciones , setTodasPublicaciones] = useState()
     const token = localStorage.getItem("token")
 
     useEffect(()=>{
@@ -20,12 +16,12 @@ const Favoritos =(props)=>{
             top: 0,
             left: 0,
           })
-        // console.log(props)
         const fetch = async()=>{
             const respuesta = await props.obtenerFavoritos()
             setTodasPublicaciones(respuesta.publicacionesGuardadas)
         }
         fetch()
+         // eslint-disable-next-line 
     },[])
 
     const quitarPublicacion = (idPublicacion, token)=>{
@@ -35,7 +31,7 @@ const Favoritos =(props)=>{
         props.guardarPublicacion(idPublicacion, token)
 
     }
-    if(todasLasPublicaciones.length < 1 ){
+    if(!todasLasPublicaciones){
         return <div className="sk-folding-cube">
         <div className="sk-cube1 sk-cube"></div>
         <div className="sk-cube2 sk-cube"></div>

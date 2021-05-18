@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import GoogleLogin from 'react-google-login';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import authActions from '../../redux/actions/authActions'
 import { toast } from "react-toastify";
@@ -104,7 +103,7 @@ const InicioSesion = (props) =>{
                         <div className="flex flex-col">
                             <button onClick={enviarInfoUsuario} type="text" id="registroIngreso" name="registrarme">Ingresar</button>
                             <GoogleLogin
-                                clientId="924799610861-e5kub6kcl4d4hhbtcoqicrhk4ou25vme.apps.googleusercontent.com"
+                                clientId="924799610861-068thqo3kb2dd5csv5asp8vcg258v4mu.apps.googleusercontent.com"
                                 buttonText="Ingresar con Google"
                                 onSuccess={respuestaGoogle}
                                 onFailure={respuestaGoogle}

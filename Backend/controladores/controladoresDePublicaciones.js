@@ -11,7 +11,7 @@ const controladorPublicaciones = {
 
             res.json({success: true , respuesta: unicaPublicacion})
         }catch(error){
-            console.log("error en publicacionPorID" , error)
+            //console.log("error en publicacionPorID" , error)
             res.json({success: false , respuesta: error})
         }
     },
@@ -21,7 +21,7 @@ const controladorPublicaciones = {
             .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1 ,"apellido":1, "mail":1, "imagen":1 } } }).populate({ path:"autor", select:{ "nombre": 1,"apellido":1, "imagen":1}})
             res.json({success: true, respuesta: todasPublicaciones})
         }catch(error){
-            console.log("error controlador publicaciones" , error)
+            //console.log("error controlador publicaciones" , error)
             res.json({success: false , respuesta: error})
         }
     },
@@ -33,7 +33,7 @@ const controladorPublicaciones = {
             res.json({success: true , respuesta: publicacionCategoria})
 
         }catch(error){
-            console.log("error publicacion categoria" , error)
+            //console.log("error publicacion categoria" , error)
             res.json({success: false , respuesta: error})
         }
     },
@@ -45,7 +45,7 @@ const controladorPublicaciones = {
             res.json({success: true, respuesta: todasLasPublicaciones})
 
         }catch(error){
-            console.log("error borrar publicacion" , error)
+            //console.log("error borrar publicacion" , error)
             res.json({success: false , respuesta: error})
         }
     },
@@ -55,7 +55,7 @@ const controladorPublicaciones = {
             const publicacion = await Resenia.findOneAndUpdate({_id: req.params.id} , {...req.body} , {new: true})
             res.json({success: true , respuesta: publicacion})
         }catch(error){
-            console.log("error modificar publicacion" , error)
+            //console.log("error modificar publicacion" , error)
             res.json({success: false , respuesta: error})
         }
     },
@@ -69,7 +69,7 @@ const controladorPublicaciones = {
            const reseniaSchemaAEnviar = {categoria,subcategoria, titulo, subtitulo, descripcion, imagen, autor:_id, tags, proContra:{ pro, contra} }
             const nuevaPublicacion = await new Resenia(reseniaSchemaAEnviar).save()
             // const todasLasPublicaciones = await Resenia.find()
-            console.log({succes:true, respuesta:nuevaPublicacion})
+            //console.log({succes:true, respuesta:nuevaPublicacion})
             res.json({success: true, respuesta: nuevaPublicacion})
 
 
@@ -97,7 +97,7 @@ const controladorPublicaciones = {
     
 
         }catch(error){
-            console.log("error cargar publicacion" , error)
+            //console.log("error cargar publicacion" , error)
             res.json({success: false, respuesta: error})
         }
     },
@@ -129,7 +129,7 @@ const controladorPublicaciones = {
                 res.json({respuesta: {success:true, valoraciones: publicacionValorada.valoraciones}})
             }
         }catch(err){
-            console.log('Caí en el catch de cargarValoracion y el error es: '+ err)
+            //console.log('Caí en el catch de cargarValoracion y el error es: '+ err)
             res.json({success: false, error: 'error al valorar publicacion: ' + err})
         }
     }, 
@@ -142,7 +142,7 @@ const controladorPublicaciones = {
 
 
             const publicacionBuscada = await Resenia.findOne({_id: idPublicacion})
-            // console.log(JSON.stringify(publicacionBuscada.valoraciones[0].idUsuario) === JSON.stringify(_id))
+            // //console.log(JSON.stringify(publicacionBuscada.valoraciones[0].idUsuario) === JSON.stringify(_id))
 
             const usuarioYahabiaValorado = publicacionBuscada.valoraciones.find(elemento => {
                return JSON.stringify(elemento.idUsuario) === JSON.stringify(_id)}
@@ -157,7 +157,7 @@ const controladorPublicaciones = {
             }
 
         }catch (err){
-            console.log(err)
+            //console.log(err)
             res.json({respuesta: 'Parece que algo salió mal :v', error: err})
         }
     },
@@ -170,7 +170,7 @@ const controladorPublicaciones = {
             
             const publicacionBuscada = await Resenia.findOne({_id: idPublicacion})
             const usuarioQueGuardo = await Usuario.findOne({_id: _id})
-            console.log(publicacionBuscada)
+            //console.log(publicacionBuscada)
 
 
             if(publicacionBuscada.usuariosFav.indexOf(_id) === -1){
@@ -227,7 +227,7 @@ const controladorPublicaciones = {
 
             res.json({success:true, usuarioYaGuardoPublicacion})
         }catch (err){
-            console.log(err)
+            //console.log(err)
             res.json({respuesta: 'Parece que algo salió mal :v', error: err})
         }
     },
@@ -240,7 +240,7 @@ const controladorPublicaciones = {
 
             res.json({success:true, publicacionesGuardadas: usuarioLogeado.favoritos})
         }catch (err){
-            console.log(err)
+            //console.log(err)
             res.json({respuesta: 'Parece que algo salió mal :v', error: err})
         }
     }

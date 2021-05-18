@@ -11,7 +11,7 @@ const controladoresDeUsuario = {
          const todosLosUsuarios = await Usuario.find()
          res.json({success: true, respuesta: todosLosUsuarios})
       }catch(err){
-         console.log('Caí en el catch del controlador ObtenerTodosLosUsuarios y el error es: '+ err)
+         //console.log('Caí en el catch del controlador ObtenerTodosLosUsuarios y el error es: '+ err)
          res.json({success: false, respuesta: "error: " + err})
       }
    },
@@ -22,7 +22,7 @@ const controladoresDeUsuario = {
          const todosLosUsuarios = await Usuario.find({_id: idUsuario})
          res.json({success: true, respuesta: todosLosUsuarios})
       }catch(err){
-         console.log('Caí en el catch del controlador obtenerUnUsuario y el error es: '+ err)
+         //console.log('Caí en el catch del controlador obtenerUnUsuario y el error es: '+ err)
          res.json({success: false, respuesta: "error: " + err})
       }
    },
@@ -34,7 +34,7 @@ const controladoresDeUsuario = {
          const todosLosUsuarios = await Usuario.find()
          res.json({success: true, respuesta: todosLosUsuarios})
       } catch (err){
-         console.log('Caí en el catch del controlador eliminarUnUsuario y el error es: '+err)
+         //console.log('Caí en el catch del controlador eliminarUnUsuario y el error es: '+err)
          res.json({success: false, respuesta: "error: " + err})
       }
    },
@@ -89,7 +89,7 @@ const controladoresDeUsuario = {
 
    registrarUsuario: async(req, res)=>{
       try{
-         console.log(req.body)
+         //console.log(req.body)
          let {mail, clave} = req.body
          const mailExiste = await Usuario.findOne({mail}) //verifico que no esté registrado el mail que el usuario puso 
          
@@ -106,14 +106,14 @@ const controladoresDeUsuario = {
                const token = jwt.sign({...usuarioARegistrar}, process.env.SECRET_OR_KEY)            
                respuesta = {token, usuarioGoogle:usuarioARegistrar.usuarioGoogle, imagen: usuarioARegistrar.imagen, mail: usuarioARegistrar.mail, nombre: usuarioARegistrar.nombre, usuarioConfirmado: usuarioARegistrar.usuarioConfirmado, rol: usuarioARegistrar.rol, intereses: usuarioARegistrar.intereses}
             } catch (err){ //no pinta mostrar el error posta porque el usuario no lo va a entender 
-               console.log('Caí en el catch del condicional del controlador de Registrar Usuario y el error es: '+ err)
+               //console.log('Caí en el catch del condicional del controlador de Registrar Usuario y el error es: '+ err)
                error = "Parece que algo salió mal tratando de registrar su cuenta. Por favor, intente de nuevo"
             }
          } else {
             error = 'Parece que tu mail ya está registrado.. Iniciá Sesion!'
          }
       } catch(err){
-         console.log('Caí en el catch del controlador de registrar Usuario y el error es: '+err)
+         //console.log('Caí en el catch del controlador de registrar Usuario y el error es: '+err)
          error = err
       }
          
@@ -150,7 +150,7 @@ const controladoresDeUsuario = {
             error
          })
       } catch (err){
-         console.log('Caí en el catch del controlador de iniciarSesion y el error es: ' + err)
+         //console.log('Caí en el catch del controlador de iniciarSesion y el error es: ' + err)
          res.json({success: false, respuesta: "error: " + err})
       }
    },

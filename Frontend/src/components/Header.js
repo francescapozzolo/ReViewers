@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import authActions from '../redux/actions/authActions'
 import CompletarRegistro from './auth/CompletarRegistro'
 import InicioSesion from './auth/InicioSesion'
@@ -12,14 +12,13 @@ import publicacionesActions from '../redux/actions/publicacionesActions'
 
 const Header = (props) => {
 
-
     useEffect(() => {
-        const fetch =async () => {
+        const fetch = async () => {
             await props.obtenerTodasPublicaciones()
         }
         fetch()
-        // eslint disable next line
-    }, [])
+         // eslint-disable-next-line 
+    }, [props.menuOpen])
 
     return(
         <header>
@@ -74,7 +73,8 @@ const Header = (props) => {
 
 const mapStateToProps = state => {
     return{
-        usuarioLogeado: state.authReducer.usuarioLogeado
+        usuarioLogeado: state.authReducer.usuarioLogeado,
+        menuOpen: state.sideBarReducer.menuOpen
     }
 }
    

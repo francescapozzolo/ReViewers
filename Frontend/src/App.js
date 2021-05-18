@@ -24,7 +24,7 @@ class App extends React.Component {
 
   render(){
     if(!this.props.usuarioLogeado && localStorage.getItem('token')) {
-      const respuesta = this.props.iniciarSesionLS()
+     this.props.iniciarSesionLS()
       if(!this.props.usuarioLogeado){
         return <div className="sk-folding-cube">
         <div className="sk-cube1 sk-cube"></div>

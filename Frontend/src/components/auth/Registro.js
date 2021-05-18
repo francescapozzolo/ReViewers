@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import GoogleLogin from 'react-google-login';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import authActions from '../../redux/actions/authActions' 
 import { toast } from "react-toastify";
-import sideBarActions from '../../redux/actions/sideBarActions';
 
 const Registro = (props) =>{
 
@@ -58,16 +56,7 @@ const Registro = (props) =>{
         console.log(usuario)
         if(!usuarioGoogle){
             if(!Object.values(usuario).some(value => value === '')) {
-                const respuestaConErrores = await props.crearUsuario(usuario)
-            console.log('entre')
-            let campos = ({
-                nombre: '',
-                apellido: '',
-                mail: '',
-                clave: '',
-                imagen: ''
-            })
-            // si existe respuestaConErrores            
+                const respuestaConErrores = await props.crearUsuario(usuario)         
             respuestaConErrores && respuestaConErrores.map(err => setErrores(prevState => {
                 return {...prevState, [err.context.label]: err.message}
             }))
@@ -153,7 +142,7 @@ const Registro = (props) =>{
                         <div className="flex flex-col">
                             <button type="text" id="registroIngreso" onClick={enviarInfoUsuario} name="registrarme">Crear cuenta</button>
                             <GoogleLogin
-                                clientId="924799610861-e5kub6kcl4d4hhbtcoqicrhk4ou25vme.apps.googleusercontent.com"
+                                clientId="924799610861-068thqo3kb2dd5csv5asp8vcg258v4mu.apps.googleusercontent.com"
                                 buttonText="Crear cuenta con Google"
                                 onSuccess={respuestaGoogle}
                                 onFailure={respuestaGoogle}

@@ -8,7 +8,6 @@ import editIcon from '@iconify-icons/carbon/edit';
 import imageEditLine from '@iconify-icons/ri/image-edit-line';
 import checkmarkCircleOutline from '@iconify-icons/eva/checkmark-circle-outline';
 import authActions from "../redux/actions/authActions";
-import MediaQuery from "react-responsive";
 
 
 const Imagen = styled.div`
@@ -155,14 +154,10 @@ class Configuraciones extends React.Component {
     let intereses = this.state.valoresInput.intereses
 
     const datos = {nombre,apellido,mail,clave,claveNueva,imagen,rol,intereses}
-    const respuesta = await this.props.actualizarDatos(datos)
+    await this.props.actualizarDatos(datos)
     this.props.history.push('/')
   };
 
-//   .contenedor-inputs-interno-checkbox-configuraciones{
-//     width: 100%;
-//     margin: 10px 0 0 0;
-// }
   render() {
     return (
       <main className="contenedor">

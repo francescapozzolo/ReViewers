@@ -5,7 +5,6 @@ import { Icon } from '@iconify/react';
 import trashIcon from '@iconify-icons/bi/trash';
 import noteEditLine from '@iconify-icons/clarity/note-edit-line';
 import {FiSend} from 'react-icons/fi'
-import {MdSend} from 'react-icons/md'
 
 const Comentarios = (props)=>{
 
@@ -78,7 +77,6 @@ const Comentarios = (props)=>{
                                  
                                     <textarea id="textareaEditarComentario" type="text" value={comentarioEditado} onChange={(e)=>setComentarioEditado(e.target.value)}
                                     className={ comentarioEnEdicion === comentario._id ? estaEditando ? "editing-textarea" : "displayNone" : "displayNone"}></textarea>
-                                    {/* <MdSend className={comentarioEnEdicion === comentario._id ? estaEditando ? "editing-sendIcon" : "displayNone" : "displayNone"} onClick={()=>mandarComentarioEditado(comentario._id)} /> */}
                               </div>
                               <svg xmlns="http://www.w3.org/2000/svg" onClick={()=>mandarComentarioEditado(comentario._id)} className={comentarioEnEdicion === comentario._id ? estaEditando ? "editing-sendIcon cerrarEditar" : "displayNone" : "displayNone"} viewBox="0 0 20 20" fill="currentColor">
                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />

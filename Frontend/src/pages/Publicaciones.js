@@ -9,6 +9,7 @@ const Publicaciones = (props)=>{
     const [publicacionesPorCategoria, setPublicacionesPorCategoria] = useState([])
 
     const {categoria} = useParams("")
+     // eslint-disable-next-line 
     const [portada, setPortada] = useState(`url('/assets/caratulas/${categoria === 'all' ? 'bgTodasPublicaciones' : categoria}.jpg')`)
     const categoriaCapitalized = categoria === "all" ? "Todas las publicaciones" : categoria.charAt(0).toUpperCase() + categoria.slice(1)
 

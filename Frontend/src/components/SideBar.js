@@ -8,7 +8,6 @@ import {
   faFeatherAlt,
   faBookOpen,
   faUserCog,
-  faStar,
   faSortDown,
   faGamepad,
   faFootballBall,
