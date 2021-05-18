@@ -56,6 +56,16 @@ class Inicio extends React.Component{
       }
       
       render() {
+
+        if(!this.props.publicaciones || this.props.publicaciones.length < 1 ){
+            return <div className="sk-folding-cube">
+            <div className="sk-cube1 sk-cube"></div>
+            <div className="sk-cube2 sk-cube"></div>
+            <div className="sk-cube4 sk-cube"></div>
+            <div className="sk-cube3 sk-cube"></div>
+          </div>
+        }
+
         const evaluacion = this.state.categoriasSeleccionadas.length === 0 
         let stateOprops = evaluacion ? "props" : "state"
         let array = evaluacion ? "publicaciones" : "categoriasSeleccionadas" 

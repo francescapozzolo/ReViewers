@@ -125,7 +125,7 @@ const publicacionesActions={
     obtenerFavoritos: ()=>{
         return async(dispatch, getState)=>{
             const token = localStorage.getItem("token")
-            console.log(token)
+            // console.log(token)
 
             const respuesta = await axios.get("http://localhost:4000/api/usuario/publicacionesGuardadas",{
                 headers: {

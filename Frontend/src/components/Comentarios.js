@@ -69,14 +69,12 @@ const Comentarios = (props)=>{
                     <div className={usuarioLogeado.mail === comentario.usuarioId.mail ? "comment commentOwner" : "comment"} key={comentario._id} >
                        <div className="comment-image" style={{backgroundImage: `url(${comentario.usuarioId.imagen})`}}></div>
                        <div className={usuarioLogeado.mail === comentario.usuarioId.mail ? "comment-content-container comment-content-container-owner" : "comment-content-container"}>
-                          <div>
+                          
                            <p className="titulosAlt campoMensaje" >{comentario.usuarioId.nombre} {comentario.usuarioId.apellido} </p>
                            <div className="comment-content">
                               <div className="campoMensaje">
                                  <p className={comentarioEnEdicion === comentario._id
-                                    ? estaEditando 
-                                          ? "displayNone" : "" 
-                                    : ""}>{comentario.mensaje}</p>
+                                    && estaEditando ? "displayNone" : null}>{comentario.mensaje}</p>
                                  
                                     <textarea id="textareaEditarComentario" type="text" value={comentarioEditado} onChange={(e)=>setComentarioEditado(e.target.value)}
                                     className={ comentarioEnEdicion === comentario._id ? estaEditando ? "editing-textarea" : "displayNone" : "displayNone"}></textarea>
@@ -86,7 +84,7 @@ const Comentarios = (props)=>{
                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                               </svg>
                            </div>
-                          </div>
+                          
                        </div>
                         
 
