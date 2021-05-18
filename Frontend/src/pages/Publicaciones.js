@@ -40,8 +40,6 @@ const Publicaciones = (props)=>{
         
         // eslint-disable-next-line
     },[categoria])
-    // console.log(publicaciones)
-    // console.log(publicacionesPorCategoria)
 
     const filtrarPublicaciones = async(valorDelFiltro)=>{
         categoria === "all" 
@@ -96,16 +94,9 @@ const Publicaciones = (props)=>{
                                 <h3 className="titulosAlt h3-noHayMatch" >Lo sentimos. No hay publicaciones que incluyan esos tags</h3>
                                 <p className="p-noHayMatch">Sin embargo puedes ver algunas de estas!</p>
                             </div>
-                            {/* <div className="contenedor-texto-noHayMatch2">
-                                <h3 className="titulosAlt h3-noHayMatch" >Lo sentimos. No hay publicaciones que incluyan esos tags</h3>
-                                <p className="p-noHayMatch">Pero puedes ser el primero en crear una!</p>
-                            </div> */}
-                            
-
-                            {/* <div> */}
+                        
                                 {publicacionesPorCategoria.map((publicacion , index)=>{
                                     return<PublicacionIndividual key={index} publicacion={publicacion}/>})}
-                            {/* </div> */}
                         </div> 
                 }
             </div>

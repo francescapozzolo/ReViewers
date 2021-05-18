@@ -38,7 +38,7 @@ const publicacionesActions={
         return async(dispatch, getState)=>{
             const tokenUsuario = localStorage.getItem('token')
             // const respuesta = 
-            await axios.post("http://localhost:4000/api/publicaciones",{...inputs},{
+            await axios.post("https://los-reviewers.herokuapp.com/api/publicaciones",{...inputs},{
                 headers: {
                     'Authorization': 'Bearer '+ tokenUsuario
                 }
@@ -48,7 +48,7 @@ const publicacionesActions={
     },
     cargarValoracion: (idPublicacion, valoracion, token)=>{
         return async(dispatch, getState) =>{
-            await axios.post("http://localhost:4000/api/publicacionValorada/" + idPublicacion, valoracion, {
+            await axios.post("https://los-reviewers.herokuapp.com/api/publicacionValorada/" + idPublicacion, valoracion, {
                 headers: {
                     'Authorization': 'Bearer ' + token
                 }
@@ -59,7 +59,7 @@ const publicacionesActions={
 
     publicacionFueValorada: (idPublicacion, token)=>{
         return async(dispatch, getState)=>{
-            const respuesta = await axios.get("http://localhost:4000/api/publicacion/fueValorada/"+idPublicacion  ,{
+            const respuesta = await axios.get("https://los-reviewers.herokuapp.com/api/publicacion/fueValorada/"+idPublicacion  ,{
                 headers: {
                     'Authorization': 'Bearer ' + token
                 }
@@ -69,7 +69,7 @@ const publicacionesActions={
     },
     guardarPublicacion: (idPublicacion, token)=>{
         return async(dispatch, getState) =>{
-            await axios.get("http://localhost:4000/api/publicacion/guardarPublicacion/" + idPublicacion, {
+            await axios.get("https://los-reviewers.herokuapp.com/api/publicacion/guardarPublicacion/" + idPublicacion, {
                 headers: {
                     'Authorization': 'Bearer '+token
                 }
@@ -80,7 +80,7 @@ const publicacionesActions={
     publicacionFueGuardada: (idPublicacion, token)=>{
         return async(dispatch, getState) => {            
 
-            const respuesta = await axios.get("http://localhost:4000/api/publicacion/fueGuardada/"+idPublicacion  ,{
+            const respuesta = await axios.get("https://los-reviewers.herokuapp.com/api/publicacion/fueGuardada/"+idPublicacion  ,{
                 headers: {
                     'Authorization': 'Bearer ' + token
                 }
@@ -97,7 +97,7 @@ const publicacionesActions={
     },
     cargarComentario: (idPublicacion, token, mensaje)=>{
         return async(dispatch, getState)=>{
-            const respuesta = await axios.post('http://localhost:4000/api/comentarios/' + idPublicacion, {mensaje}, {
+            const respuesta = await axios.post('https://los-reviewers.herokuapp.com/api/comentarios/' + idPublicacion, {mensaje}, {
                 headers: {
                     'Authorization': 'Bearer '+ token
                 }
@@ -108,13 +108,13 @@ const publicacionesActions={
     },
     editarComentario : (idComentario, idPublicacion, comentarioEditado)=>{
         return async(dispatch, getState)=>{
-            const respuesta = await axios.put('http://localhost:4000/api/comentarios/'+ idPublicacion, {idComentario, comentarioEditado})
+            const respuesta = await axios.put('https://los-reviewers.herokuapp.com/api/comentarios/'+ idPublicacion, {idComentario, comentarioEditado})
             return respuesta.data.respuesta
         }
     },
     eliminarComentario: ( idPublicacion, idComentario)=>{
         return async(dispatch, getState)=>{
-            const respuesta = await axios.delete('http://localhost:4000/api/comentarios/' + idPublicacion, {
+            const respuesta = await axios.delete('https://los-reviewers.herokuapp.com/api/comentarios/' + idPublicacion, {
                 data: {
                     idComentario: idComentario
                 }
@@ -127,7 +127,7 @@ const publicacionesActions={
             const token = localStorage.getItem("token")
             // console.log(token)
 
-            const respuesta = await axios.get("http://localhost:4000/api/usuario/publicacionesGuardadas",{
+            const respuesta = await axios.get("https://los-reviewers.herokuapp.com/api/usuario/publicacionesGuardadas",{
                 headers: {
                     'Authorization': 'Bearer ' + token
                 }

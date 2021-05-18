@@ -27,7 +27,7 @@ const authActions = {
     crearUsuario: (nuevoUsuario) => {
         return async(dispatch, getState) => {
             try {
-                const respuesta = await axios.post('http://localhost:4000/api/usuarios/registrarse', nuevoUsuario)
+                const respuesta = await axios.post('https://los-reviewers.herokuapp.com/api/usuarios/registrarse', nuevoUsuario)
                 // console.log(respuesta.data)
                 if(respuesta.data.success) {
                     dispatch({
@@ -50,7 +50,7 @@ const authActions = {
     iniciarSesion: (usuario) => {
         return async(dispatch, getState) => {   
             try {
-                const respuesta = await axios.post('http://localhost:4000/api/usuarios/iniciarSesion', usuario)
+                const respuesta = await axios.post('https://los-reviewers.herokuapp.com/api/usuarios/iniciarSesion', usuario)
                 if(respuesta.data.success) {
                     dispatch({
                         type: 'INGRESO_USUARIO',
@@ -80,7 +80,7 @@ const authActions = {
         return async(dispatch, getState) => {
             try {
                 const token = localStorage.getItem('token')
-                const respuesta = await axios.get('http://localhost:4000/api/iniciarSesionLS', {
+                const respuesta = await axios.get('https://los-reviewers.herokuapp.com/api/iniciarSesionLS', {
                     headers: {
                         'Authorization': 'Bearer '+ token
                     }
@@ -110,7 +110,7 @@ const authActions = {
     confirmarUsuario: (rolUsuarioIntereses) => {
         return async(dispatch, getState) => {
             try {
-                const respuesta = await axios.put('http://localhost:4000/api/confirmarUsuario', rolUsuarioIntereses, {
+                const respuesta = await axios.put('https://los-reviewers.herokuapp.com/api/confirmarUsuario', rolUsuarioIntereses, {
                     headers: {
                         'Authorization': 'Bearer '+ rolUsuarioIntereses.token
                     }
@@ -131,7 +131,7 @@ const authActions = {
             try{
 
                 const token = localStorage.getItem('token')
-                const respuesta = await axios.put('http://localhost:4000/api/usuarios/SeUsaToken',datos, {
+                const respuesta = await axios.put('https://los-reviewers.herokuapp.com/api/usuarios/SeUsaToken',datos, {
                     headers: {
                         'Authorization': 'Bearer '+ token
                     }
