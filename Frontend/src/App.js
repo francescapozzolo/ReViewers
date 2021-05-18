@@ -27,33 +27,19 @@ class App extends React.Component {
     if(!this.props.usuarioLogeado && localStorage.getItem('token')) {
       const respuesta = this.props.iniciarSesionLS()
       if(!respuesta ){
-        return <div class="sk-folding-cube">
-        <div class="sk-cube1 sk-cube"></div>
-        <div class="sk-cube2 sk-cube"></div>
-        <div class="sk-cube4 sk-cube"></div>
-        <div class="sk-cube3 sk-cube"></div>
+        return <div className="sk-folding-cube">
+        <div className="sk-cube1 sk-cube"></div>
+        <div className="sk-cube2 sk-cube"></div>
+        <div className="sk-cube4 sk-cube"></div>
+        <div className="sk-cube3 sk-cube"></div>
       </div>
       }
     }     
     return(
       <BrowserRouter id="outer-container">
         <SideBar/>
-        <div>
             <Header />    
-            <Switch >
-                {!this.props.usuarioLogeado && <Route exact path="/" component={Portada} />}
-                {this.props.usuarioLogeado && <Route path="/inicio" component={Inicio} />}
-                <Route path="/publicaciones/:categoria" component={Publicaciones}/>
-
-                <Route path="/favoritos" component={Favoritos} />                
-                <Route path="/publicacion/:id" component={Resenia} />
-                {this.props.usuarioLogeado && this.props.usuarioLogeado.rol === "escritor" && <Route path="/publicar" component={CrearPublicacion} />}
-                {/* <Route path="/prueba" component={PaginaDePrueba} />                 */}
-                {this.props.usuarioLogeado && <Route path="/configuraciones" component={Configuraciones} /> }               
-                <Redirect to={this.props.usuarioLogeado ? "/inicio" : "/"} />
-            </Switch>
-            <Footer component={Footer}/>
-        <ToastContainer
+            <ToastContainer
           newestOnTop={false}
           closeOnClick
           draggable
@@ -61,7 +47,21 @@ class App extends React.Component {
           limit={4}
           hideProgressBar
         />       
+        <div className="contenedor-pagina">
+            <Switch >
+                {!this.props.usuarioLogeado && <Route exact path="/" component={Portada} />}
+                {this.props.usuarioLogeado && <Route path="/inicio" component={Inicio} />}
+                <Route path="/publicaciones/:categoria" component={Publicaciones}/>
+                {this.props.usuarioLogeado &&  <Route path="/favoritos" component={Favoritos} />}                
+                {this.props.usuarioLogeado && <Route path="/publicacion/:id" component={Resenia} />}
+                {this.props.usuarioLogeado && this.props.usuarioLogeado.rol === "escritor" && <Route path="/publicar" component={CrearPublicacion} />}
+                {/* <Route path="/prueba" component={PaginaDePrueba} />                 */}
+                {this.props.usuarioLogeado && <Route path="/configuraciones" component={Configuraciones} /> }               
+                <Redirect to={this.props.usuarioLogeado ? "/inicio" : "/"} />
+            </Switch>
         </div >
+            <Footer component={Footer}/>
+        
 
       </BrowserRouter>
       )

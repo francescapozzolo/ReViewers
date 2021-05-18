@@ -12,6 +12,12 @@
     --secondary-color-darker: hsl(215, 13%, 70%);
     }
     
+    .contenedor-pagina{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 95vh;
+    }
     .d-none{
         display: none !important;
     }
@@ -1581,6 +1587,10 @@ justify-content: space-between;
     background-size: cover;
     width: 20vw;
     height: 100%;
+    cursor: pointer;
+}
+div > h2.titulosAlt,h3.titulosAlt{
+    cursor: pointer;
 }
 
 .tarjetaPublicaciones{
@@ -1592,7 +1602,6 @@ justify-content: space-between;
     margin-top: 1.5vh;
     box-shadow: 0px 2px 5px -2px rgba(68, 68, 68, 0.288);
     -webkit-box-shadow: 0px 2px 5px -2px rgba(49, 44, 44, 0.274);
-    cursor: pointer;
 }
 
 .contenidoPublicacion{
@@ -2425,6 +2434,7 @@ justify-content: space-between;
         background-size: cover;
         width: 100%;
         height: 28vh;
+        cursor: pointer;
     }
     
     .tarjetaPublicaciones{
