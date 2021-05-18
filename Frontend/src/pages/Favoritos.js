@@ -6,11 +6,17 @@ import CardFavorito from '../components/utilidades/CardFavorito'
 const Favoritos =(props)=>{
 
     const [todasLasPublicaciones , setTodasPublicaciones] = useState([])
+
     useEffect(()=>{
+        window.scroll({
+            top: 0,
+            left: 0,
+          })
         const publicaciones = axios.get('http://localhost:4000/api/publicaciones')
         .then(result => setTodasPublicaciones(result.data.respuesta))
     },[])
     console.log("soy todas las publicaciones",todasLasPublicaciones)
+    
     return(
         <>
         <div className="contenedor-tituloDeResenia">
@@ -28,17 +34,6 @@ const Favoritos =(props)=>{
         </>
     )
 }
-/*
-const mapStateToProps = state =>{
-    return {
-        todosLosFavoritos: state.favoritosReducer.favoritos
-    }
-}
-
-const mapDispatchToProps = {
-    cargarFavoritos: favoritosActions.cargarFavoritos,
-    eliminarFavorito: favoritosActions.borrarFavorito
-}*/
 
 
 export default connect (null , null)(Favoritos)

@@ -35,9 +35,7 @@ const controladoresDeComentarios = {
          .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1, "mail":1 ,"apellido":1,"imagen":1 } } })
 
          console.log(reseniaAContestar)
-         // const usuarioQueComento = await Usuario.findOne({_id: _id})
-         // console.log(usuarioQueComento)
-         
+
          res.json({success: true, respuesta: reseniaAContestar})
       } catch (err) {
          console.log('Caí en el catch del controlador cargarNuevoComentario y el error es: '+err)
@@ -78,7 +76,6 @@ const controladoresDeComentarios = {
          console.log(comentarioEditado)
 
          const publicacionEncontrada = await Resenia.findOne({_id: idPublicacion})
-         // console.log(publicacionEncontrada)
 
          var publicacionModificada = await Resenia.findOneAndUpdate( 
             {_id: idPublicacion, "comentarios._id": idComentario},  

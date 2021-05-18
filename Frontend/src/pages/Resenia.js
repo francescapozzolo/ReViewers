@@ -2,27 +2,21 @@ import { useEffect, useState } from "react"
 import {connect} from "react-redux"
 import Valoracion from "../components/utilidades/Valoracion"
 import publicacionesActions from '../redux/actions/publicacionesActions'
-
-import Rating from '@material-ui/lab/Rating';
-import bookmarkStar from '@iconify-icons/bi/bookmark-star';
-import trashIcon from '@iconify-icons/bi/trash';
-import noteEditLine from '@iconify-icons/clarity/note-edit-line';
-import {FiSend} from 'react-icons/fi'
-
 import Comentarios from '../components/Comentarios'
 import GuardarPublicacion from '../components/utilidades/GuardarPublicacion'
-
-import { Icon, InlineIcon } from '@iconify/react';
-import bookmarkStarFill from '@iconify-icons/bi/bookmark-star-fill';
 
 
 const Resenia = (props)=>{
 
    const [reseniaSeleccionada, setReseniaSeleccionada] = useState({})
    useEffect(()=>{
+      window.scroll({
+         top: 0,
+         left: 0,
+       })
       const fetch = async ()=>{
          const idResenia = props.match.params.id
-         if(props.todasLasPublicaciones.length > 0){
+         if(props.todasLasPublicaciones.length !== 0){
          setReseniaSeleccionada(props.todasLasPublicaciones.find(publicacion => JSON.stringify(publicacion._id) === JSON.stringify(idResenia)))
       } else {
          const respuesta = await props.obtenerUnaPublicacion(idResenia)

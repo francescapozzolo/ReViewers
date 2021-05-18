@@ -8,6 +8,11 @@ const sideBarReducer = (state = initialState, action) => {
           return{
             menuOpen: !state.menuOpen
           }
+      case 'CLOSE':
+        return{
+          menuOpen:false
+        }
+        
         default:
           return state
         
