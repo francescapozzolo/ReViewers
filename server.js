@@ -20,8 +20,8 @@ if(process.env.NODE_ENV === 'production'){
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname+"/client/build/index.html"))
     })
+    console.log("entre al if")
 }
-console.log(express.static('client/build'))
 const port = process.env.PORT || 4000
 const host = process.env.HOST || '0.0.0.0'
 
