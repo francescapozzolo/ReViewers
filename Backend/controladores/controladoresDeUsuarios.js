@@ -1,67 +1,110 @@
-const Usuario = require('../modelos/Usuario')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
+const Usuario = require('../modelos/Usuario')
+const Resenia = require('../modelos/Resenia')
 
 const controladoresDeUsuario = {
 
-   obtenerTodosLosUsuarios: async(req,res)=>{
+   obtenerTodosLosUsuarios: async(req, res)=>{
       try{
-         var todosLosUsuarios = await Usuario.find()
+         const todosLosUsuarios = await Usuario.find()
+         res.json({success: true, respuesta: todosLosUsuarios})
       }catch(err){
          console.log('Caí en el catch del controlador ObtenerTodosLosUsuarios y el error es: '+ err)
+         res.json({success: false, respuesta: "error: " + err})
       }
-      res.json({respuesta: todosLosUsuarios })
    },
 
    obtenerUnUsuario: async(req, res)=>{
       try{
-         const id = req.params.id
-         var todosLosUsuarios = await Usuario.find({_id: id})
+         const idUsuario = req.params.id
+         const todosLosUsuarios = await Usuario.find({_id: idUsuario})
+         res.json({success: true, respuesta: todosLosUsuarios})
       }catch(err){
          console.log('Caí en el catch del controlador obtenerUnUsuario y el error es: '+ err)
+         res.json({success: false, respuesta: "error: " + err})
       }
-      res.json({respuesta: todosLosUsuarios })
    },
 
    eliminarUnUsuario: async(req, res) => {
       try {
-         const id = req.params.id
-         await Usuario.findOneAndDelete({_id: id})
-         var todosLosUsuarios = await Usuario.find()
+         const idUsuario = req.params.id
+         await Usuario.findOneAndDelete({_id: idUsuario})
+         const todosLosUsuarios = await Usuario.find()
+         res.json({success: true, respuesta: todosLosUsuarios})
       } catch (err){
          console.log('Caí en el catch del controlador eliminarUnUsuario y el error es: '+err)
+         res.json({success: false, respuesta: "error: " + err})
       }
-      res.json({respuesta: todosLosUsuarios})
    },
 
    editarUsuario: async(req,res) =>{
+      let usuario = req.user
+      let error;
+      let datos;
+      let {nombre, apellido, mail, clave, claveNueva, imagen, intereses, rol} = req.body
       try {
-         const id = req.params.id
-         var usuarioModificado = await Usuario.findOneAndUpdate({_id:id},{...req.body}, {new: true}) // el new true va xq sino no me devuelve el objeto modif.
-      } catch (err){
-         console.log('Caí en el catch del controlador editarUsuario y el error es: ' + err)
+         nombre !== "" && nombre !== usuario.nombre ? nombre = nombre : nombre = usuario.nombre
+         apellido !== "" && apellido !== usuario.apellido ? apellido = apellido : apellido = usuario.apellido
+         mail !== "" && mail !== usuario.mail ? mail = mail : mail = usuario.mail
+         imagen !== "" && imagen !== usuario.imagen ? imagen = imagen : imagen = usuario.imagen
+         rol !== "" && rol !== usuario.rol ? rol = rol : rol = usuario.rol
+         intereses = intereses.length === 0 ? intereses = usuario.intereses : intereses = intereses
+         if(clave && claveNueva){
+            const contraseña = bcryptjs.compareSync(clave, usuario.clave)
+            if(contraseña){
+               clave = bcryptjs.hashSync(claveNueva, 10)
+            }else{   
+               error="Error contraseña erronea."   
+            }
+            datos = {nombre, apellido, mail, imagen, intereses, rol}
+         }else{
+            datos = {nombre, apellido, mail, imagen, intereses, rol, clave:usuario.clave}
+         }
+         if(nombre === usuario.nombre && apellido === usuario.apellido && mail === usuario.mail && imagen === usuario.imagen && rol === usuario.rol && intereses.length === 0){
+            error = 'No hubo cambios'
+         }
+         const usuarioAEditar = await Usuario.findOneAndUpdate({_id:usuario._id},datos,{new:true})
+         
+         const token = jwt.sign({...usuarioAEditar},process.env.SECRET_OR_KEY)
+         respuesta = {token, usuarioGoogle:usuarioAEditar.usuarioGoogle, imagen: usuarioAEditar.imagen, nombre: usuarioAEditar.nombre, usuarioConfirmado: usuarioAEditar.usuarioConfirmado, rol: usuarioAEditar.rol, intereses: usuarioAEditar.intereses}
+
+         res.json({
+            success: !error ? true : false,
+            respuesta,
+            error
+         })
+        
+      } catch (e) {
+
+         error = "Error interno del servidor, intente mas tarde"
+         res.json({
+            success: false,
+            error
+         })
+         
       }
-      res.json({respuesta: usuarioModificado})
    },
 
    registrarUsuario: async(req, res)=>{
       try{
-         const {nombre, apellido, mail, clave, intereses, rol, imagen, favoritos, seguidores} = req.body
+         console.log(req.body)
+         let {mail, clave} = req.body
          const mailExiste = await Usuario.findOne({mail}) //verifico que no esté registrado el mail que el usuario puso 
          
          var respuesta;
          var error;
          var usuarioARegistrar;
          
-         const contraseniaHasheada = bcryptjs.hashSync(clave, 10)
+         clave = bcryptjs.hashSync(clave, 10)
          
          if(!mailExiste){
             try{
-               usuarioARegistrar = new Usuario({nombre, apellido, mail, clave: contraseniaHasheada, imagen, intereses, rol, favoritos, seguidores})
+               usuarioARegistrar = new Usuario({...req.body, clave})
                await usuarioARegistrar.save()
                const token = jwt.sign({...usuarioARegistrar}, process.env.SECRET_OR_KEY)            
-               respuesta = {token, imagenDelUsuario: usuarioARegistrar.imagen, nombreDelUsuario: usuarioARegistrar.nombre} 
+               respuesta = {token, usuarioGoogle:usuarioARegistrar.usuarioGoogle, imagen: usuarioARegistrar.imagen, mail: usuarioARegistrar.mail, nombre: usuarioARegistrar.nombre, usuarioConfirmado: usuarioARegistrar.usuarioConfirmado, rol: usuarioARegistrar.rol, intereses: usuarioARegistrar.intereses}
             } catch (err){ //no pinta mostrar el error posta porque el usuario no lo va a entender 
                console.log('Caí en el catch del condicional del controlador de Registrar Usuario y el error es: '+ err)
                error = "Parece que algo salió mal tratando de registrar su cuenta. Por favor, intente de nuevo"
@@ -71,6 +114,7 @@ const controladoresDeUsuario = {
          }
       } catch(err){
          console.log('Caí en el catch del controlador de registrar Usuario y el error es: '+err)
+         error = err
       }
          
       // Si está todo bien, error es null, si algo falló entonces respuesta es null xD 
@@ -86,20 +130,19 @@ const controladoresDeUsuario = {
          const {mail, clave} = req.body   
          var respuesta;
          var error; 
-   
+         
          const usuarioRegistrado = await Usuario.findOne({mail})
    
          if(usuarioRegistrado){
             const contraseñaEsCorrecta = bcryptjs.compareSync(clave, usuarioRegistrado.clave)
             if(contraseñaEsCorrecta){
                const token = jwt.sign({...usuarioRegistrado}, process.env.SECRET_OR_KEY)
-               respuesta = {token: token, imagen: usuarioRegistrado.imagen, nombre: usuarioRegistrado.nombre, idDelUsuario: usuarioRegistrado._id}
+               respuesta = {token, usuarioGoogle:usuarioRegistrado.usuarioGoogle ,imagen: usuarioRegistrado.imagen, mail: usuarioRegistrado.mail, nombre: usuarioRegistrado.nombre, usuarioConfirmado: usuarioRegistrado.usuarioConfirmado, rol: usuarioRegistrado.rol, idUsuario: usuarioRegistrado._id, intereses: usuarioRegistrado.intereses}
             } else {
-               error = 'Mail o Contraseña incorrecta. Intenta de nuevo!'
+               error = 'Mail o clave incorrectos'
             }
-   
          } else {
-            error = 'Mail o Contraseña incorrecta. Intenta de nuevo!'
+            error = 'Mail o clave incorrectos'
          }
          res.json({
             success: !error ? true : false,
@@ -107,13 +150,50 @@ const controladoresDeUsuario = {
             error
          })
       } catch (err){
-         console.log('Caí en el catch del controlador de iniciarSesion y el error es: '+ err)
+         console.log('Caí en el catch del controlador de iniciarSesion y el error es: ' + err)
+         res.json({success: false, respuesta: "error: " + err})
       }
    },
 
-   inicioForzado: async()=>{
-      res.json({success: true, respuesta: {imagen: req.user.imagen, nombre: req.user.nombre, userId: req.user._id}})
+   inicioForzado: (req, res) => {
+         res.json({
+            success: true,
+            respuesta: { usuarioGoogle:req.user.usuarioGoogle, imagen: req.user.imagen, nombre: req.user.nombre, mail: req.user.mail, usuarioConfirmado: req.user.usuarioConfirmado, rol: req.user.rol, intereses: req.user.intereses}
+         })
+     
+   },
+
+   confirmarUsuario: async (req, res) => {
+      let usuarioId = req.user._id
+      let error;
+      let usuarioConfirmado;
+      
+      try {
+         const actualizarInfo = {
+            usuarioConfirmado: req.body.usuarioConfirmado,
+            intereses: req.body.intereses,
+            rol: req.body.rol
+         }
+         const usuario = await Usuario.findOneAndUpdate({_id: usuarioId}, {...actualizarInfo}, {new: true})
+         
+         if(usuario.usuarioConfirmado) {
+            usuarioConfirmado = true   
+         } else {
+            error = "Usuario no encontrado en la base de datos"
+            usuarioConfirmado = false
+         }
+         res.json({
+            success: !error ? true : false,
+            usuario,
+            error
+         })
+      } catch {
+         error = "Error interno del servidor, intente mas tarde"
+      }
+ 
    }
+   
+
 }
 
 module.exports = controladoresDeUsuario

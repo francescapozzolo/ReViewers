@@ -1,12 +1,12 @@
-
 import React from "react";
+import Carrusel from "../components/Carrusel";
 
 class Portada extends React.Component {
   render() {
     return (
-      <>
-        <h1>hola</h1>
-      </>
+      <main>
+        <Carrusel />
+      </main>
     );
   }
 }
