@@ -53,7 +53,6 @@ const publicacionesActions={
                     'Authorization': 'Bearer ' + token
                 }
             })
-            console.log(respuesta.data.respuesta.valoraciones)
             // return respuesta.data.respuesta || La Respuesta no interesa, solo guardar la valoracion
         }
     }, 
@@ -65,29 +64,23 @@ const publicacionesActions={
                     'Authorization': 'Bearer ' + token
                 }
             })
-            // console.log(respuesta.data)
             return respuesta.data
         }
     },
     guardarPublicacion: (idPublicacion, token)=>{
         return async(dispatch, getState) =>{
-            // console.log(idPublicacion)
-            // console.log(token)
             const respuesta = await axios.get("http://localhost:4000/api/publicacion/guardarPublicacion/" + idPublicacion, {
                 headers: {
                     'Authorization': 'Bearer '+token
                 }
             })
-            console.log(respuesta.data)
             // return respuesta.data || Podría retornar la respuesta, pero no veo para que podria servir.
         }
     },
 
     publicacionFueGuardada: (idPublicacion, token)=>{
         return async(dispatch, getState) => {
-            // console.log('llegué a la action de publicacionFueGuardada')
-            // console.log(token)
-            
+
             const respuesta = await axios.get("http://localhost:4000/api/publicacion/fueGuardada/"+idPublicacion  ,{
                 headers: {
                     'Authorization': 'Bearer ' + token
@@ -112,20 +105,16 @@ const publicacionesActions={
             })
             dispatch({type: 'CARGAR_COMENTARIO', payload: respuesta.data.respuesta})
             return respuesta.data.respuesta
-            // console.log(respuesta.data.respuesta.comentarios)
         }
     },
     editarComentario : (idComentario, idPublicacion, comentarioEditado)=>{
         return async(dispatch, getState)=>{
             const respuesta = await axios.put('http://localhost:4000/api/comentarios/'+ idPublicacion, {idComentario, comentarioEditado})
-            console.log(respuesta.data.respuesta)
             return respuesta.data.respuesta
         }
     },
     eliminarComentario: ( idPublicacion, idComentario)=>{
         return async(dispatch, getState)=>{
-            console.log(idPublicacion)
-            console.log(idComentario) 
             const respuesta = await axios.delete('http://localhost:4000/api/comentarios/' + idPublicacion, {
                 data: {
                     idComentario: idComentario

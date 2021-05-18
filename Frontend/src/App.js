@@ -1,7 +1,8 @@
 
 import React from 'react';
 import './App.css';
-import {BrowserRouter, Route, Redirect, Switch, Link} from 'react-router-dom'
+import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
+
 import { connect } from 'react-redux';
 import Footer from './components/Footer';
 import Inicio from './pages/Inicio';
@@ -24,7 +25,6 @@ class App extends React.Component {
   render(){
 
     if(!this.props.usuarioLogeado && localStorage.getItem('token')) {
-      console.log("entre")
       const respuesta = this.props.iniciarSesionLS()
       if(!respuesta ){
         return <div class="sk-folding-cube">

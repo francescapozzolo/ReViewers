@@ -7,9 +7,7 @@ const controladoresDeComentarios = {
    obtenerComentario: async(req, res)=>{
       try {
          const idPublicacion = req.params.id
-         console.log("soy params id" , req.params)
          var publicacionBuscada = await Resenia.findOne({_id: idPublicacion})
-         console.log("soy publicacion buscada", publicacionBuscada)
 
          res.json({success: true, respuesta: publicacionBuscada.comentarios})
 
@@ -34,7 +32,7 @@ const controladoresDeComentarios = {
          const reseniaAContestar = await Resenia.findOne({_id: idPublicacion})
          .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1, "mail":1 ,"apellido":1,"imagen":1 } } })
 
-         console.log(reseniaAContestar)
+         // const usuarioQueComento = await Usuario.findOne({_id: _id})
 
          res.json({success: true, respuesta: reseniaAContestar})
       } catch (err) {
@@ -47,9 +45,6 @@ const controladoresDeComentarios = {
       try {
          const idPublicacion = req.params.id
          const idComentario = req.body.idComentario
-         console.log(req)
-         console.log(idPublicacion)
-         console.log(idComentario)
 
          var publicacionModificada = await Resenia.findOneAndUpdate(
             {_id: idPublicacion},
@@ -67,13 +62,9 @@ const controladoresDeComentarios = {
    
    editarComentario: async(req, res)=>{
       try {
-         console.log('entré al controlador de editar comentario')
          const idPublicacion = req.params.id
          const idComentario = req.body.idComentario
          const comentarioEditado = req.body.comentarioEditado
-         console.log(idPublicacion)
-         console.log(idComentario)
-         console.log(comentarioEditado)
 
          const publicacionEncontrada = await Resenia.findOne({_id: idPublicacion})
 

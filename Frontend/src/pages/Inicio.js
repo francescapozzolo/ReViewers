@@ -18,6 +18,7 @@ class Inicio extends React.Component{
     }   
 
     componentDidMount(){
+
         window.scroll({
             top: 0,
             left: 0,
@@ -94,7 +95,7 @@ class Inicio extends React.Component{
                                 <div className="capa">
                                     <Link to={`/publicaciones/${publicacion.categoria}`} className="textoCategoria">{publicacion.categoria}</Link>
                                     <p className="textoTit">{publicacion.titulo}</p>
-                                    <p className="textoAutor">Publicado por </p>
+                                    <p className="textoAutor">Publicado por {publicacion.autor.nombre}</p>
                                     <Box component="fieldset" mb={3} borderColor="transparent">
                                         <Rating name="read-only" value={valoracion} readOnly />
                                     </Box>

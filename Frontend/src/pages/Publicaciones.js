@@ -2,7 +2,6 @@ import {connect} from 'react-redux'
 import React , {useEffect , useState} from 'react'
 import publicacionesActions from '../redux/actions/publicacionesActions'
 import PublicacionIndividual from '../components/utilidades/PublicacionIndividual'
-import Loader from 'react-loader-spinner'
 import { useParams } from 'react-router-dom';
 
 const Publicaciones = (props)=>{
@@ -11,7 +10,7 @@ const Publicaciones = (props)=>{
     const {categoria} = useParams("")
     const [portada, setPortada] = useState(`url('/assets/caratulas/${categoria === 'all' ? 'bgTodasPublicaciones' : categoria}.jpg')`)
     const categoriaCapitalized = categoria === "all" ? "Todas las publicaciones" : categoria.charAt(0).toUpperCase() + categoria.slice(1)
-    
+
     useEffect(()=>{
         window.scroll({
             top: 0,
@@ -42,7 +41,7 @@ const Publicaciones = (props)=>{
     },[categoria])
 
 
-    
+
     const filtrarPublicaciones = async(valorDelFiltro)=>{
         categoria === "all" 
             ?  setPublicaciones(publicacionesPorCategoria.filter( publicacion => {

@@ -116,7 +116,6 @@ const authActions = {
                     }
                 }) 
                 
-                console.log(respuesta.data)
                 if(respuesta.data.usuario) {
                     dispatch({type:'INGRESO_USUARIO', payload:respuesta.data.usuario})
                 } else if(respuesta.data.error) {

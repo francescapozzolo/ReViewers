@@ -164,7 +164,6 @@ class Configuraciones extends React.Component {
 //     margin: 10px 0 0 0;
 // }
   render() {
-
     return (
       <main className="contenedor">
         <form className="contenedor-reseña">

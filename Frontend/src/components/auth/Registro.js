@@ -82,6 +82,7 @@ const Registro = (props) =>{
             return {...prevState, [err.context.label]: err.message}
         }))
     }
+
     }
     
 

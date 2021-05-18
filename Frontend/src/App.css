@@ -2285,6 +2285,7 @@ justify-content: space-between;
         height: 1.9rem;
         margin-top: 2vh;
     }
+
     .contenedorUsuarioHeader{
         display: none;
     }
@@ -2612,8 +2613,13 @@ justify-content: space-between;
         font-size: 12px;
     }
 /*INICIO*/
-.contenedorUsuarioHeader{
+.contenedorUsuarioHeader div.contenedorEnlaces{
     display: none;
+}
+
+.usuarioPic{
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 .gridInicio{

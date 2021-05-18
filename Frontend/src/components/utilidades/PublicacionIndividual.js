@@ -5,6 +5,7 @@ import Rating from '@material-ui/lab/Rating';
 
 
 const PublicacionIndividual = ({publicacion}) => {
+    console.log(publicacion)
 // eslint-disable-next-line
     const {_id , titulo , subtitulo , imagen , autor , descripcion} = publicacion
     let contenidoDescripcion = descripcion.slice(0,301)
@@ -25,7 +26,10 @@ const PublicacionIndividual = ({publicacion}) => {
                     </div>
                     <div className="valoracion">
                         <Box component="fieldset" mb={3} borderColor="transparent">
-                            <Rating name="read-only" value={1} readOnly />
+                            <Rating name="read-only" value={publicacion.valoraciones.reduce((acc, valoracion, index)=>{
+                            let num = valoracion.valoracion
+                            return acc= acc + num 
+                        }, 0) / publicacion.valoraciones.length} readOnly />
                         </Box>
                         <p className="texto">{publicacion.comentarios.length} comentarios</p>
                     </div>

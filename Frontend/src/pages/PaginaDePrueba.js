@@ -10,7 +10,6 @@ const PaginaDePrueba = ({filtroPorPalabraClave, obtenerTodasPublicaciones, todas
    useEffect(()=>{
       const fetch = async()=>{
          await obtenerTodasPublicaciones()
-         console.log(todasLasPublicaciones)
       }
 
       fetch()

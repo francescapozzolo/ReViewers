@@ -26,7 +26,6 @@ const Resenia = (props)=>{
    fetch()
    // eslint-disable-next-line
    }, [])      
-   console.log(reseniaSeleccionada)
    
    return(
       <>
@@ -57,8 +56,6 @@ const Resenia = (props)=>{
                   </div>
                </div>
             </div>
-
-            {reseniaSeleccionada.usuariosFav && <GuardarPublicacion reseniaSeleccionada={reseniaSeleccionada} />}
 
             {reseniaSeleccionada.usuariosFav && <GuardarPublicacion reseniaSeleccionada={reseniaSeleccionada} />}
             {/* <div> */}
