@@ -1,7 +1,6 @@
 // import React from 'react'
 
 // const Modal = (props) => {
-//    console.log(props)
 //     const divStyle = { 
 //         display: props.displayModal ? 'block' : 'none'
 //    };

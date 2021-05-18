@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react"
 import {connect} from "react-redux"
 import publicacionesActions from '../redux/actions/publicacionesActions'
-// import { Icon, InlineIcon } from '@iconify/react';
 import { Icon } from '@iconify/react';
-// import bookmarkStar from '@iconify-icons/bi/bookmark-star';
-// import { InlineIcon } from '@iconify/react';
-// import bookmarkStarFill from '@iconify-icons/bi/bookmark-star-fill';
 import trashIcon from '@iconify-icons/bi/trash';
 import noteEditLine from '@iconify-icons/clarity/note-edit-line';
 import {FiSend} from 'react-icons/fi'
@@ -61,6 +57,7 @@ const Comentarios = (props)=>{
         setReseniaComentarios(respuesta)
     }
 
+
     return (
          <div className="resenia-comments-container">
             <h1 className="titulo-comentarios titulosAlt" >Comentarios!</h1>
@@ -92,6 +89,7 @@ const Comentarios = (props)=>{
                           </div>
                        </div>
                         
+
                         {usuarioLogeado.mail === comentario.usuarioId.mail &&
                            <div className="icons-container">
                               {

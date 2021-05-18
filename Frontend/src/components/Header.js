@@ -5,11 +5,21 @@ import CompletarRegistro from './auth/CompletarRegistro'
 import InicioSesion from './auth/InicioSesion'
 import Registro from './auth/Registro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import {  faHome, faFeatherAlt, faBookOpen, faUserCog, faStar } from '@fortawesome/free-solid-svg-icons'
 import { faFeatherAlt} from '@fortawesome/free-solid-svg-icons'
 import sideBarActions from '../redux/actions/sideBarActions'
+import { useEffect } from 'react'
+import publicacionesActions from '../redux/actions/publicacionesActions'
 
 const Header = (props) => {
+
+
+    useEffect(() => {
+        const fetch =async () => {
+            await props.obtenerTodasPublicaciones()
+        }
+        fetch()
+        // eslint disable next line
+    }, [])
 
     return(
         <header>
@@ -70,8 +80,9 @@ const mapStateToProps = state => {
    
 const mapDispatchToProps = {
     cerrarSesion: authActions.cerrarSesion,
-
-    changeState: sideBarActions.changeState
+    changeState: sideBarActions.changeState,
+    obtenerTodasPublicaciones: publicacionesActions.obtenerTodasPublicaciones
+    
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

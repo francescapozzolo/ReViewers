@@ -11,7 +11,6 @@ const InicioSesion = (props) =>{
         mail: '',
         clave: ''
     })
-    // const { mail, clave } = usuarioPagina
     const guardarInfoUsuario = (e) => {
         e.preventDefault();
         setUsuarioPagina({

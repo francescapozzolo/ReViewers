@@ -12,6 +12,12 @@
     --secondary-color-darker: hsl(215, 13%, 70%);
     }
     
+    .contenedor-pagina{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 95vh;
+    }
     .d-none{
         display: none !important;
     }
@@ -554,36 +560,7 @@
         /* justify-content: center; */
         align-items: center;
     }
-    
-    .contenedor-selects{
-        width: 90%;
-        height: 20%;
-        display: flex;
-        align-items: center;
-        /* border: solid red; */
-        justify-content: space-between;
-        margin-top: 1.4rem;
-    }
-    .input-select{
-        width: 45%;
-        height: 100%;
-        border:none;
-        outline: none;
-        border-radius: 5px;
-        background-color: #e8f0fe;
-        padding: 10px;
-        
-        /* border:1px solid #d9d9d9; */
-        overflow: hidden;
-        position:relative;
-        background-repeat: no-repeat;
-        background-position: right center;
-        background-size: contain;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        -o-appearance: none;
-        appearance: none;
-    }
+
     
         
     
@@ -616,7 +593,7 @@
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
-        padding: 5px !important;
+        padding: 5px 5px 5px 10px !important;
         background-color: #e8f0fe !important;
         /* text-align: center; */
     }
@@ -1116,11 +1093,11 @@ justify-content: space-between;
 
 .contenedor-selects{
     width: 90%;
-    height: 20%;
+    height: 25%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 1.4rem;
+    margin-top: 1.2rem;
 }
 .input-select{
     width: 49%;
@@ -1134,7 +1111,7 @@ justify-content: space-between;
     font-family: 'Montserrat', sans-serif;
 
     /* border:1px solid #d9d9d9; */
-    overflow: hidden;
+    /* overflow: hidden;
     position:relative;
     background-repeat: no-repeat;
     background-position: right center;
@@ -1142,7 +1119,7 @@ justify-content: space-between;
     -webkit-appearance: none;
     -moz-appearance: none;
     -o-appearance: none;
-    appearance: none;
+    appearance: none; */
     
 }
 
@@ -1603,6 +1580,10 @@ justify-content: space-between;
     background-size: cover;
     width: 20vw;
     height: 100%;
+    cursor: pointer;
+}
+div > h2.titulosAlt,h3.titulosAlt{
+    cursor: pointer;
 }
 
 .tarjetaPublicaciones{
@@ -1614,7 +1595,6 @@ justify-content: space-between;
     margin-top: 1.5vh;
     box-shadow: 0px 2px 5px -2px rgba(68, 68, 68, 0.288);
     -webkit-box-shadow: 0px 2px 5px -2px rgba(49, 44, 44, 0.274);
-    cursor: pointer;
 }
 
 .contenidoPublicacion{
@@ -1636,6 +1616,8 @@ justify-content: space-between;
     align-items: center;
     margin-top: 3vh;
 }
+
+
 
 
     .contenidoPublicacion h2, h3, p{
@@ -1763,10 +1745,6 @@ justify-content: space-between;
 
 .contenedor-de-foto-de-resenia {
     width: 30%;
-    /* height: 100% ; */
-    /* border: 1px solid black; */
-    /* height: 45vh; */
-    /* background: url('https://cdn.motor1.com/images/mgl/1X4x9/s1/2019-aston-martin-dbs-superleggera.jpg'); */
     background-position: center !important;
     background-size: cover !important;
     border-radius: 10px;
@@ -1774,10 +1752,6 @@ justify-content: space-between;
 
 
 .reseniaSection-right {
-    /* background: blue; */
-    /* border: 2px solid black; */
-    /* overflow: auto; */
-    /* flex-grow: 1; */
     width: 100% ;
     display: flex;
     flex-direction: column;
@@ -2035,6 +2009,26 @@ justify-content: space-between;
     align-self: center;
 }
 
+.input-filtrador-container-inicio {
+    margin-top: 5vh;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.input-filtrador-inicio {
+    width: 50%;
+    padding: 13px 40px;
+    border-radius: 50px;
+    background: rgb(239,239,239);
+    border: none;
+    outline: none;
+    font-family: "montserrat";
+    font-size: 1rem;
+    margin: 0px auto;
+}
+
+
 .input-filtrador-container {
     margin-top: 5vh;
     display: flex;
@@ -2053,20 +2047,39 @@ justify-content: space-between;
     margin: 0px auto;
 }
 
+.contenedor-noHayMatch {
+    /* background: red; */
+    /* display: flex; */
+    /* flex-direction: column; */
+    margin-top: 3vh;
+}
 
+.contenedor-texto-noHayMatch {
+    background: rgb(23,29,39);
+    text-align: center;
+    padding: 4vh;
+    border-radius: 10px;
+}
 
+/* .contenedor-texto-noHayMatch2 {
+    margin-bottom: 4vh;
+    margin-top: 5px;
+    background: rgb(62, 81, 114);
+    text-align: center;
+    padding: 4vh;
+    border-radius: 10px;
+} */
 
+.h3-noHayMatch {
+    color: white;
+}
 
-
-
-
-
-
-
-
-
-
-
+.p-noHayMatch {
+    color: white;
+    /* font-family: 'Bebas Neue', cursive; */
+    /* font-family: 'Fjalla One', sans-serif; */
+    font-family: "montserrat"
+}
 
 
 .bm-burger-button {
@@ -2144,36 +2157,60 @@ justify-content: space-between;
 
   .sideBar-icon{
       margin-right: 10px;
+    }
+    .sideBar-icon-toggle{
+      margin-right: 10px;
+      margin-left: 20px;  
   }
-
-
-  .SideHeader,.SideMain,.SideFooter *{
+  .resenia-toggle > *{
+    color: white;
+    margin: 5px 0;
+  }
+  .resenia-toggle{
+      display: flex;
+      flex-direction: column;
+  }
+  .SideHeader,.SideMain,.SideFooter > *{
     color: white;
   }
 
-  .SideHeader,.SideFooter{
+  .SideFooter{
       width: 100%;
       height: 20%;
       display: flex !important;
     }
-    .SideMain > a{
+    .SideHeader{
+        width: 100%;
+        height: 10%;
+        display: flex !important;
+    }
+    .SideMain > a, .SideMain > div{
       color:white ;
       margin: .5rem 1rem;
+      text-align: left !important;
     }
     .SideMain{
         width: 100%;
-        height: 60%;
+        height: 70%;
         display: flex !important;
         flex-direction: column;
     }
     .SideFooter > *{
         margin: .5rem 0;
     }
+    .SideFooter > div.inicioRegistroSide > div > p{
+        color: white;
+    }
     .SideFooter{
         flex-direction: column;
     }
-
-
+    .inicioRegistroSide{
+        width: 100%;
+    }
+    .inicioRegistroSide > div{
+        align-items: flex-start;
+        margin-bottom: 1rem;
+    }
   .formulario-configuraciones{
         width: 100%;
         height: 100%;
@@ -2206,9 +2243,34 @@ justify-content: space-between;
 }
 .contenedorBotonesFavoritos{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: flex-end;
     margin-bottom: 2vh;
 }
+
+.favoritos-titulo {
+    font-size: 1.4rem;
+    margin-bottom: 1vh;
+}
+
+.favoritos-categoria {
+    /* font-family: 'montserrat'; */
+    color: rgb(48, 48, 48) !important;
+    font-size: 1.3rem;
+    /* font-family: 'montserrat'; */
+}
+
+.icono-borrarFavorito {
+    font-size: 30px;
+    transition: all .2s ease;
+}
+
+.icono-borrarFavorito:hover {
+    cursor: pointer;
+    color: red;
+}
+
+
 .botonEliminarFavorito{
     display: flex;
     justify-content: center;
@@ -2223,24 +2285,51 @@ justify-content: space-between;
     cursor: pointer;
     background-color: #161c26;
 }
-.TituloFavoritos{
-    font-size: 6vh;
-    margin-bottom: 3vh;
+.tituloFavoritos{
+    font-size: vh;
+    color: #161c26 !important;
 }
+
 .GridPublic{
+    width: 95%;
+    margin: 5vh auto;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    border: 2px solid black;
-    flex-wrap: wrap;
+    height: 30vh;
+    /*flex-wrap: wrap;*/
+
 }
+
+.portadaFavoritos{
+    width: 100%;
+    height: 40vh;
+    background-position: center;
+}
+
+
 .tarjetaFavoritos{
     display: flex;
     background-color: #c9f2e7;
     width: 49%;
+    min-height: 20vh;
     margin-bottom: 2.5vh;
+    border-radius: 2vh;
+    overflow: hidden;
 }
 
+.pagFavTit{
+    text-align: center;
+    margin-top: -5.5vh;
+    color: #161c26 !important;
+    font-size: 3rem;
+    z-index: 1;
+}
+
+
+.favoritos-categoria{
+    font-size: 1rem;
+}
 
 .contenedor-inputs-interno-checkbox-configuraciones{
     display: flex;
@@ -2300,8 +2389,6 @@ justify-content: space-between;
     position: absolute;
     content:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18px' height='18px' fill='none' stroke-width='2px' stroke='white' stroke-linecap='round' viewBox='0 0 21 21'%3E%3Cpolyline points='5 10.75 8.5 14.25 16 6'%3E%3C/polyline%3E%3C/svg%3E");
     transform: scale(0);
-    /* border-radius: var(--checkbox-radius); */
-
 }
 
 .input-checkbox-configuraciones input[type=checkbox]:checked::before {
@@ -2320,6 +2407,11 @@ justify-content: space-between;
 }
   
   
+@media (max-width: 350px) {
+    .contenedor-reseña *{
+        font-size: .6rem !important;
+    }
+}
 @media (max-width: 530px) {
     .contenedor-de-comentarios {
         padding: 1vw;
@@ -2365,6 +2457,25 @@ justify-content: space-between;
     font-size: 0rem !important; 
 }
 
+    .contenedor-inputs-interno-checkbox-configuraciones > *{
+        margin: 1px 0;
+    }
+    .contenedor-inputs-interno-checkbox-configuraciones{
+        width: 100%;
+        height: 70%;
+        margin: 0;
+    }
+    .contenedor-selects{
+        height: 50%;
+        flex-direction: column;
+    }
+    .postear-guardar{
+        margin-right: 2.5rem;
+    }
+    .form-guardar{
+        justify-content: flex-end;
+
+    }
 .bm-burger-button{
     width: 20px;
     height: 20px;
@@ -2379,6 +2490,7 @@ justify-content: space-between;
         margin-top: 0.5vh;
         margin-left: 4vw;
     }
+
     .contenedorUsuarioHeader{
         display: none;
     }
@@ -2476,6 +2588,7 @@ justify-content: space-between;
         background-size: cover;
         width: 100%;
         height: 28vh;
+        cursor: pointer;
     }
     
     .tarjetaPublicaciones{
@@ -2550,6 +2663,13 @@ justify-content: space-between;
             text-align: center;
         }
 
+        #favoritos{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
         .imagen-de-categoria {
             width: 100%;
             height: 20vh;
@@ -2571,10 +2691,6 @@ justify-content: space-between;
         .contenedor-de-foto-de-resenia {
             width: 100%;
             height: 24vh;
-            /* height: 100% ; */
-            /* border: 1px solid black; */
-            /* height: 45vh; */
-            /* background: url('https://cdn.motor1.com/images/mgl/1X4x9/s1/2019-aston-martin-dbs-superleggera.jpg'); */
             background-position: center !important;
             background-size: cover !important;
             border-radius: 4px;
@@ -2582,10 +2698,6 @@ justify-content: space-between;
         }
 
         .reseniaSection-right {
-            /* background: blue; */
-            /* border: 2px solid black; */
-            /* overflow: auto; */
-            /* flex-grow: 1; */
             width: 100% ;
             display: flex;
             flex-direction: column;
@@ -2688,19 +2800,62 @@ justify-content: space-between;
         .dot-slider{
             margin: 0 0;
         }
-        
+
         .contenedorTituloDots h1 {
             font-size: 1.8rem;
             margin-top: 14vh;
             margin-bottom: 2vh;
-        }
-}
+  }
+          .GridPublic *{
+            font-size: 0.7rem !important;
+            display: flex;
+            width: 50%;
+          }
 
 @media (max-width: 768px) {
+    .contenedor-selects{
+        height: 30%;
+        margin-top: .6rem;
+    }
 
+    .GridPublic *{
+        font-size: 0.7rem !important;
+        display: flex;
+    }
+
+    .input-checkbox-configuraciones label{
+        font-size: 12px;
+    }
+    .input-select{
+        font-size: 12px;
+    }
+    .input-imagen{
+        font-size: 12px;
+    }
+    .input-textarea{
+        font-size: 12px;
+    }
+    .input-text{
+        font-size: 12px
+    }
+    .boton-comprobar,.boton-postear{
+        font-size: 12px;
+    }
+    .contenedor{
+        justify-content: flex-start;
+        height: 80vh;
+    }
+    .label-subtitulo-titulo{
+        font-size: 12px;
+    }
 /*INICIO*/
-.contenedorUsuarioHeader{
+.contenedorUsuarioHeader div.contenedorEnlaces{
     display: none;
+}
+
+.usuarioPic{
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 .gridInicio{
@@ -2767,3 +2922,91 @@ justify-content: space-between;
 
         }
 }
+
+.sk-folding-cube {
+    margin: 300px auto;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    -webkit-transform: rotateZ(45deg);
+            transform: rotateZ(45deg);
+  }
+  
+  .sk-folding-cube .sk-cube {
+    float: left;
+    width: 50%;
+    height: 50%;
+    position: relative;
+    -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+            transform: scale(1.1); 
+  }
+  .sk-folding-cube .sk-cube:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+    -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+            animation: sk-foldCubeAngle 2.4s infinite linear both;
+    -webkit-transform-origin: 100% 100%;
+        -ms-transform-origin: 100% 100%;
+            transform-origin: 100% 100%;
+  }
+  .sk-folding-cube .sk-cube2 {
+    -webkit-transform: scale(1.1) rotateZ(90deg);
+            transform: scale(1.1) rotateZ(90deg);
+  }
+  .sk-folding-cube .sk-cube3 {
+    -webkit-transform: scale(1.1) rotateZ(180deg);
+            transform: scale(1.1) rotateZ(180deg);
+  }
+  .sk-folding-cube .sk-cube4 {
+    -webkit-transform: scale(1.1) rotateZ(270deg);
+            transform: scale(1.1) rotateZ(270deg);
+  }
+  .sk-folding-cube .sk-cube2:before {
+    -webkit-animation-delay: 0.3s;
+            animation-delay: 0.3s;
+  }
+  .sk-folding-cube .sk-cube3:before {
+    -webkit-animation-delay: 0.6s;
+            animation-delay: 0.6s; 
+  }
+  .sk-folding-cube .sk-cube4:before {
+    -webkit-animation-delay: 0.9s;
+            animation-delay: 0.9s;
+  }
+  @-webkit-keyframes sk-foldCubeAngle {
+    0%, 10% {
+      -webkit-transform: perspective(140px) rotateX(-180deg);
+              transform: perspective(140px) rotateX(-180deg);
+      opacity: 0; 
+    } 25%, 75% {
+      -webkit-transform: perspective(140px) rotateX(0deg);
+              transform: perspective(140px) rotateX(0deg);
+      opacity: 1; 
+    } 90%, 100% {
+      -webkit-transform: perspective(140px) rotateY(180deg);
+              transform: perspective(140px) rotateY(180deg);
+      opacity: 0; 
+    } 
+  }
+  
+  @keyframes sk-foldCubeAngle {
+    0%, 10% {
+      -webkit-transform: perspective(140px) rotateX(-180deg);
+              transform: perspective(140px) rotateX(-180deg);
+      opacity: 0; 
+    } 25%, 75% {
+      -webkit-transform: perspective(140px) rotateX(0deg);
+              transform: perspective(140px) rotateX(0deg);
+      opacity: 1; 
+    } 90%, 100% {
+      -webkit-transform: perspective(140px) rotateY(180deg);
+              transform: perspective(140px) rotateY(180deg);
+      opacity: 0; 
+    }
+  }
