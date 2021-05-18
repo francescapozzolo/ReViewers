@@ -33,7 +33,6 @@ const Resenia = (props)=>{
                 }')`
             }}></div>
             <h3 className="titulo-de-resenia titulosAlt">{reseniaSeleccionada.titulo}</h3>
-
          </div>
 
          <section className="resenia-section">

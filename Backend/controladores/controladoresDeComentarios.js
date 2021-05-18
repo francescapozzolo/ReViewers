@@ -12,7 +12,6 @@ const controladoresDeComentarios = {
          res.json({success: true, respuesta: publicacionBuscada.comentarios})
 
       }catch (err){
-         console.log('caí en el catch del controlador de obtenerComentarios y el error es: ' + err)
          res.json({success: false, error: "Error: " + err})
       }
    },
@@ -32,11 +31,8 @@ const controladoresDeComentarios = {
          const reseniaAContestar = await Resenia.findOne({_id: idPublicacion})
          .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1, "mail":1 ,"apellido":1,"imagen":1 } } })
 
-         // const usuarioQueComento = await Usuario.findOne({_id: _id})
-         
          res.json({success: true, respuesta: reseniaAContestar})
       } catch (err) {
-         console.log('Caí en el catch del controlador cargarNuevoComentario y el error es: '+err)
          res.json({success: false, error: "Error: " + err})
       }
    },
@@ -55,7 +51,6 @@ const controladoresDeComentarios = {
 
          res.json({success: true, respuesta: publicacionModificada.comentarios})
       }catch (err){
-         console.log('Caí en el catch del controlador de borrarComentario y el error es: ' + err)
          res.json({success: false, error: "Error: " + err})
       }
    },
@@ -78,7 +73,6 @@ const controladoresDeComentarios = {
          
          res.json({success: true, respuesta: publicacionModificada.comentarios})
       }catch (err){
-         console.log('Caí en el catch del controlador de editarComentario y el error es: '+ err)
          res.json({success: false, error: "Error: " + err})
       }
 

@@ -1,4 +1,5 @@
 const Resenia = require('../modelos/Resenia')
+const Usuario = require('../modelos/Usuario')
 
 //posible modificacion en los parametros de findOne , findOneAndDelete , findOneAndUpdate
 
@@ -165,9 +166,12 @@ const controladorPublicaciones = {
             const idPublicacion = req.params.id
             const {_id} = req.user
             var usuarioYaGuardoPublicacion;
-        
-            const publicacionBuscada = await Resenia.findOne({_id: idPublicacion})
             
+            const publicacionBuscada = await Resenia.findOne({_id: idPublicacion})
+            const usuarioQueGuardo = await Usuario.findOne({_id: _id})
+            console.log(publicacionBuscada)
+
+
             if(publicacionBuscada.usuariosFav.indexOf(_id) === -1){
                 publicacionGuardada = await Resenia.findOneAndUpdate(
                     {_id: idPublicacion},
@@ -182,6 +186,20 @@ const controladorPublicaciones = {
                     {new: true}
                 )
                 usuarioYaGuardoPublicacion = false
+            }
+
+            if(usuarioQueGuardo.favoritos.indexOf(publicacionBuscada._id) === -1){
+                usuarioQueGuardoPublicacion = await Usuario.findOneAndUpdate(
+                    {_id: _id},
+                    {$push: {favoritos: publicacionBuscada._id}}, 
+                    {new: true}
+                ) 
+            }else {
+                usuarioQueGuardoPublicacion = await Usuario.findOneAndUpdate(
+                    {_id: _id},
+                    {$pull: {favoritos: publicacionBuscada._id}}, 
+                    {new: true}
+                )
             }
 
             res.json({success:true, usuarioYaGuardoPublicacion, totalDeFavs: publicacionGuardada.usuariosFav.length})
@@ -213,6 +231,18 @@ const controladorPublicaciones = {
         }
     },
 
+    publicacionesGuardadas: async(req, res)=>{
+        try {
+            const {_id} = req.user 
+            const usuarioLogeado = await Usuario.findOne({_id: _id})
+            .populate("favoritos")
+
+            res.json({success:true, publicacionesGuardadas: usuarioLogeado.favoritos})
+        }catch (err){
+            console.log(err)
+            res.json({respuesta: 'Parece que algo salió mal :v', error: err})
+        }
+    }
 }
 
 module.exports = controladorPublicaciones

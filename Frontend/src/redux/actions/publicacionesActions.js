@@ -77,10 +77,8 @@ const publicacionesActions={
             // return respuesta.data || Podría retornar la respuesta, pero no veo para que podria servir.
         }
     },
-
     publicacionFueGuardada: (idPublicacion, token)=>{
-        return async(dispatch, getState) => {
-
+        return async(dispatch, getState) => {            
             const respuesta = await axios.get("http://localhost:4000/api/publicacion/fueGuardada/"+idPublicacion  ,{
                 headers: {
                     'Authorization': 'Bearer ' + token
@@ -122,7 +120,20 @@ const publicacionesActions={
             })
             return respuesta.data.respuesta
         }
-    }
+    }, 
+    obtenerFavoritos: ()=>{
+        return async(dispatch, getState)=>{
+            const token = localStorage.getItem("token")
+            console.log(token)
+
+            const respuesta = await axios.get("http://localhost:4000/api/usuario/publicacionesGuardadas",{
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            })
+            return respuesta.data
+        }
+    },
 
 
 }

@@ -2,6 +2,7 @@ const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const Usuario = require('../modelos/Usuario')
+const Resenia = require('../modelos/Resenia')
 
 const controladoresDeUsuario = {
 
@@ -185,10 +186,10 @@ const controladoresDeUsuario = {
       } catch {
          error = "Error interno del servidor, intente mas tarde"
       }
-
-      
+ 
    }
    
+
 }
 
 module.exports = controladoresDeUsuario
