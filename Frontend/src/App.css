@@ -2186,7 +2186,7 @@ div > h2.titulosAlt,h3.titulosAlt{
 }
 
 .icono-borrarFavorito {
-    font-size: 50px;
+    font-size: 30px;
     transition: all .2s ease;
 }
 
@@ -2210,23 +2210,51 @@ div > h2.titulosAlt,h3.titulosAlt{
     cursor: pointer;
     background-color: #161c26;
 }
-.TituloFavoritos{
-    font-size: 6vh;
-    margin-bottom: 3vh;
+.tituloFavoritos{
+    font-size: vh;
+    color: #161c26 !important;
 }
+
 .GridPublic{
+    width: 95%;
+    margin: 5vh auto;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    flex-wrap: wrap;
+    height: 30vh;
+    /*flex-wrap: wrap;*/
+
 }
+
+.portadaFavoritos{
+    width: 100%;
+    height: 40vh;
+    background-position: center;
+}
+
+
 .tarjetaFavoritos{
     display: flex;
     background-color: #c9f2e7;
     width: 49%;
+    min-height: 20vh;
     margin-bottom: 2.5vh;
+    border-radius: 2vh;
+    overflow: hidden;
 }
 
+.pagFavTit{
+    text-align: center;
+    margin-top: -5.5vh;
+    color: #161c26 !important;
+    font-size: 3rem;
+    z-index: 1;
+}
+
+
+.favoritos-categoria{
+    font-size: 1rem;
+}
 
 .contenedor-inputs-interno-checkbox-configuraciones{
     display: flex;
@@ -2509,6 +2537,13 @@ div > h2.titulosAlt,h3.titulosAlt{
             text-align: center;
         }
 
+        #favoritos{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
         .imagen-de-categoria {
             width: 100%;
             height: 20vh;
@@ -2637,12 +2672,22 @@ div > h2.titulosAlt,h3.titulosAlt{
         .dot-slider{
             margin: 0 0;
         }
+        .GridPublic *{
+            font-size: 0.7rem !important;
+            display: flex;
+            width: 50%;
+        }
 }
 
 @media (max-width: 768px) {
     .contenedor-selects{
         height: 30%;
         margin-top: .6rem;
+    }
+
+    .GridPublic *{
+        font-size: 0.7rem !important;
+        display: flex;
     }
 
     .input-checkbox-configuraciones label{

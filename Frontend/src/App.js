@@ -23,7 +23,6 @@ class App extends React.Component {
 
 
   render(){
-
     if(!this.props.usuarioLogeado && localStorage.getItem('token')) {
       const respuesta = this.props.iniciarSesionLS()
       if(!respuesta ){

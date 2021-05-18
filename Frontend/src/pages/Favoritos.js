@@ -33,21 +33,27 @@ const Favoritos =(props)=>{
             return publicacion._id !== idPublicacion
         }))
         props.guardarPublicacion(idPublicacion, token)
+
     }
 
+
     return(
-            <div className="contenedor-tituloDeResenia">
-                <h1 className="TituloFavoritos titulosAlt">Aqui se muestran tus favoritos!</h1>
-                <div className="GridPublic">
-                    {todasLasPublicaciones.map((publicacion,index) => {
-                        return(
-                            <div className="tarjetaFavoritos" key={index*2}>
+        <main id="favoritos">
+            <div className="imagen-de-categoria" style={{backgroundImage: "url('/assets/caratulas/bgTodasPublicaciones.jpg')"}}></div>
+            <h1 className="tituloFavoritos titulosAlt pagFavTit" >Aqui se muestran tus favoritos!</h1>
+            
+            
+            <div className="GridPublic">
+                {todasLasPublicaciones.map((publicacion,index) => {
+                    return(
+                        <div className="tarjetaFavoritos" key={index*2}>
                                 {/* <Link to={`/publicacion/${publicacion._id}`}> */}
                                     <div className="contenedorLink">
                                             <div className="bgPublicacion" style={{backgroundImage: `url(${publicacion.imagen})`}}></div>
                                     </div>
-                                    <div className="contenidoPublicacion">
-                                        <h1 className="favoritos-titulo titulosAlt">{publicacion.titulo}</h1>
+                                    <div className="contenidoPublicacion ">
+                                        <h2 className="favoritos-titulo titulosAlt">{publicacion.titulo}</h2>
+
                                         {/* <p className="descripcion texto">{publicacion.descripcion.slice(0,200)}</p> */}
                                         <div className="contenedorBotonesFavoritos">
                                             <h2 className="favoritos-categoria titulosAlt" >Categoria: {publicacion.categoria}</h2>
@@ -60,7 +66,8 @@ const Favoritos =(props)=>{
                         )
                     })}
                 </div>
-            </div>
+            </main>
+
     )
 }
 
@@ -68,7 +75,6 @@ const mapDispatchToProps = {
     obtenerFavoritos: publicacionesActions.obtenerFavoritos,
     guardarPublicacion: publicacionesActions.guardarPublicacion
 }
-
 
 
 export default connect (null , mapDispatchToProps)(Favoritos)

@@ -14,6 +14,7 @@ const publicacionReducer = (state = initialState, action) => {
       }
     break
       
+
     case 'CARGAR_COMENTARIO':
       const publicacionModificada = state.todasLasPublicaciones.find(publicacion => publicacion._id ===  action.payload._id)
       return {
@@ -21,7 +22,6 @@ const publicacionReducer = (state = initialState, action) => {
         todasLasPublicaciones: state.todasLasPublicaciones.map(publicacion => publicacion._id === publicacionModificada._id ? publicacionModificada: publicacion) 
       }
     break
-
 
     default:
       return state;
