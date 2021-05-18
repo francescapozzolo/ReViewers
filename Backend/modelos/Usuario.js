@@ -8,7 +8,7 @@ const usuarioSchema = new mongoose.Schema({
     imagen: {type: String, required: true},
     intereses: [{type: String, required: true}],
     rol: {type: String, required:true, default: "lector"},
-    favoritos: [{type: mongoose.Types.ObjectId, ref: 'resenia'}],
+    favoritos: [{type: mongoose.Types.ObjectId, ref: 'review'}],
     seguidores: [{type: mongoose.Types.ObjectId, ref: 'user'}],
     usuarioConfirmado: {type: Boolean, default: false},
     usuarioGoogle:{type:Boolean, default:false}

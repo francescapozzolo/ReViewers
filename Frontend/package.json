@@ -57,6 +57,7 @@
   },
   "devDependencies": {
     "@iconify-icons/bi": "^1.1.5",
+    "@iconify-icons/bpmn": "^1.1.0",
     "@iconify-icons/carbon": "^1.1.3",
     "@iconify-icons/clarity": "^1.1.0",
     "@iconify-icons/eva": "^1.1.0",

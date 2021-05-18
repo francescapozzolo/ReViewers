@@ -16,6 +16,10 @@ router.route('/usuarios')
 router.route('/usuarios/registrarse')
 .post(validarRegistro, controladoresDeUsuarios.registrarUsuario )
 
+router.route('/usuario/publicacionesGuardadas')
+.get( passport.authenticate('jwt', {session:false}), controladoresDePublicaciones.publicacionesGuardadas)
+
+
 //controlador usuarios por id
 router.route('/usuarios/:id')
 .get(controladoresDeUsuarios.obtenerUnUsuario)
@@ -61,6 +65,8 @@ router.route('/publicacion/guardarPublicacion/:id')
 router.route('/publicacion/fueGuardada/:id')
 .get( passport.authenticate('jwt', {session:false}), controladoresDePublicaciones.publicacionFueGuardada)
 
+router.route('/publicacion/quitarDeGuardados/:id')
+.delete(passport.authenticate('jwt', {session:false}, controladoresDePublicaciones.quitarPublicacionDeGuardados))
 
 
 

@@ -7,11 +7,13 @@ import { useParams } from 'react-router-dom';
 const Publicaciones = (props)=>{
     const [publicaciones, setPublicaciones] = useState([])
     const [publicacionesPorCategoria, setPublicacionesPorCategoria] = useState([])
+
     const {categoria} = useParams("")
     const [portada, setPortada] = useState(`url('/assets/caratulas/${categoria === 'all' ? 'bgTodasPublicaciones' : categoria}.jpg')`)
     const categoriaCapitalized = categoria === "all" ? "Todas las publicaciones" : categoria.charAt(0).toUpperCase() + categoria.slice(1)
 
     useEffect(()=>{
+
         window.scroll({
             top: 0,
             left: 0,
@@ -40,8 +42,6 @@ const Publicaciones = (props)=>{
         console.log(publicaciones)
     },[categoria])
 
-
-
     const filtrarPublicaciones = async(valorDelFiltro)=>{
         categoria === "all" 
             ?  setPublicaciones(publicacionesPorCategoria.filter( publicacion => {
@@ -68,7 +68,12 @@ const Publicaciones = (props)=>{
             </div>
 
             <div className="input-filtrador-container">
-                <input type="text" className="input-filtrador" placeholder="Busca tus temas favoritos!"
+                <input type="text" className="input-filtrador" 
+                placeholder={ categoria === "all" ? "Busca publicaciones por tags! Ej: Gaming, Futbol, etc" : 
+                              categoria === "deportes" ? "Busca publicaciones por tags! Ej: Futbol, Formula, etc" : 
+                              categoria === "gastronomia" ? "Busca publicaciones por tags! Ej: Dulce, Bebida, etc" :
+                              categoria === "tecnologia" ? "Busca publicaciones por tags! Ej: Robot, Gaming, etc" : 
+                              categoria === "entretenimiento" && "Busca publicaciones por tags! Ej: Peliculas, Gaming, etc"  }
                     onChange={(e)=> filtrarPublicaciones(e.target.value)} />
             </div>
             
