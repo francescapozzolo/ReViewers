@@ -33,7 +33,8 @@ const validarRegistro = (req, res, next) => {
         .alphanum()
         .trim()
         .required()
-        .min(5).message("La contraseña debe contener al menos 5 letras")
+        .min(5).message("La contraseña debe contener al menos 5 letras"),
+        usuarioGoogle: joi.boolean()
     })
     const validacion = schema.validate(req.body, {abortEarly: false});
 

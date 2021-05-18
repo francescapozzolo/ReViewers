@@ -562,36 +562,7 @@
         /* justify-content: center; */
         align-items: center;
     }
-    
-    .contenedor-selects{
-        width: 90%;
-        height: 20%;
-        display: flex;
-        align-items: center;
-        /* border: solid red; */
-        justify-content: space-between;
-        margin-top: 1.4rem;
-    }
-    .input-select{
-        width: 45%;
-        height: 100%;
-        border:none;
-        outline: none;
-        border-radius: 5px;
-        background-color: #e8f0fe;
-        padding: 10px;
-        
-        /* border:1px solid #d9d9d9; */
-        overflow: hidden;
-        position:relative;
-        background-repeat: no-repeat;
-        background-position: right center;
-        background-size: contain;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        -o-appearance: none;
-        appearance: none;
-    }
+
     
         
     
@@ -624,7 +595,7 @@
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
-        padding: 5px !important;
+        padding: 5px 5px 5px 10px !important;
         background-color: #e8f0fe !important;
         /* text-align: center; */
     }
@@ -1123,11 +1094,11 @@ justify-content: space-between;
 
 .contenedor-selects{
     width: 90%;
-    height: 20%;
+    height: 25%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 1.4rem;
+    margin-top: 1.2rem;
 }
 .input-select{
     width: 49%;
@@ -1141,7 +1112,7 @@ justify-content: space-between;
     font-family: 'Montserrat', sans-serif;
 
     /* border:1px solid #d9d9d9; */
-    overflow: hidden;
+    /* overflow: hidden;
     position:relative;
     background-repeat: no-repeat;
     background-position: right center;
@@ -1149,7 +1120,7 @@ justify-content: space-between;
     -webkit-appearance: none;
     -moz-appearance: none;
     -o-appearance: none;
-    appearance: none;
+    appearance: none; */
     
 }
 
@@ -1770,10 +1741,6 @@ justify-content: space-between;
 
 .contenedor-de-foto-de-resenia {
     width: 30%;
-    /* height: 100% ; */
-    /* border: 1px solid black; */
-    /* height: 45vh; */
-    /* background: url('https://cdn.motor1.com/images/mgl/1X4x9/s1/2019-aston-martin-dbs-superleggera.jpg'); */
     background-position: center !important;
     background-size: cover !important;
     border-radius: 10px;
@@ -1781,10 +1748,6 @@ justify-content: space-between;
 
 
 .reseniaSection-right {
-    /* background: blue; */
-    /* border: 2px solid black; */
-    /* overflow: auto; */
-    /* flex-grow: 1; */
     width: 100% ;
     display: flex;
     flex-direction: column;
@@ -2110,36 +2073,60 @@ justify-content: space-between;
 
   .sideBar-icon{
       margin-right: 10px;
+    }
+    .sideBar-icon-toggle{
+      margin-right: 10px;
+      margin-left: 20px;  
   }
-
-
-  .SideHeader,.SideMain,.SideFooter *{
+  .resenia-toggle > *{
+    color: white;
+    margin: 5px 0;
+  }
+  .resenia-toggle{
+      display: flex;
+      flex-direction: column;
+  }
+  .SideHeader,.SideMain,.SideFooter > *{
     color: white;
   }
 
-  .SideHeader,.SideFooter{
+  .SideFooter{
       width: 100%;
       height: 20%;
       display: flex !important;
     }
-    .SideMain > a{
+    .SideHeader{
+        width: 100%;
+        height: 10%;
+        display: flex !important;
+    }
+    .SideMain > a, .SideMain > div{
       color:white ;
       margin: .5rem 1rem;
+      text-align: left !important;
     }
     .SideMain{
         width: 100%;
-        height: 60%;
+        height: 70%;
         display: flex !important;
         flex-direction: column;
     }
     .SideFooter > *{
         margin: .5rem 0;
     }
+    .SideFooter > div.inicioRegistroSide > div > p{
+        color: white;
+    }
     .SideFooter{
         flex-direction: column;
     }
-
-
+    .inicioRegistroSide{
+        width: 100%;
+    }
+    .inicioRegistroSide > div{
+        align-items: flex-start;
+        margin-bottom: 1rem;
+    }
   .formulario-configuraciones{
         width: 100%;
         height: 100%;
@@ -2290,8 +2277,6 @@ justify-content: space-between;
     position: absolute;
     content:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18px' height='18px' fill='none' stroke-width='2px' stroke='white' stroke-linecap='round' viewBox='0 0 21 21'%3E%3Cpolyline points='5 10.75 8.5 14.25 16 6'%3E%3C/polyline%3E%3C/svg%3E");
     transform: scale(0);
-    /* border-radius: var(--checkbox-radius); */
-
 }
 
 .input-checkbox-configuraciones input[type=checkbox]:checked::before {
@@ -2310,7 +2295,31 @@ justify-content: space-between;
 }
   
   
+@media (max-width: 350px) {
+    .contenedor-reseña *{
+        font-size: .6rem !important;
+    }
+}
 @media (max-width: 530px) {
+    .contenedor-inputs-interno-checkbox-configuraciones > *{
+        margin: 1px 0;
+    }
+    .contenedor-inputs-interno-checkbox-configuraciones{
+        width: 100%;
+        height: 70%;
+        margin: 0;
+    }
+    .contenedor-selects{
+        height: 50%;
+        flex-direction: column;
+    }
+    .postear-guardar{
+        margin-right: 2.5rem;
+    }
+    .form-guardar{
+        justify-content: flex-end;
+
+    }
 .bm-burger-button{
     width: 20px;
     height: 20px;
@@ -2324,6 +2333,7 @@ justify-content: space-between;
         height: 1.9rem;
         margin-top: 2vh;
     }
+
     .contenedorUsuarioHeader{
         display: none;
     }
@@ -2510,10 +2520,6 @@ justify-content: space-between;
         .contenedor-de-foto-de-resenia {
             width: 100%;
             height: 24vh;
-            /* height: 100% ; */
-            /* border: 1px solid black; */
-            /* height: 45vh; */
-            /* background: url('https://cdn.motor1.com/images/mgl/1X4x9/s1/2019-aston-martin-dbs-superleggera.jpg'); */
             background-position: center !important;
             background-size: cover !important;
             border-radius: 4px;
@@ -2521,10 +2527,6 @@ justify-content: space-between;
         }
 
         .reseniaSection-right {
-            /* background: blue; */
-            /* border: 2px solid black; */
-            /* overflow: auto; */
-            /* flex-grow: 1; */
             width: 100% ;
             display: flex;
             flex-direction: column;
@@ -2628,10 +2630,44 @@ justify-content: space-between;
 }
 
 @media (max-width: 768px) {
+    .contenedor-selects{
+        height: 30%;
+        margin-top: .6rem;
+    }
 
+    .input-checkbox-configuraciones label{
+        font-size: 12px;
+    }
+    .input-select{
+        font-size: 12px;
+    }
+    .input-imagen{
+        font-size: 12px;
+    }
+    .input-textarea{
+        font-size: 12px;
+    }
+    .input-text{
+        font-size: 12px
+    }
+    .boton-comprobar,.boton-postear{
+        font-size: 12px;
+    }
+    .contenedor{
+        justify-content: flex-start;
+        height: 80vh;
+    }
+    .label-subtitulo-titulo{
+        font-size: 12px;
+    }
 /*INICIO*/
-.contenedorUsuarioHeader{
+.contenedorUsuarioHeader div.contenedorEnlaces{
     display: none;
+}
+
+.usuarioPic{
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 .gridInicio{
@@ -2698,3 +2734,91 @@ justify-content: space-between;
 
         }
 }
+
+.sk-folding-cube {
+    margin: 300px auto;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    -webkit-transform: rotateZ(45deg);
+            transform: rotateZ(45deg);
+  }
+  
+  .sk-folding-cube .sk-cube {
+    float: left;
+    width: 50%;
+    height: 50%;
+    position: relative;
+    -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+            transform: scale(1.1); 
+  }
+  .sk-folding-cube .sk-cube:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+    -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+            animation: sk-foldCubeAngle 2.4s infinite linear both;
+    -webkit-transform-origin: 100% 100%;
+        -ms-transform-origin: 100% 100%;
+            transform-origin: 100% 100%;
+  }
+  .sk-folding-cube .sk-cube2 {
+    -webkit-transform: scale(1.1) rotateZ(90deg);
+            transform: scale(1.1) rotateZ(90deg);
+  }
+  .sk-folding-cube .sk-cube3 {
+    -webkit-transform: scale(1.1) rotateZ(180deg);
+            transform: scale(1.1) rotateZ(180deg);
+  }
+  .sk-folding-cube .sk-cube4 {
+    -webkit-transform: scale(1.1) rotateZ(270deg);
+            transform: scale(1.1) rotateZ(270deg);
+  }
+  .sk-folding-cube .sk-cube2:before {
+    -webkit-animation-delay: 0.3s;
+            animation-delay: 0.3s;
+  }
+  .sk-folding-cube .sk-cube3:before {
+    -webkit-animation-delay: 0.6s;
+            animation-delay: 0.6s; 
+  }
+  .sk-folding-cube .sk-cube4:before {
+    -webkit-animation-delay: 0.9s;
+            animation-delay: 0.9s;
+  }
+  @-webkit-keyframes sk-foldCubeAngle {
+    0%, 10% {
+      -webkit-transform: perspective(140px) rotateX(-180deg);
+              transform: perspective(140px) rotateX(-180deg);
+      opacity: 0; 
+    } 25%, 75% {
+      -webkit-transform: perspective(140px) rotateX(0deg);
+              transform: perspective(140px) rotateX(0deg);
+      opacity: 1; 
+    } 90%, 100% {
+      -webkit-transform: perspective(140px) rotateY(180deg);
+              transform: perspective(140px) rotateY(180deg);
+      opacity: 0; 
+    } 
+  }
+  
+  @keyframes sk-foldCubeAngle {
+    0%, 10% {
+      -webkit-transform: perspective(140px) rotateX(-180deg);
+              transform: perspective(140px) rotateX(-180deg);
+      opacity: 0; 
+    } 25%, 75% {
+      -webkit-transform: perspective(140px) rotateX(0deg);
+              transform: perspective(140px) rotateX(0deg);
+      opacity: 1; 
+    } 90%, 100% {
+      -webkit-transform: perspective(140px) rotateY(180deg);
+              transform: perspective(140px) rotateY(180deg);
+      opacity: 0; 
+    }
+  }

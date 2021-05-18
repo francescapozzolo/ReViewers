@@ -15,8 +15,11 @@ const Favoritos =(props)=>{
     const [publicacionFaveada, setPublicacionFaveada] = useState(false)
     const token = localStorage.getItem("token")
 
-
     useEffect(()=>{
+        window.scroll({
+            top: 0,
+            left: 0,
+          })
         console.log(props)
         const fetch = async()=>{
             const respuesta = await props.obtenerFavoritos()
@@ -25,16 +28,12 @@ const Favoritos =(props)=>{
         fetch()
     },[])
 
-
     const quitarPublicacion = (idPublicacion, token)=>{
         setTodasPublicaciones(todasLasPublicaciones.filter(publicacion =>{
             return publicacion._id !== idPublicacion
         }))
         props.guardarPublicacion(idPublicacion, token)
-
-
     }
-
 
     return(
             <div className="contenedor-tituloDeResenia">
@@ -69,6 +68,7 @@ const mapDispatchToProps = {
     obtenerFavoritos: publicacionesActions.obtenerFavoritos,
     guardarPublicacion: publicacionesActions.guardarPublicacion
 }
+
 
 
 export default connect (null , mapDispatchToProps)(Favoritos)
