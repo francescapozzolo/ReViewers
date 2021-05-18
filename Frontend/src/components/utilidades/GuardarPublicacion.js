@@ -13,7 +13,6 @@ const GuardarPublicacion = (props)=>{
 
     useEffect(()=>{
         const fetch = async ()=>{
-
             const respuesta = await props.publicacionFueGuardada(props.reseniaSeleccionada._id, props.usuarioLogeado.token)
             setPublicacionFaveada(respuesta.data.usuarioYaGuardoPublicacion)
         }
