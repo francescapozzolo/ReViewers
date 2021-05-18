@@ -2017,22 +2017,39 @@ justify-content: space-between;
     margin: 0px auto;
 }
 
+.contenedor-noHayMatch {
+    /* background: red; */
+    /* display: flex; */
+    /* flex-direction: column; */
+    margin-top: 3vh;
+}
 
+.contenedor-texto-noHayMatch {
+    background: rgb(23,29,39);
+    text-align: center;
+    padding: 4vh;
+    border-radius: 10px;
+}
 
+/* .contenedor-texto-noHayMatch2 {
+    margin-bottom: 4vh;
+    margin-top: 5px;
+    background: rgb(62, 81, 114);
+    text-align: center;
+    padding: 4vh;
+    border-radius: 10px;
+} */
 
+.h3-noHayMatch {
+    color: white;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+.p-noHayMatch {
+    color: white;
+    /* font-family: 'Bebas Neue', cursive; */
+    /* font-family: 'Fjalla One', sans-serif; */
+    font-family: "montserrat"
+}
 
 
 .bm-burger-button {

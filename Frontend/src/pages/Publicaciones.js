@@ -38,8 +38,9 @@ const Publicaciones = (props)=>{
             }
         
         // eslint-disable-next-line
-        console.log(publicaciones)
     },[categoria])
+    // console.log(publicaciones)
+    // console.log(publicacionesPorCategoria)
 
 
     
@@ -79,11 +80,28 @@ const Publicaciones = (props)=>{
             </div>
             
             <div className="contenedorPublic">
-                {publicaciones && publicaciones.map((publicacion , index)=>{
-                    return(
-                        <PublicacionIndividual key={index} publicacion={publicacion}/>
-                    )
-                })}
+                {publicaciones && 
+                    publicaciones.length > 0 
+                    ? publicaciones.map((publicacion , index)=>{
+                            return<PublicacionIndividual key={index} publicacion={publicacion}/>})
+                    :   
+                        <div className="contenedor-noHayMatch">
+                            <div className="contenedor-texto-noHayMatch">
+                                <h3 className="titulosAlt h3-noHayMatch" >Lo sentimos. No hay publicaciones que incluyan esos tags</h3>
+                                <p className="p-noHayMatch">Sin embargo puedes ver algunas de estas!</p>
+                            </div>
+                            {/* <div className="contenedor-texto-noHayMatch2">
+                                <h3 className="titulosAlt h3-noHayMatch" >Lo sentimos. No hay publicaciones que incluyan esos tags</h3>
+                                <p className="p-noHayMatch">Pero puedes ser el primero en crear una!</p>
+                            </div> */}
+                            
+
+                            {/* <div> */}
+                                {publicacionesPorCategoria.map((publicacion , index)=>{
+                                    return<PublicacionIndividual key={index} publicacion={publicacion}/>})}
+                            {/* </div> */}
+                        </div> 
+                }
             </div>
 
         </>
