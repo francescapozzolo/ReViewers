@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react"
 import {connect} from "react-redux"
 import publicacionesActions from '../redux/actions/publicacionesActions'
-// import { Icon, InlineIcon } from '@iconify/react';
 import { Icon } from '@iconify/react';
-// import bookmarkStar from '@iconify-icons/bi/bookmark-star';
-// import { InlineIcon } from '@iconify/react';
-// import bookmarkStarFill from '@iconify-icons/bi/bookmark-star-fill';
 import trashIcon from '@iconify-icons/bi/trash';
 import noteEditLine from '@iconify-icons/clarity/note-edit-line';
 import {FiSend} from 'react-icons/fi'

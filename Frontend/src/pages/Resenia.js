@@ -5,13 +5,18 @@ import publicacionesActions from '../redux/actions/publicacionesActions'
 import Comentarios from '../components/Comentarios'
 import GuardarPublicacion from '../components/utilidades/GuardarPublicacion'
 
+
 const Resenia = (props)=>{
 
    const [reseniaSeleccionada, setReseniaSeleccionada] = useState({})
    useEffect(()=>{
+      window.scroll({
+         top: 0,
+         left: 0,
+       })
       const fetch = async ()=>{
          const idResenia = props.match.params.id
-         if(props.todasLasPublicaciones.length > 0){
+         if(props.todasLasPublicaciones.length !== 0){
          setReseniaSeleccionada(props.todasLasPublicaciones.find(publicacion => JSON.stringify(publicacion._id) === JSON.stringify(idResenia)))
       } else {
          const respuesta = await props.obtenerUnaPublicacion(idResenia)

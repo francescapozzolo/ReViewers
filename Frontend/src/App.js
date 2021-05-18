@@ -1,8 +1,8 @@
 
 import React from 'react';
 import './App.css';
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
+
 import { connect } from 'react-redux';
 import Footer from './components/Footer';
 import Inicio from './pages/Inicio';
@@ -19,9 +19,6 @@ import Configuraciones from './pages/Configuraciones';
 import SideBar from './components/SideBar'
 
 
-
-
-
 class App extends React.Component {
 
 
@@ -29,12 +26,15 @@ class App extends React.Component {
 
     if(!this.props.usuarioLogeado && localStorage.getItem('token')) {
       const respuesta = this.props.iniciarSesionLS()
-      if(!respuesta){
-        //aca va loader
-        return null
+      if(!respuesta ){
+        return <div class="sk-folding-cube">
+        <div class="sk-cube1 sk-cube"></div>
+        <div class="sk-cube2 sk-cube"></div>
+        <div class="sk-cube4 sk-cube"></div>
+        <div class="sk-cube3 sk-cube"></div>
+      </div>
       }
     }     
-
     return(
       <BrowserRouter id="outer-container">
         <SideBar/>
@@ -79,4 +79,3 @@ const mapDispatchToProps = {
 }
 
 export default connect (mapStateToProps, mapDispatchToProps)(App)
-// export default App

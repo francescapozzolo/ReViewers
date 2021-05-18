@@ -139,11 +139,12 @@ const controladorPublicaciones = {
             const {_id} = req.user
             var usuarioYaValoro;
 
+
             const publicacionBuscada = await Resenia.findOne({_id: idPublicacion})
-            console.log(JSON.stringify(publicacionBuscada.valoraciones[0].idUsuario) == JSON.stringify(_id))
+            // console.log(JSON.stringify(publicacionBuscada.valoraciones[0].idUsuario) === JSON.stringify(_id))
 
             const usuarioYahabiaValorado = publicacionBuscada.valoraciones.find(elemento => {
-               return JSON.stringify(elemento.idUsuario) == JSON.stringify(_id)}
+               return JSON.stringify(elemento.idUsuario) === JSON.stringify(_id)}
             )
 
             if (usuarioYahabiaValorado){

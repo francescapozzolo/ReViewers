@@ -33,7 +33,7 @@ const controladoresDeComentarios = {
          .populate({ path:"comentarios", populate:{ path:"usuarioId", select:{ "nombre":1, "mail":1 ,"apellido":1,"imagen":1 } } })
 
          // const usuarioQueComento = await Usuario.findOne({_id: _id})
-         
+
          res.json({success: true, respuesta: reseniaAContestar})
       } catch (err) {
          console.log('Caí en el catch del controlador cargarNuevoComentario y el error es: '+err)
