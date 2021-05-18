@@ -20,7 +20,7 @@ if(process.env.NODE_ENV === 'production'){
     app.get(`*`, (req, res) => {
         res.sendFile(path.join(__dirname+"/client/build/index.html"))
     })
-    console.log(procces.env.NODE_ENV)
+    console.log(process.env.NODE_ENV)
 }
 const port = process.env.PORT || 4000
 const host = process.env.HOST || '0.0.0.0'
