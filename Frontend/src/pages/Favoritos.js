@@ -5,6 +5,7 @@ import CardFavorito from '../components/utilidades/CardFavorito'
 import publicacionesActions from '../redux/actions/publicacionesActions'
 import { Icon, InlineIcon } from '@iconify/react';
 import trashIcon from '@iconify-icons/bpmn/trash';
+import {Link} from 'react-router-dom'
 
 
 const Favoritos =(props)=>{
@@ -42,18 +43,20 @@ const Favoritos =(props)=>{
                     {todasLasPublicaciones.map((publicacion,index) => {
                         return(
                             <div className="tarjetaFavoritos" key={index*2}>
-                                <div className="contenedorLink">
-                                        <div className="bgPublicacion" style={{backgroundImage: `url(${publicacion.imagen})`}}></div>
-                                </div>
-                                <div className="contenidoPublicacion">
-                                    <h1 className="favoritos-titulo titulosAlt">{publicacion.titulo}</h1>
-                                    {/* <p className="descripcion texto">{publicacion.descripcion.slice(0,200)}</p> */}
-                                    <div className="contenedorBotonesFavoritos">
-                                        <h2 className="favoritos-categoria titulosAlt" >Categoria: {publicacion.categoria}</h2>
-                                        {/* <h2 className="botonEliminarFavorito" onClick={()=>quitarPublicacion(publicacion._id, token)}>eliminar</h2> */}
-                                        <Icon icon={trashIcon} onClick={()=>quitarPublicacion(publicacion._id, token)} className="icono-borrarFavorito" />
+                                {/* <Link to={`/publicacion/${publicacion._id}`}> */}
+                                    <div className="contenedorLink">
+                                            <div className="bgPublicacion" style={{backgroundImage: `url(${publicacion.imagen})`}}></div>
                                     </div>
-                                </div>
+                                    <div className="contenidoPublicacion">
+                                        <h1 className="favoritos-titulo titulosAlt">{publicacion.titulo}</h1>
+                                        {/* <p className="descripcion texto">{publicacion.descripcion.slice(0,200)}</p> */}
+                                        <div className="contenedorBotonesFavoritos">
+                                            <h2 className="favoritos-categoria titulosAlt" >Categoria: {publicacion.categoria}</h2>
+                                            {/* <h2 className="botonEliminarFavorito" onClick={()=>quitarPublicacion(publicacion._id, token)}>eliminar</h2> */}
+                                            <Icon icon={trashIcon} onClick={()=>quitarPublicacion(publicacion._id, token)} className="icono-borrarFavorito" />
+                                        </div>
+                                    </div>
+                                {/* </Link> */}
                             </div>
                         )
                     })}
