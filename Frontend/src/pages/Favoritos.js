@@ -46,12 +46,12 @@ const Favoritos =(props)=>{
                                         <div className="bgPublicacion" style={{backgroundImage: `url(${publicacion.imagen})`}}></div>
                                 </div>
                                 <div className="contenidoPublicacion">
-                                    <h1 style={{marginBottom:'1vh'}}>{publicacion.titulo}</h1>
-                                    <h2 style={{marginBottom:'1vh'}}>Categoria: {publicacion.categoria}</h2>
-                                    <p className="descripcion texto">{publicacion.descripcion.slice(0,200)}</p>
+                                    <h1 className="favoritos-titulo titulosAlt">{publicacion.titulo}</h1>
+                                    {/* <p className="descripcion texto">{publicacion.descripcion.slice(0,200)}</p> */}
                                     <div className="contenedorBotonesFavoritos">
-                                        <h2 className="botonEliminarFavorito" onClick={()=>quitarPublicacion(publicacion._id, token)}>eliminar</h2>
-                                        <Icon icon={trashIcon} className="" />
+                                        <h2 className="favoritos-categoria titulosAlt" >Categoria: {publicacion.categoria}</h2>
+                                        {/* <h2 className="botonEliminarFavorito" onClick={()=>quitarPublicacion(publicacion._id, token)}>eliminar</h2> */}
+                                        <Icon icon={trashIcon} onClick={()=>quitarPublicacion(publicacion._id, token)} className="icono-borrarFavorito" />
                                     </div>
                                 </div>
                             </div>

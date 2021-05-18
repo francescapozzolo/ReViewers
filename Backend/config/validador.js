@@ -38,7 +38,6 @@ const validarRegistro = (req, res, next) => {
     const validacion = schema.validate(req.body, {abortEarly: false});
 
     if(validacion.error) {
-        // console.log(validacion)
         return res.json({
             success: false,
             errores: validacion.error

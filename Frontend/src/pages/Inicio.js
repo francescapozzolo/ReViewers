@@ -52,6 +52,22 @@ class Inicio extends React.Component{
         }
       return array;
       }
+
+    // filtrarPublicaciones = async(valorDelFiltro)=>{
+    //     categoria === "all" 
+    //         ?  setPublicaciones(this.props.todasLasPublicaciones.filter( publicacion => {
+    //                return publicacion.tags.find(tag => tag.toLowerCase().trim().slice(0, valorDelFiltro.length) === valorDelFiltro.toLowerCase())
+    //         }))
+    //         :   setPublicaciones(publicaciones.filter( publicacion => {
+    //                 return publicacion.tags.find(tag => tag.toLowerCase().trim().slice(0, valorDelFiltro.trim().length) === valorDelFiltro.toLowerCase())
+    //         }))
+
+
+    //     if(valorDelFiltro.trim() === ''){
+    //         console.log('hola')
+    //         setPublicaciones(props.todasLasPublicaciones.filter(publicacion => publicacion.categoria === categoria))
+    //     }
+    // }
       
       
       render() {
@@ -79,6 +95,8 @@ class Inicio extends React.Component{
                 }
                     
                 </div>
+
+
                 <div className="gridInicio">
                     {
                     randomArray.slice(0, 10).map((publicacion, index)=>{

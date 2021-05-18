@@ -45,7 +45,6 @@ const Resenia = (props)=>{
                 }')`
             }}></div>
             <h3 className="titulo-de-resenia titulosAlt">{reseniaSeleccionada.titulo}</h3>
-
          </div>
 
          <section className="resenia-section">
@@ -66,7 +65,6 @@ const Resenia = (props)=>{
 
             {reseniaSeleccionada.usuariosFav && <GuardarPublicacion reseniaSeleccionada={reseniaSeleccionada} />}
 
-            {reseniaSeleccionada.usuariosFav && <GuardarPublicacion reseniaSeleccionada={reseniaSeleccionada} />}
             {/* <div> */}
                {/* <h1 className="titulo-comentarios titulosAlt" >Comentarios!</h1> */}
                {reseniaSeleccionada.comentarios && <Comentarios reseniaSeleccionada={reseniaSeleccionada} />}

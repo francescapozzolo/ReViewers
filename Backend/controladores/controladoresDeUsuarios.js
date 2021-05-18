@@ -2,6 +2,7 @@ const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const Usuario = require('../modelos/Usuario')
+const Resenia = require('../modelos/Resenia')
 
 const controladoresDeUsuario = {
 
@@ -185,21 +186,10 @@ const controladoresDeUsuario = {
       } catch {
          error = "Error interno del servidor, intente mas tarde"
       }
-
-   },
-
-   obtenerFavoritos: async(req , res)=>{
-      try{
-         const {_id} = req.user
-         console.log("soy req.user" , req.user)
-         const todosLosFavoritos = await Usuario.findOne({_id}).populate("favoritos")
-         console.log(todosLosFavoritos)
-         res.json({success: true , respuesta: todosLosFavoritos.favoritos})
-      }catch(error){
-         console.log("error obtenerFavoritos" , error)
-         res.json({success: false , respuesta: error})
-      }
+ 
    }
+   
+
 }
 
 module.exports = controladoresDeUsuario
