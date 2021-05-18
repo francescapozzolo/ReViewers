@@ -182,7 +182,7 @@ const controladorPublicaciones = {
             if(publicacionBuscada.usuariosFav.indexOf(_id) === -1){
                 publicacionGuardada = await Resenia.findOneAndUpdate(
                     {_id: idPublicacion},
-                    {$push: {usuariosFav: _id}}, 
+                    {$push: {usuariosFav: _id}},
                     {new: true}
                 ) 
                 usuarioYaGuardoPublicacion = true
@@ -206,6 +206,7 @@ const controladorPublicaciones = {
             const idPublicacion = req.params.id
             const {_id} = req.user
             var usuarioYaGuardoPublicacion;
+            console.log("publicacionFueGuardada" , _id)
 
             const publicacionBuscada = await Resenia.findOne({_id: idPublicacion})
             console.log(publicacionBuscada.usuariosFav)
@@ -223,8 +224,7 @@ const controladorPublicaciones = {
             console.log(err)
             res.json({respuesta: 'Parece que algo salió mal :v', error: err})
         }
-    },
-
+    }
 }
 
 module.exports = controladorPublicaciones

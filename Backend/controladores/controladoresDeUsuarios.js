@@ -38,7 +38,7 @@ const controladoresDeUsuario = {
       }
    },
 
-   editarUsuario: async(req,res) =>{
+   editarUsuario: async(req , res) =>{
       let usuario = req.user
       let error;
       let datos;
@@ -190,9 +190,20 @@ const controladoresDeUsuario = {
          error = "Error interno del servidor, intente mas tarde"
       }
 
-      
+   },
+
+   obtenerFavoritos: async(req , res)=>{
+      try{
+         const {_id} = req.user
+         console.log("soy req.user" , req.user)
+         const todosLosFavoritos = await Usuario.findOne({_id}).populate("favoritos")
+         console.log(todosLosFavoritos)
+         res.json({success: true , respuesta: todosLosFavoritos.favoritos})
+      }catch(error){
+         console.log("error obtenerFavoritos" , error)
+         res.json({success: false , respuesta: error})
+      }
    }
-   
 }
 
 module.exports = controladoresDeUsuario

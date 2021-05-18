@@ -133,8 +133,20 @@ const publicacionesActions={
             })
             return respuesta.data.respuesta
         }
-    }
+    },
 
-
+    obtenerFavoritos: ()=>{
+        return async(dispatch, getState)=>{
+            const token = localStorage.getItem("token")
+            console.log("soy token" , token)
+            const respuesta = await axios.get("http://localhost:4000/api/favoritos",{
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            })
+            console.log(respuesta.data)
+            return respuesta.data
+        }
+    },
 }
 export default publicacionesActions

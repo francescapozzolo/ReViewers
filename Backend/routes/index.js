@@ -73,6 +73,9 @@ router.route('/comentarios/:id')
 .put(controladoresDeComentarios.editarComentario)
 
 
+router.route('/favoritos')
+.get(passport.authenticate('jwt', {session:false}),controladoresDeUsuarios.obtenerFavoritos)
+
 
 
 module.exports = router 
