@@ -36,12 +36,22 @@ const PublicacionIndividual = (props) => {
       const toastLoguear = ()=>{
           toasts('error','Por favor inicia sesión o registrate para ver más','top-center',3500,true,true,true,'iniciaSesionPrimero',false)
       }
+
+
+      if(!props.publicacion){
+        return <div className="sk-folding-cube">
+        <div className="sk-cube1 sk-cube"></div>
+        <div className="sk-cube2 sk-cube"></div>
+        <div className="sk-cube4 sk-cube"></div>
+        <div className="sk-cube3 sk-cube"></div>
+      </div>
+    }
+
+
     return(
         <>
-        <Link to={`/publicacion/${_id}`}>
             <div className="tarjetaPublicaciones">
                 <div className="contenedorLink">
-
                     { props.usuarioLogeado ? <Link to={`/publicacion/${_id}`}>
                         <div className="bgPublicacion" style={{backgroundImage: `url(${imagen})`}}></div>
                     </Link>
@@ -54,10 +64,13 @@ const PublicacionIndividual = (props) => {
                             props.usuarioLogeado ?
                             <Link to={`/publicacion/${_id}`}>
                                 <h2 className="titulosAlt">{titulo}</h2>
+                                <h3 className="titulosAlt">{subtitulo}</h3>
                             </Link>
-                            :<h2 className="titulosAlt" onClick={toastLoguear}>{titulo}</h2>
+                            :<>
+                            <h2 className="titulosAlt" onClick={toastLoguear}>{titulo}</h2>
+                            <h3 className="titulosAlt" onClick={toastLoguear}>{subtitulo} </h3>
+                        </>
                         }
-                        <h3 className="titulosAlt">{subtitulo}</h3>
                         <p className="descripcion texto">{contenidoDescripcion}
                         {
                             props.usuarioLogeado ?<Link to={`/publicacion/${_id}`}>
@@ -83,7 +96,6 @@ const PublicacionIndividual = (props) => {
                     </div>
                 </div>
             </div>
-        </Link>
         </>
     )
 }

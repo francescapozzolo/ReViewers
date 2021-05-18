@@ -28,7 +28,7 @@ const authActions = {
         return async(dispatch, getState) => {
             try {
                 const respuesta = await axios.post('http://localhost:4000/api/usuarios/registrarse', nuevoUsuario)
-                console.log(respuesta.data)
+                // console.log(respuesta.data)
                 if(respuesta.data.success) {
                     dispatch({
                         type: 'INGRESO_USUARIO',
@@ -144,7 +144,7 @@ const authActions = {
                     toasts('info',respuesta.data.error, 'top-center', 5000, true, true, true, 'errorCamposVacios',true)
                 }
             }catch(e){
-                console.log(e)
+                // console.log(e)
                 toasts('info',"Error interno del servidor, intente en un momento", 'top-center', 5000, true, true, true, 'errorCamposVacios',true)
             }
             }
