@@ -1,6 +1,5 @@
 import MeGusta from '../components/utilidades/MeGusta'
 import Valoracion from '../components/utilidades/Valoracion'
-// import FiltroPorPClave from '../components/utilidades/FiltroPorPClave'
 import {connect} from 'react-redux'
 import publicacionesActions from '../redux/actions/publicacionesActions'
 import { useEffect } from 'react'
@@ -19,8 +18,6 @@ const PaginaDePrueba = ({filtroPorPalabraClave, obtenerTodasPublicaciones, todas
 
    },[])
 
-   console.log(todasLasPublicaciones)
-   // console.log(publicacionesFiltradas)
    return (
       <>
          <Valoracion idPublicacion={"609d4be85ea53f26e899e7ce"} idUsuario={"609c5cc478d84916706c147c"} />

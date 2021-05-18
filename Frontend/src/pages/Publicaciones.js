@@ -6,43 +6,61 @@ import Loader from 'react-loader-spinner'
 import { useParams } from 'react-router-dom';
 
 const Publicaciones = (props)=>{
-//    console.log(props.match.params.categoria)
     const [publicaciones, setPublicaciones] = useState([])
+    const [publicacionesPorCategoria, setPublicacionesPorCategoria] = useState([])
     const {categoria} = useParams("")
     const [portada, setPortada] = useState(`url('/assets/caratulas/${categoria === 'all' ? 'bgTodasPublicaciones' : categoria}.jpg')`)
     const categoriaCapitalized = categoria === "all" ? "Todas las publicaciones" : categoria.charAt(0).toUpperCase() + categoria.slice(1)
-    // console.log(categoria)
     
     useEffect(()=>{
-        const fetchear = async()=>{
-            const todasLasPublicaciones = await props.todasPublicaciones()
-            console.log(todasLasPublicaciones)
-            categoria === "all" ? setPublicaciones(todasLasPublicaciones) : setPublicaciones(todasLasPublicaciones.filter(publicacion => publicacion.categoria === categoria))
-        }
-        fetchear();
+        window.scroll({
+            top: 0,
+            left: 0,
+          })
+        if(props.todasLasPublicaciones.length === 0){
+            const fetchear = async()=>{
+                const traerTodasLasPublicaciones = await props.todasPublicaciones()
+                categoria === "all" 
+                ? setPublicaciones(traerTodasLasPublicaciones) 
+                : setPublicaciones(traerTodasLasPublicaciones.filter(publicacion => publicacion.categoria === categoria))
+                categoria === "all" 
+                ? setPublicacionesPorCategoria(traerTodasLasPublicaciones) 
+                : setPublicacionesPorCategoria(traerTodasLasPublicaciones.filter(publicacion => publicacion.categoria === categoria))
+            }
+                fetchear();
+            }else{
+                categoria === "all" 
+                ? setPublicaciones(props.todasLasPublicaciones) 
+                : setPublicaciones(props.todasLasPublicaciones.filter(publicacion => publicacion.categoria === categoria))
+                categoria === "all" 
+                ? setPublicacionesPorCategoria(props.todasLasPublicaciones) 
+                : setPublicacionesPorCategoria(props.todasLasPublicaciones.filter(publicacion => publicacion.categoria === categoria))
+            }
         
         // eslint-disable-next-line
         console.log(publicaciones)
-    },[])
+    },[categoria])
 
+
+    
     const filtrarPublicaciones = async(valorDelFiltro)=>{
-        console.log(valorDelFiltro)
-
-        props.filtroPorPalabraClave(valorDelFiltro)
-
-        // if(publicaciones.length === 0){
-        //     console.log(props.publicaciones)
-        //     setPublicaciones(props.publicaciones)
-        // }
-        
         categoria === "all" 
-            ? setPublicaciones(props.publicacionesFiltradas) 
-            : setPublicaciones(props.publicacionesFiltradas.filter(publicacion => publicacion.categoria === categoria))
-        
+            ?  setPublicaciones(publicacionesPorCategoria.filter( publicacion => {
+                   return publicacion.tags.find(tag => tag.toLowerCase().trim().slice(0, valorDelFiltro.length) === valorDelFiltro.toLowerCase())
+            }))
+            :   setPublicaciones(publicacionesPorCategoria.filter( publicacion => {
+                    return publicacion.tags.find(tag => tag.toLowerCase().trim().slice(0, valorDelFiltro.trim().length) === valorDelFiltro.toLowerCase())
+            }))
 
-        console.log(categoria)
-        console.log(publicaciones)
+        if(valorDelFiltro.trim() === ''){
+            setPublicaciones(publicacionesPorCategoria)
+        }
     }
+
+      
+
+
+
     return(
         <>
             <div className="contenedor-tituloDeResenia">
@@ -69,7 +87,7 @@ const Publicaciones = (props)=>{
 
 const mapStateToProps = state => {
     return {
-        publicaciones: state.publicacionReducer.todasLasPublicaciones,
+        todasLasPublicaciones: state.publicacionReducer.todasLasPublicaciones,
         publicacionesFiltradas: state.publicacionReducer.publicacionesFiltradas
     }
 }
