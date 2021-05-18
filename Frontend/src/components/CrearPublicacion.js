@@ -44,6 +44,13 @@ class CrearPublicacion extends React.Component {
     subCategorias: []
   };
   
+  componentDidMount(){
+    window.scroll({
+      top:100,
+      left:0
+    })
+  }
+
   setearInput = (e) => {
     const valueInput = e.target.value;
     const campoInput = e.target.name;
@@ -56,10 +63,6 @@ class CrearPublicacion extends React.Component {
     });
   };
 
-  componentDidMount(){
-    const fetch = async ()=> await this.props.obtenerTodasPublicaciones()
-    fetch()
-  }
 
   toasts = (tipo, mensaje, position, autoClose, closeOnClick, pauseOnHover, draggable, toastId, closeButton)=>{
     toast[tipo](mensaje, {
@@ -76,7 +79,6 @@ class CrearPublicacion extends React.Component {
   enviarForm = (e) => {
     e.preventDefault();
 
-    // console.log(e.target.dataset.done)
     const tagsComa = this.state.valoresInput.tags.split(',')
 
     // PREPROCESADO DE INPUTS
@@ -98,7 +100,6 @@ class CrearPublicacion extends React.Component {
     if(descripcion.length >= 500 && titulo !== "" && subtitulo !== "" && imagen !== ""){
       const schemaAEnviar = {categoria,subcategoria,titulo,subtitulo,descripcion,imagen,pro,contra,tags}
       const respuestaErrorOConfirmacion = this.props.enviarPublicacion(schemaAEnviar);
-      console.log(respuestaErrorOConfirmacion)
       // ACA MAPEAR ERRORES
     }else if(descripcion.length < 500 ){
       this.toasts("warning","La reseña debe contener 500 caracteres como minimo", "top-center", 5000, true, false, true, "error500Caracteres", true)
@@ -146,7 +147,6 @@ class CrearPublicacion extends React.Component {
                     defaultValue=""
                     
                     onChange={this.setearInput}
-                    style={{backgroundImage:`url(/assets/dropDownArrow.png)`}}
                     className={
                       this.state.valoresInput.categoria
                         ? "input-select"
@@ -171,7 +171,7 @@ class CrearPublicacion extends React.Component {
                     defaultValue=""
                     
                     onChange={this.setearInput}
-                    style={{backgroundImage:`url(/assets/dropDownArrow.png)`}}
+                   
                     className={
                       this.state.valoresInput.categoria
                         ? "input-select"
@@ -305,7 +305,6 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = {
   enviarPublicacion: publicacionesActions.enviarFormulario,
-  obtenerTodasPublicaciones: publicacionesActions.obtenerTodasPublicaciones
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CrearPublicacion);

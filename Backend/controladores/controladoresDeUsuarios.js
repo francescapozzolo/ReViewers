@@ -50,7 +50,7 @@ const controladoresDeUsuario = {
          mail !== "" && mail !== usuario.mail ? mail = mail : mail = usuario.mail
          imagen !== "" && imagen !== usuario.imagen ? imagen = imagen : imagen = usuario.imagen
          rol !== "" && rol !== usuario.rol ? rol = rol : rol = usuario.rol
-         
+         intereses = intereses.length === 0 ? intereses = usuario.intereses : intereses = intereses
          if(clave && claveNueva){
             const contraseña = bcryptjs.compareSync(clave, usuario.clave)
             if(contraseña){
@@ -62,11 +62,13 @@ const controladoresDeUsuario = {
          }else{
             datos = {nombre, apellido, mail, imagen, intereses, rol, clave:usuario.clave}
          }
-
+         if(nombre === usuario.nombre && apellido === usuario.apellido && mail === usuario.mail && imagen === usuario.imagen && rol === usuario.rol && intereses.length === 0){
+            error = 'No hubo cambios'
+         }
          const usuarioAEditar = await Usuario.findOneAndUpdate({_id:usuario._id},datos,{new:true})
          
          const token = jwt.sign({...usuarioAEditar},process.env.SECRET_OR_KEY)
-         respuesta = {token, imagen: usuarioAEditar.imagen, nombre: usuarioAEditar.nombre, usuarioConfirmado: usuarioAEditar.usuarioConfirmado, rol: usuarioAEditar.rol, intereses: usuarioAEditar.intereses}
+         respuesta = {token, usuarioGoogle:usuarioAEditar.usuarioGoogle, imagen: usuarioAEditar.imagen, nombre: usuarioAEditar.nombre, usuarioConfirmado: usuarioAEditar.usuarioConfirmado, rol: usuarioAEditar.rol, intereses: usuarioAEditar.intereses}
 
          res.json({
             success: !error ? true : false,
@@ -74,7 +76,8 @@ const controladoresDeUsuario = {
             error
          })
         
-      } catch {
+      } catch (e) {
+
          error = "Error interno del servidor, intente mas tarde"
          res.json({
             success: false,
@@ -86,6 +89,7 @@ const controladoresDeUsuario = {
 
    registrarUsuario: async(req, res)=>{
       try{
+         console.log(req.body)
          let {mail, clave} = req.body
          const mailExiste = await Usuario.findOne({mail}) //verifico que no esté registrado el mail que el usuario puso 
          
@@ -100,7 +104,7 @@ const controladoresDeUsuario = {
                usuarioARegistrar = new Usuario({...req.body, clave})
                await usuarioARegistrar.save()
                const token = jwt.sign({...usuarioARegistrar}, process.env.SECRET_OR_KEY)            
-               respuesta = {token, imagen: usuarioARegistrar.imagen, mail: usuarioARegistrar.mail, nombre: usuarioARegistrar.nombre, usuarioConfirmado: usuarioARegistrar.usuarioConfirmado, rol: usuarioARegistrar.rol, intereses: usuarioARegistrar.intereses}
+               respuesta = {token, usuarioGoogle:usuarioARegistrar.usuarioGoogle, imagen: usuarioARegistrar.imagen, mail: usuarioARegistrar.mail, nombre: usuarioARegistrar.nombre, usuarioConfirmado: usuarioARegistrar.usuarioConfirmado, rol: usuarioARegistrar.rol, intereses: usuarioARegistrar.intereses}
             } catch (err){ //no pinta mostrar el error posta porque el usuario no lo va a entender 
                console.log('Caí en el catch del condicional del controlador de Registrar Usuario y el error es: '+ err)
                error = "Parece que algo salió mal tratando de registrar su cuenta. Por favor, intente de nuevo"
@@ -133,7 +137,7 @@ const controladoresDeUsuario = {
             const contraseñaEsCorrecta = bcryptjs.compareSync(clave, usuarioRegistrado.clave)
             if(contraseñaEsCorrecta){
                const token = jwt.sign({...usuarioRegistrado}, process.env.SECRET_OR_KEY)
-               respuesta = {token, imagen: usuarioRegistrado.imagen, mail: usuarioRegistrado.mail, nombre: usuarioRegistrado.nombre, usuarioConfirmado: usuarioRegistrado.usuarioConfirmado, rol: usuarioRegistrado.rol, idUsuario: usuarioRegistrado._id, intereses: usuarioRegistrado.intereses}
+               respuesta = {token, usuarioGoogle:usuarioRegistrado.usuarioGoogle ,imagen: usuarioRegistrado.imagen, mail: usuarioRegistrado.mail, nombre: usuarioRegistrado.nombre, usuarioConfirmado: usuarioRegistrado.usuarioConfirmado, rol: usuarioRegistrado.rol, idUsuario: usuarioRegistrado._id, intereses: usuarioRegistrado.intereses}
             } else {
                error = 'Mail o clave incorrectos'
             }
@@ -154,7 +158,7 @@ const controladoresDeUsuario = {
    inicioForzado: (req, res) => {
          res.json({
             success: true,
-            respuesta: {imagen: req.user.imagen, nombre: req.user.nombre, mail: req.user.mail, usuarioConfirmado: req.user.usuarioConfirmado, rol: req.user.rol, intereses: req.user.intereses}
+            respuesta: { usuarioGoogle:req.user.usuarioGoogle, imagen: req.user.imagen, nombre: req.user.nombre, mail: req.user.mail, usuarioConfirmado: req.user.usuarioConfirmado, rol: req.user.rol, intereses: req.user.intereses}
          })
      
    },

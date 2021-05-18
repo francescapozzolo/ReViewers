@@ -22,6 +22,7 @@ const publicacionReducer = (state = initialState, action) => {
       }
     break
 
+
     default:
       return state;
   }

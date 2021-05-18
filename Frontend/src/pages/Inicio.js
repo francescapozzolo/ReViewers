@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import publicacionesActions from '../redux/actions/publicacionesActions';
 import { Box } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import {Link} from 'react-router-dom'
@@ -19,11 +18,15 @@ class Inicio extends React.Component{
     }   
 
     componentDidMount(){
-        console.log()
-        this.props.cargarPublicaciones(this.setState({
+
+        window.scroll({
+            top: 0,
+            left: 0,
+          })
+        this.setState({
             ...this.state,
             publicaciones: [...this.props.publicaciones],
-        }))
+        })
     }
     
     elegirCategorias = (e)=>{
@@ -110,7 +113,7 @@ class Inicio extends React.Component{
                                 <div className="capa">
                                     <Link to={`/publicaciones/${publicacion.categoria}`} className="textoCategoria">{publicacion.categoria}</Link>
                                     <p className="textoTit">{publicacion.titulo}</p>
-                                    <p className="textoAutor">Publicado por </p>
+                                    <p className="textoAutor">Publicado por {publicacion.autor.nombre}</p>
                                     <Box component="fieldset" mb={3} borderColor="transparent">
                                         <Rating name="read-only" value={valoracion} readOnly />
                                     </Box>
@@ -133,8 +136,4 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = {
-    cargarPublicaciones: publicacionesActions.obtenerTodasPublicaciones
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Inicio);
+export default connect(mapStateToProps)(Inicio);

@@ -12,7 +12,6 @@ const Valoracion = ({cargarValoracion, usuarioLogeado, reseniaSeleccionada, publ
    useEffect(()=>{
       const fetch = async ()=>{
          const respuesta = await publicacionFueValorada(reseniaSeleccionada._id, usuarioLogeado.token)
-         console.log(respuesta)
          setValoracionInicial(respuesta.valoracion)
       }
 
