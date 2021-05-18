@@ -17,10 +17,10 @@ app.use("/api", router)
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/buid'))
-    app.get('*', (req, res) => {
+    app.get(`*`, (req, res) => {
         res.sendFile(path.join(__dirname+"/client/build/index.html"))
     })
-    console.log("entre al if")
+    console.log(procces.env.NODE_ENV)
 }
 const port = process.env.PORT || 4000
 const host = process.env.HOST || '0.0.0.0'
