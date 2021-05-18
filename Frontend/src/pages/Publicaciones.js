@@ -13,7 +13,6 @@ const Publicaciones = (props)=>{
     const categoriaCapitalized = categoria === "all" ? "Todas las publicaciones" : categoria.charAt(0).toUpperCase() + categoria.slice(1)
 
     useEffect(()=>{
-
         window.scroll({
             top: 0,
             left: 0,

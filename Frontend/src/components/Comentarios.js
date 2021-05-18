@@ -7,7 +7,9 @@ import noteEditLine from '@iconify-icons/clarity/note-edit-line';
 import {FiSend} from 'react-icons/fi'
 import {MdSend} from 'react-icons/md'
 
-const Comentarios = ({reseniaSeleccionada, cargarComentario, usuarioLogeado, editarComentario, eliminarComentario})=>{
+const Comentarios = (props)=>{
+
+   const {reseniaSeleccionada, cargarComentario, usuarioLogeado, editarComentario, eliminarComentario} = props
     
     const [reseniaComentarios, setReseniaComentarios] = useState([])
     const [nuevoComentario, setNuevoComentario] = useState("")
@@ -21,13 +23,13 @@ const Comentarios = ({reseniaSeleccionada, cargarComentario, usuarioLogeado, edi
     }, [])
     
     const mandarComentario = async(mensaje)=>{
-
-
        if(usuarioLogeado) {
-         if(nuevoComentario && nuevoComentario !== ""){
-             setNuevoComentario(' ')
-             const respuesta = await cargarComentario(reseniaSeleccionada._id, usuarioLogeado.token, mensaje)
-             setReseniaComentarios(respuesta.comentarios)
+         if(nuevoComentario.length > 0) {
+            setNuevoComentario('')
+            const respuesta = await cargarComentario(reseniaSeleccionada._id, usuarioLogeado.token, mensaje)
+            setReseniaComentarios(respuesta.comentarios)
+         } else {
+            alert('El mensaje esta vacio')
          }
       } else {
          alert('Debes estar logeado para comentar')
@@ -59,50 +61,67 @@ const Comentarios = ({reseniaSeleccionada, cargarComentario, usuarioLogeado, edi
     return (
          <div className="resenia-comments-container">
             <h1 className="titulo-comentarios titulosAlt" >Comentarios!</h1>
-            <div className="contenedor-general-comentarios">
-               <div className="contenedor-de-comentarios">
+            <div className="contenedor-general-comentarios flex flex-col">
+               <div className="contenedor-de-comentarios mx-auto">
                
               {reseniaComentarios.map(comentario => {
                  return(
-                    <div className="comment" key={comentario._id} >
+                    <div className={usuarioLogeado.mail === comentario.usuarioId.mail ? "comment commentOwner" : "comment"} key={comentario._id} >
                        <div className="comment-image" style={{backgroundImage: `url(${comentario.usuarioId.imagen})`}}></div>
-                       <div className="comment-content-container">
-                          <p className="titulosAlt" >{comentario.usuarioId.nombre} {comentario.usuarioId.apellido} </p>
-                          <div className="comment-content">
-                             <p className={comentarioEnEdicion === comentario._id
-                                ? estaEditando 
-                                    ? "displayNone" : "" 
-                                : ""}>{comentario.mensaje}</p>
-                             
-                             
-                             <textarea value={comentarioEditado} onChange={(e)=>setComentarioEditado(e.target.value)}
-                             className={ comentarioEnEdicion === comentario._id ? estaEditando ? "editing-textarea" : "displayNone" : "displayNone"}></textarea>
-                             <MdSend className={comentarioEnEdicion === comentario._id ? estaEditando ? "editing-sendIcon" : "displayNone" : "displayNone"} onClick={()=>mandarComentarioEditado(comentario._id)} />
+                       <div className={usuarioLogeado.mail === comentario.usuarioId.mail ? "comment-content-container comment-content-container-owner" : "comment-content-container"}>
+                          <div>
+                           <p className="titulosAlt campoMensaje" >{comentario.usuarioId.nombre} {comentario.usuarioId.apellido} </p>
+                           <div className="comment-content">
+                              <div className="campoMensaje">
+                                 <p className={comentarioEnEdicion === comentario._id
+                                    ? estaEditando 
+                                          ? "displayNone" : "" 
+                                    : ""}>{comentario.mensaje}</p>
+                                 
+                                    <textarea id="textareaEditarComentario" type="text" value={comentarioEditado} onChange={(e)=>setComentarioEditado(e.target.value)}
+                                    className={ comentarioEnEdicion === comentario._id ? estaEditando ? "editing-textarea" : "displayNone" : "displayNone"}></textarea>
+                                    {/* <MdSend className={comentarioEnEdicion === comentario._id ? estaEditando ? "editing-sendIcon" : "displayNone" : "displayNone"} onClick={()=>mandarComentarioEditado(comentario._id)} /> */}
+                              </div>
+                              <svg xmlns="http://www.w3.org/2000/svg" onClick={()=>mandarComentarioEditado(comentario._id)} className={comentarioEnEdicion === comentario._id ? estaEditando ? "editing-sendIcon cerrarEditar" : "displayNone" : "displayNone"} viewBox="0 0 20 20" fill="currentColor">
+                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                              </svg>
+                           </div>
                           </div>
                        </div>
                         
-        
+
                         {usuarioLogeado.mail === comentario.usuarioId.mail &&
                            <div className="icons-container">
-                           <Icon icon={noteEditLine} onClick={()=>comenzarEdicion(comentario.mensaje, comentario._id)} className="modifyComment-icon" />
-                           <Icon icon={trashIcon} onClick={()=>borrarComentario(comentario._id)} className="deleteComment-icon" />
+                              {
+                                 !estaEditando
+                                 ?
+                                 <Icon icon={noteEditLine} onClick={()=>comenzarEdicion(comentario.mensaje, comentario._id)} className="modifyComment-icon" />
+                                 :
+                                 <svg xmlns="http://www.w3.org/2000/svg" onClick={()=>comenzarEdicion(comentario.mensaje, comentario._id)} className="cerrarEditar" viewBox="0 0 20 20" fill="currentColor">
+                                     <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                                 </svg>
+                              }
+                              <Icon icon={trashIcon} onClick={()=>borrarComentario(comentario._id)} className="deleteComment-icon" />
                            </div>
                         }
                     </div>)
               })}
 
 
-            <div className="send-message-container">
+
+           </div>
+            <div className="send-message-container  justify-center">
                {
-                  <>
-                  <input type="text" className="input-comentar" value={nuevoComentario} onChange={e => setNuevoComentario(e.target.value)} placeholder="Dejanos tu opinion!" />
-                  <FiSend className="send-icon" onClick={()=>mandarComentario(nuevoComentario)} />
-                  </>
+                  
+                  <div className="flex flex-row mx-auto">
+                     <input type="text" className="input-comentar" value={nuevoComentario} onChange={e => setNuevoComentario(e.target.value)} placeholder="Dejanos tu opinion!" />
+                     <FiSend className="send-icon" onClick={()=>mandarComentario(nuevoComentario)} />
+
+                  </div>
+                  
                
                }
             </div>
-
-           </div>
         </div>
      </div>
     )

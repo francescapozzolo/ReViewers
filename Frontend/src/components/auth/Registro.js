@@ -67,9 +67,7 @@ const Registro = (props) =>{
                 clave: '',
                 imagen: ''
             })
-            // si existe respuestaConErrores
-            respuestaConErrores ? setErrores({campos}) : setNuevoUsuario({campos})
-            
+            // si existe respuestaConErrores            
             respuestaConErrores && respuestaConErrores.map(err => setErrores(prevState => {
                 return {...prevState, [err.context.label]: err.message}
             }))
@@ -166,9 +164,8 @@ const Registro = (props) =>{
                         </div>
 
                         <div className="text-center">
-                            <Link to="/" >
                                 <div className="LinkIngresoRegistro titulosTexto text-azul-900">Ya tienes una cuenta?, ingresar!</div>
-                            </Link>
+                            </Link> */}
                         </div>
                     </div>
                 </div>

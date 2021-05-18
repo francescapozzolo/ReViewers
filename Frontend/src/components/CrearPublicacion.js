@@ -116,7 +116,6 @@ class CrearPublicacion extends React.Component {
 
   presionoEnter = (e)=>{
     if (e.key === 'Enter') {
-      console.log('do validate');
     }
   }
 

@@ -12,6 +12,7 @@ import publicacionesActions from '../redux/actions/publicacionesActions'
 
 const Header = (props) => {
 
+
     useEffect(() => {
         const fetch =async () => {
             await props.obtenerTodasPublicaciones()
