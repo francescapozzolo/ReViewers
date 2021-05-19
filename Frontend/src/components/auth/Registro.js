@@ -165,7 +165,7 @@ const Registro = (props) =>{
 
                         <div className="text-center">
                                 <div className="LinkIngresoRegistro titulosTexto text-azul-900">Ya tienes una cuenta?, ingresar!</div>
-                            </Link> */}
+                            {/* </Link> */} 
                         </div>
                     </div>
                 </div>
