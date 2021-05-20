@@ -20,7 +20,7 @@ const Favoritos =(props)=>{
             top: 0,
             left: 0,
           })
-        console.log(props)
+        // console.log(props)
         const fetch = async()=>{
             const respuesta = await props.obtenerFavoritos()
             setTodasPublicaciones(respuesta.publicacionesGuardadas)
@@ -35,25 +35,35 @@ const Favoritos =(props)=>{
         props.guardarPublicacion(idPublicacion, token)
 
     }
-
-
+    if(todasLasPublicaciones.length < 1 ){
+        return <div className="sk-folding-cube">
+        <div className="sk-cube1 sk-cube"></div>
+        <div className="sk-cube2 sk-cube"></div>
+        <div className="sk-cube4 sk-cube"></div>
+        <div className="sk-cube3 sk-cube"></div>
+      </div>
+    }
     return(
         <main id="favoritos">
             <div className="imagen-de-categoria" style={{backgroundImage: "url('/assets/caratulas/bgTodasPublicaciones.jpg')"}}></div>
             <h1 className="tituloFavoritos titulosAlt pagFavTit" >Aqui se muestran tus favoritos!</h1>
             
             
-            <div className="GridPublic">
-                {todasLasPublicaciones.map((publicacion,index) => {
+            <div className="favoritos">
+                { todasLasPublicaciones.map((publicacion,index) => {
+                    
                     return(
                         <div className="tarjetaFavoritos" key={index*2}>
-                                {/* <Link to={`/publicacion/${publicacion._id}`}> */}
-                                    <div className="contenedorLink">
+                                    <div className="contenedorLinkFav">
+                                <Link to={`/publicacion/${publicacion._id}`}>
                                             <div className="bgPublicacion" style={{backgroundImage: `url(${publicacion.imagen})`}}></div>
-                                    </div>
-                                    <div className="contenidoPublicacion ">
-                                        <h2 className="favoritos-titulo titulosAlt">{publicacion.titulo}</h2>
+                                </Link>
 
+                                    </div>
+                                    <div className="contenidoPublicacionFav ">
+                                <Link to={`/publicacion/${publicacion._id}`}>
+                                        <h2 className="favoritos-titulo titulosAlt">{publicacion.titulo}</h2>
+                                </Link>
                                         {/* <p className="descripcion texto">{publicacion.descripcion.slice(0,200)}</p> */}
                                         <div className="contenedorBotonesFavoritos">
                                             <h2 className="favoritos-categoria titulosAlt" >Categoria: {publicacion.categoria}</h2>
@@ -61,10 +71,12 @@ const Favoritos =(props)=>{
                                             <Icon icon={trashIcon} onClick={()=>quitarPublicacion(publicacion._id, token)} className="icono-borrarFavorito" />
                                         </div>
                                     </div>
-                                {/* </Link> */}
                             </div>
                         )
-                    })}
+
+                    })
+                
+                }
                 </div>
             </main>
 

@@ -744,8 +744,11 @@
         left: 0;
         overflow: auto; 
         padding-top: 50px; 
+        padding-bottom: 50px; 
     }
-    
+    .modal::-webkit-scrollbar{
+        display: none;
+    }
     /* Modal content */.modal-content {
         width: 55%;
         max-width: 640px; 
@@ -1327,24 +1330,12 @@ justify-content: space-between;
     color: black;
 }
 
-/* MODAL */
-/* Background effect. It covers the entire site */.modal {
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4);
-    z-index: 200;
-    width: 100%;
-    height: 100%; 
-    position: fixed;
-    top: 0;
-    left: 0;
-    overflow: auto; 
-    padding-top: 80px; 
-}
+
 
 /* Modal content */.modal-content {
     width: 55%;
-    max-width: 640px; 
-    min-height: 400px;
+    /* max-width: 640px;  */
+    /* min-height: 400px; */
     height: auto; 
     margin: auto; 
     padding: 10px;
@@ -1597,7 +1588,7 @@ div > h2.titulosAlt,h3.titulosAlt{
     -webkit-box-shadow: 0px 2px 5px -2px rgba(49, 44, 44, 0.274);
 }
 
-.contenidoPublicacion{
+.contenidoPublicacion, .contenidoPublicacionFav{
     padding: 3vh 2vw 0 1.5vw;
     width: 100%;
     overflow: hidden;
@@ -1606,7 +1597,7 @@ div > h2.titulosAlt,h3.titulosAlt{
     justify-content: space-between;
 }
 
-.contenidoPublicacion a {
+.contenidoPublicacion a ,.contenidoPublicacionFav a {
     color: rgb(89, 89, 223);
 }
 
@@ -1620,15 +1611,15 @@ div > h2.titulosAlt,h3.titulosAlt{
 
 
 
-    .contenidoPublicacion h2, h3, p{
+    .contenidoPublicacion h2,.contenidoPublicacionFav h2{
         color: black;
     }
 
-    .contenidoPublicacion h3 {
+    .contenidoPublicacion h3,.contenidoPublicacionFav h3 {
         color: rgb(48, 48, 48);
     }
 
-    .contenidoPublicacion p{
+    .contenidoPublicacion p, .contenidoPublicacionFav p{
         font-size: 1rem;
         margin-top: 2vh;
         color: rgb(80, 80, 80);
@@ -1696,9 +1687,9 @@ div > h2.titulosAlt,h3.titulosAlt{
 
 .titulo-de-resenia{
     color: var(--azulOscuro);
-    font-size: 4rem;
+    font-size: 3rem;
     position: absolute;
-    margin-top: 32vh;
+    margin-top: 33vh;
     text-align: center;
 }
 
@@ -1748,6 +1739,7 @@ div > h2.titulosAlt,h3.titulosAlt{
     background-position: center !important;
     background-size: cover !important;
     border-radius: 10px;
+    max-height: 80vh;
 }
 
 
@@ -1875,23 +1867,22 @@ div > h2.titulosAlt,h3.titulosAlt{
     width: 80%;
     flex-grow: 1;
     display: flex;
-    /* background-color: lightcoral; */
     padding-left: 20px;
-    min-height: 18vh !important;
-    /* border: 1px solid black; */
+    flex-direction: column;
+
 }
 
 .comment-content {
     display: flex;
     align-self: center;
     font-family: 'montserrat';
-    text-align: justify;
-    min-height: 18vh !important;
+    /* min-height: 18vh !important; */
     width: 100%;
 }
 
 .comment-content-container-owner * {
     color: rgb(240, 240, 240);
+    word-break: break-word;
 }
 
 #textareaEditarComentario {
@@ -1905,6 +1896,10 @@ div > h2.titulosAlt,h3.titulosAlt{
     resize: none;
     font-size: 1rem;
 }
+#textareaEditarComentario::-webkit-scrollbar{
+    display: none;
+}
+
 
 #textareaEditarComentario:focus { 
     outline: none;
@@ -1920,7 +1915,7 @@ div > h2.titulosAlt,h3.titulosAlt{
 }
 
 .comment-content .campoMensaje {
-    height: 3vh !important;
+    /* height: 3vh !important; */
     max-width: 90%;
     
 }
@@ -2413,6 +2408,30 @@ div > h2.titulosAlt,h3.titulosAlt{
     }
 }
 @media (max-width: 530px) {
+    /* MODAL */
+/* Background effect. It covers the entire site */.modal {
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4);
+    z-index: 200;
+    width: 100%;
+    height: 100%; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: auto; 
+}
+.modal-content{
+    width: 90%;
+}
+    .favoritos{
+        justify-content: center !important;
+    }
+    .contenedorLinkFav{
+        width: 50%;
+    }
+    .tarjetaFavoritos{
+        width: 90%;
+    }
     .contenedor-de-comentarios {
         padding: 1vw;
         width: 100%;
@@ -2609,6 +2628,12 @@ div > h2.titulosAlt,h3.titulosAlt{
         width: 100%;
         overflow: hidden;
     }
+    .contenidoPublicacionFav{
+        padding: 3vh 2vw 0 1.5vw;
+        width: 50%;
+        overflow: hidden;
+
+    }
     
     .contenedorPublic{
         display: flex;
@@ -2644,12 +2669,17 @@ div > h2.titulosAlt,h3.titulosAlt{
 
         .titulo-de-resenia{
             color: var(--azulOscuro);
-            font-size: 2.5rem;
-            margin-top: 18vh;
+            font-size: 2rem;
+            margin-top: 17vh;
             width: 100%;
             left: 0vw;
         }
-        
+        .pagFavTit{
+            color: var(--azulOscuro);
+            font-size: 2rem;
+            width: 100%;
+            left: 0vw;
+        }
         .descripcion{
             font-size: 24px;
             height: auto;
@@ -2690,7 +2720,7 @@ div > h2.titulosAlt,h3.titulosAlt{
 
         .contenedor-de-foto-de-resenia {
             width: 100%;
-            height: 24vh;
+            height: 40vh;
             background-position: center !important;
             background-size: cover !important;
             border-radius: 4px;
@@ -2922,9 +2952,9 @@ div > h2.titulosAlt,h3.titulosAlt{
 
         }
 }
-
+}
 .sk-folding-cube {
-    margin: 300px auto;
+    margin: 150px auto;
     width: 40px;
     height: 40px;
     position: relative;
@@ -3009,4 +3039,15 @@ div > h2.titulosAlt,h3.titulosAlt{
               transform: perspective(140px) rotateY(180deg);
       opacity: 0; 
     }
-  }}
+    }
+
+
+.favoritos{
+    width: 95%;
+    margin: 5vh auto;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    min-height: 30vh;
+    flex-wrap: wrap;
+}
