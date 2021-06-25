@@ -10,21 +10,20 @@ Aplicacion web desarrolada como parte del programa de programacion web Full Stac
 npm install
 ```
 # Construido con 🛠️
-React - Librería de Frontend
-MaterialUI - UI Framework
-Redux - Librería para manejo del estado
-Node - Entorno de ejecución de Javascript en backend
-Express - Framework para Backend
-MongoDB - Base de datos
-Mongoose - Framework para modelado de base de datos
-Antd - Librería de estilos
+* [React](https://es.reactjs.org/) - Librería de Frontend
+* [Antd](https://ant.design/) - Librería de estilos
+* [Redux](https://es.redux.js.org/) - Librería para manejo del estado
+* [Node](https://nodejs.org/es/) - Entorno en tiempo de ejecución multiplataforma
+* [Express](https://expressjs.com/es/) - Framework para Backend
+* [MongoDB](https://www.mongodb.com/) - Base de datos
+* [Mongoose](https://mongoosejs.com/) - Framework para modelado de base de datos
 
 # Autores ✒️
-Daniel Comes - Daniel
-Francesca Pozzolo - Francesca
-Mateo Lorenzo - Mateo
-José Antonio Lopez Zaccaro - Jose
-Nicolas Javier Espinoza Dias - Nicolas
+* **Francesca Pozzolo** - [Francesca](https://github.com/francescapozzolo)
+* **Daniel Comes** - [Daniel](https://github.com/Danielcomes92)
+* **Mateo Lorenzo** - [Mateo](https://github.com/MatuMto)
+* **Jose Antonio Lopez Zaccaro** - [Jose](https://github.com/JoseZaccaro)
+* **Nicolas Javier	Espinoza  Dias** - [Nicolas](https://github.com/r3aper79)
 
 # Enlace a página hosteada 🔗
 https://los-reviewers.herokuapp.com/
